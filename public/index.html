@@ -1,0 +1,2326 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#090e22"><meta name="apple-mobile-web-app-capable" content="yes"><style>[hidden]{display:none!important}html,body{margin:0;background:#090e22}</style></head><body><title>Iron Curtain 1945–49</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Pixelify+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Layout concept: a handheld strategy cartridge. Map on top, tabbed briefing under it, boss fight swaps the map for an air-lane scene.
+   Palette: night-sea navy, West blue, East red, khaki neutrals, gold cursor, magenta/cyan glitch for alternate timelines.
+   Type: Press Start 2P for banners and labels (sparingly), Pixelify Sans for reading text. */
+:root {
+  color-scheme: dark;
+  --ink: #090e22; --ink2: #0f1733; --panel: #151f45; --panel2: #1c2a5c; --edge: #2f3f85; --edge2: #5568c4;
+  --text: #eaeefc; --dim: #98a4cf; --faint: #5d6b9f; --gold: #ffd54a; --gold-d: #b9922a;
+  --w: #4d8dff; --w-d: #2253c2; --w-l: #a8c8ff;
+  --e: #ee4553; --e-d: #a1202d; --e-l: #ffa3aa;
+  --n: #c9b86b; --alt: #ff3df0; --alt2: #25f4ff; --ok: #57e38b; --warn: #ff9f43;
+  --f-disp: 'Press Start 2P', 'Courier New', monospace;
+  --f-body: 'Pixelify Sans', 'Trebuchet MS', 'Courier New', monospace;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--ink); color: var(--text); font-family: var(--f-body); font-size: 16px; line-height: 1.35;
+  padding-left: max(14px, env(safe-area-inset-left, 0px)); padding-right: max(14px, env(safe-area-inset-right, 0px));
+  padding-block: 10px 28px; -webkit-tap-highlight-color: transparent; overflow-x: hidden;
+}
+body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 50;
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,.14) 0 1px, transparent 1px 3px); }
+body.altmode { box-shadow: inset 0 0 0 3px var(--alt); }
+button { font: inherit; color: inherit; cursor: pointer; }
+button:focus-visible, canvas:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+.app { max-width: 880px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+[hidden] { display: none !important; }
+h1, h2, h3 { font-family: var(--f-disp); font-weight: 400; margin: 0; text-wrap: balance; line-height: 1.45; }
+.px { font-family: var(--f-disp); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; }
+
+/* top bar */
+.top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.logo { font-family: var(--f-disp); font-size: 11px; color: var(--gold); letter-spacing: .08em; }
+.logo i { color: var(--e); font-style: normal; }
+.icobtn { width: 34px; height: 34px; background: var(--panel); border: 2px solid var(--edge); color: var(--dim); font-family: var(--f-disp); font-size: 11px; padding: 0; }
+.icobtn[aria-pressed="true"] { color: var(--gold); border-color: var(--gold-d); }
+
+/* timeline */
+.timeline { display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; padding: 6px 4px 0; position: relative; }
+.timeline::before { content: ""; position: absolute; left: 14px; right: 14px; top: 14px; height: 2px; background: var(--edge); }
+.tn { position: relative; display: flex; flex-direction: column; align-items: center; gap: 4px; font-family: var(--f-disp); font-size: 6px; color: var(--faint); }
+.tn b { width: 14px; height: 14px; background: var(--ink2); border: 2px solid var(--edge2); display: block; }
+.tn.done b { background: var(--w-d); border-color: var(--w-l); }
+.tn.held b { background: var(--ok); border-color: #c9ffe0; }
+.tn.alt b { background: var(--alt); border-color: var(--alt2); animation: blink .9s steps(2) infinite; }
+.tn.cur b { background: var(--gold); border-color: #fff; transform: scale(1.25); }
+.tn.boss b { clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); border: 0; width: 18px; height: 18px; margin-top: -2px; background: var(--e); }
+.tn.cur { color: var(--gold); }
+.tn span { text-align: center; white-space: nowrap; }
+@keyframes blink { 50% { opacity: .35; } }
+
+/* cards, buttons */
+.card { background: var(--panel); border: 2px solid var(--edge); box-shadow: 0 4px 0 #04071a; padding: 10px 12px; }
+.btn { background: var(--panel2); border: 2px solid var(--edge2); border-bottom-width: 5px; padding: 8px 12px; text-align: center; min-height: 44px;
+  font-family: var(--f-disp); font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: var(--text); line-height: 1.5; }
+.btn:active:not(:disabled) { transform: translateY(3px); border-bottom-width: 2px; }
+.btn:disabled { opacity: .38; cursor: not-allowed; }
+.btn.go { background: var(--gold); color: #1a1300; border-color: #fff3b0; border-bottom-color: var(--gold-d); }
+.btn.west { background: var(--w-d); border-color: var(--w-l); }
+.btn.east { background: var(--e-d); border-color: var(--e-l); }
+.btn.sm { min-height: 34px; padding: 5px 9px; font-size: 10px; }
+.btn img, .btn canvas { width: 16px; height: 16px; image-rendering: pixelated; vertical-align: -3px; margin-right: 6px; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.grow { flex: 1 1 0; min-width: 0; }
+
+/* title screen */
+.title { display: flex; flex-direction: column; gap: 14px; align-items: stretch; }
+.hero { position: relative; border: 2px solid var(--edge2); background: var(--sea, #102042); overflow: hidden; box-shadow: 0 4px 0 #04071a; }
+.hero canvas { display: block; width: 100%; height: auto; image-rendering: pixelated; }
+.hero .cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 14px 12px 10px; background: linear-gradient(transparent, rgba(5,8,22,.92) 70%); }
+.hero h1 { font-size: clamp(16px, 5.4vw, 30px); color: var(--text); text-shadow: 3px 3px 0 var(--e-d); }
+.hero p { margin: 8px 0 0; color: var(--dim); font-size: 15px; max-width: 46ch; }
+.sidepick { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.sidepick .btn { padding: 12px 8px; min-height: 76px; display: flex; flex-direction: column; gap: 6px; align-items: center; justify-content: center; }
+.sidepick small { font-family: var(--f-body); font-size: 13px; letter-spacing: 0; text-transform: none; color: var(--text); opacity: .85; }
+.howto { display: grid; gap: 6px; font-size: 15px; color: var(--dim); margin: 0; padding: 0; list-style: none; }
+.howto li { padding-left: 22px; position: relative; }
+.howto li::before { content: ""; position: absolute; left: 2px; top: 6px; width: 8px; height: 8px; background: var(--gold); }
+.howto b { color: var(--text); font-weight: 600; }
+
+/* HUD */
+.hud { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+.chip { background: var(--panel); border: 2px solid var(--edge); padding: 6px 8px; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.chip .px { color: var(--dim); font-size: 10px; }
+.chip .val { font-family: var(--f-disp); font-size: 11px; display: flex; align-items: center; gap: 3px; white-space: nowrap; }
+.ap i { width: 10px; height: 10px; background: var(--gold); display: inline-block; clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+.ap i.off { background: var(--edge); }
+.chip.me-w { border-color: var(--w); } .chip.me-e { border-color: var(--e); }
+.chip.altchip { border-color: var(--alt); } .chip.altchip .val { color: var(--alt); animation: blink 1.2s steps(2) infinite; }
+.turnline { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+.turnline h2 { font-size: 11px; color: var(--gold); }
+.turnline span { color: var(--dim); font-size: 14px; }
+
+/* map */
+.mapwrap { position: relative; border: 2px solid var(--edge2); box-shadow: 0 4px 0 #04071a; background: #0b1530; line-height: 0; }
+#map { width: 100%; image-rendering: pixelated; touch-action: manipulation; cursor: crosshair; display: block; }
+.toast { min-height: 52px; display: flex; align-items: center; line-height: 1.3; background: var(--ink2); border: 2px solid var(--edge); border-left: 6px solid var(--edge2); padding: 7px 10px; font-size: 15px; color: var(--dim); }
+.toast.on { color: var(--text); border-color: var(--gold); border-left-color: var(--gold); }
+.toast.good { border-color: var(--ok); border-left-color: var(--ok); } .toast.bad { border-color: var(--e); border-left-color: var(--e); }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12px; color: var(--dim); padding: 2px 2px 0; }
+.legend span { display: inline-flex; align-items: center; gap: 5px; }
+.legend b { width: 10px; height: 10px; display: inline-block; border: 1px solid #0007; }
+
+/* tabs */
+.tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+.tab { background: var(--ink2); border: 2px solid var(--edge); border-bottom: 0; padding: 9px 2px 8px; font-family: var(--f-disp); font-size: 9px; color: var(--dim); text-transform: uppercase; position: relative; }
+.tab[aria-selected="true"] { background: var(--panel); color: var(--gold); border-color: var(--edge2); }
+.tab .dot { position: absolute; top: 3px; right: 4px; width: 8px; height: 8px; background: var(--e); display: none; }
+.tab .dot.on { display: block; animation: blink 1s steps(2) infinite; }
+.panel { background: var(--panel); border: 2px solid var(--edge2); margin-top: -12px; padding: 12px; min-height: 190px; display: flex; flex-direction: column; gap: 10px; }
+.rhead { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+.rhead h3 { font-size: 11px; color: var(--text); }
+.stars { color: var(--gold); font-size: 13px; letter-spacing: 1px; white-space: nowrap; }
+.rnote { color: var(--dim); font-size: 14px; margin: 0; }
+.kv { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.kv > div { background: var(--ink2); border: 2px solid var(--edge); padding: 6px 8px; display: flex; flex-direction: column; gap: 5px; }
+.pips { display: flex; gap: 3px; align-items: center; }
+.pips i { width: 12px; height: 12px; display: inline-block; background: var(--ink); border: 2px solid var(--edge); }
+.pips.w i.on { background: var(--w); border-color: var(--w-l); } .pips.e i.on { background: var(--e); border-color: var(--e-l); }
+.pips i.q { background: repeating-conic-gradient(var(--edge) 0 25%, var(--ink2) 0 50%) 0 0 / 6px 6px; }
+.pips .age { font-family: var(--f-body); font-size: 12px; color: var(--dim); margin-left: 6px; }
+.acts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.acts .btn { display: flex; align-items: center; justify-content: center; gap: 2px; padding: 6px 6px; }
+.acts .btn .why { display: block; font-family: var(--f-body); font-size: 12px; text-transform: none; letter-spacing: 0; color: var(--dim); }
+.acts .btn .c { color: var(--gold); margin-left: 6px; }
+.acts .full { grid-column: 1 / -1; }
+.hint { color: var(--dim); font-size: 14px; margin: 0; }
+.tag { display: inline-block; font-family: var(--f-disp); font-size: 10px; padding: 3px 5px; border: 2px solid currentColor; text-transform: uppercase; }
+.tag.w { color: var(--w-l); } .tag.e { color: var(--e-l); } .tag.n { color: var(--n); } .tag.c { color: var(--dim); }
+
+/* intel + log */
+.dsp { display: flex; flex-direction: column; gap: 8px; }
+.disp { background: var(--ink2); border: 2px solid var(--edge); border-left: 6px solid var(--gold-d); padding: 8px 10px; cursor: pointer; }
+.disp:hover { border-color: var(--gold-d); }
+.disp .src { font-family: var(--f-disp); font-size: 10px; color: var(--gold); display: flex; justify-content: space-between; gap: 8px; align-items: center; }
+.disp p { margin: 5px 0 3px; font-size: 15px; }
+.disp small { color: var(--dim); font-size: 12px; display: block; }
+.rel { display: inline-flex; gap: 2px; } .rel i { width: 7px; height: 7px; background: var(--edge); } .rel i.on { background: var(--gold); }
+.disp.note { border-left-color: var(--e); } .disp.note.good { border-left-color: var(--ok); }
+.log { display: flex; flex-direction: column; gap: 5px; font-size: 14px; max-height: 260px; overflow: auto; }
+.log div { padding-left: 12px; position: relative; color: var(--dim); }
+.log div::before { content: ""; position: absolute; left: 0; top: 6px; width: 6px; height: 6px; background: var(--edge2); }
+.log div.me { color: var(--text); } .log div.me::before { background: var(--gold); }
+.log div.hit::before { background: var(--ok); } .log div.bad::before { background: var(--e); }
+.log div.turn { font-family: var(--f-disp); font-size: 10px; color: var(--gold); padding-top: 6px; }
+.log div.turn::before { display: none; } .log div.turn { padding-left: 0; }
+.ladder { display: flex; flex-direction: column; gap: 8px; }
+.step { display: grid; grid-template-columns: 22px 1fr; gap: 8px; background: var(--ink2); border: 2px solid var(--edge); padding: 8px; }
+.step .n { width: 22px; height: 22px; border: 2px solid var(--edge2); display: grid; place-items: center; font-family: var(--f-disp); font-size: 11px; color: var(--dim); }
+.step.done .n { background: var(--ok); color: #05140a; border-color: #c9ffe0; }
+.step.next { border-color: var(--gold); } .step.next .n { border-color: var(--gold); color: var(--gold); }
+.step h4 { margin: 0; font-family: var(--f-disp); font-size: 10px; color: var(--text); line-height: 1.5; }
+.step p { margin: 3px 0 0; font-size: 13px; color: var(--dim); }
+.step .btn { margin-top: 6px; }
+.enemyl { font-size: 13px; color: var(--dim); }
+.endrow { display: flex; gap: 8px; align-items: center; justify-content: space-between; }
+.endrow .note { font-size: 13px; color: var(--dim); }
+
+/* dialog (JRPG text box) */
+.dlg { position: fixed; inset: 0; z-index: 60; display: flex; align-items: flex-end; justify-content: center; padding: 14px max(14px, env(safe-area-inset-right, 0px)) max(18px, env(safe-area-inset-bottom, 0px)) max(14px, env(safe-area-inset-left, 0px)); background: rgba(3,5,16,.62); }
+.dlg .box { width: 100%; max-width: 640px; max-height: 86vh; overflow: auto; background: var(--ink2); border: 3px solid #fff; outline: 3px solid var(--edge2); outline-offset: 0; box-shadow: 0 0 0 6px var(--ink), 6px 8px 0 6px #000a; padding: 14px 14px 12px; display: flex; flex-direction: column; gap: 10px; }
+.dlg .tt { display: flex; justify-content: space-between; gap: 10px; align-items: center; }
+.dlg h2 { font-size: 12px; color: var(--gold); }
+.dlg .dt { color: var(--dim); font-family: var(--f-disp); font-size: 10px; white-space: nowrap; }
+.dlg .bd { font-size: 17px; line-height: 1.42; min-height: 3em; }
+.dlg .bd p { margin: 0 0 8px; } .dlg .bd .fx { color: var(--gold); }
+.dlg .bd .hist { border-left: 4px solid var(--ok); padding: 2px 0 2px 10px; color: var(--text); }
+.dlg .bd .hist b, .dlg .bd .lab { display: block; font-family: var(--f-disp); font-size: 10px; color: var(--ok); margin-bottom: 4px; font-weight: 400; }
+.cut { position: fixed; inset: 0; z-index: 65; background: #05081a; display: flex; justify-content: center; align-items: center; padding: 12px max(14px, env(safe-area-inset-right, 0px)) max(14px, env(safe-area-inset-bottom, 0px)) max(14px, env(safe-area-inset-left, 0px)); overflow: auto; }
+.cutin { width: 100%; max-width: 620px; display: flex; flex-direction: column; gap: 10px; }
+.cuthead { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 10px; color: var(--gold); }
+#cutCv { width: 100%; aspect-ratio: 192 / 108; image-rendering: pixelated; border: 3px solid #fff; outline: 3px solid var(--edge2); background: #000; display: block; }
+.cutbox { background: var(--ink2); border: 3px solid #fff; padding: 10px 12px; min-height: 132px; }
+.cutbox .who { font-family: var(--f-disp); font-size: 11px; color: var(--gold); margin-bottom: 8px; }
+.cutbox .txt { font-size: 19px; line-height: 1.4; color: var(--text); }
+.btn.opt.on { border-color: var(--gold); color: var(--gold); }
+.tables { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.tbl { background: var(--panel); border: 2px solid var(--edge); padding: 8px; display: flex; flex-direction: column; gap: 6px; }
+.tbl.mine { border-color: var(--gold); }
+.tbl .seats { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.tbl .seats .btn { min-height: 54px; display: flex; flex-direction: column; gap: 4px; align-items: center; justify-content: center; padding: 4px; }
+.tbl .seats small { font-family: var(--f-body); font-size: 12px; letter-spacing: 0; }
+.mp #btnRestart, .mp #dlgRestart, .mp #altRestart, .mp #cutRestart { display: none !important; }
+.dfoot { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+.dfoot .go:only-child { margin-left: auto; }
+.tag.l { color: var(--gold); } .tag.b { color: var(--alt2); }
+details.xc { background: var(--ink2); border: 2px solid var(--edge); padding: 8px 10px; }
+details.xc summary { cursor: pointer; font-family: var(--f-disp); font-size: 10px; color: var(--gold); line-height: 1.6; }
+details.xc p { margin: 8px 0 0; font-size: 15px; color: var(--text); }
+.xcard { background: var(--panel); border: 2px solid var(--gold-d); padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; }
+.xcard h3 { font-size: 11px; color: var(--gold); }
+.xcard p { margin: 0; font-size: 15px; color: var(--dim); }
+.terms { font-size: 14px; color: var(--dim); }
+.terms b { color: var(--gold); font-weight: 600; }
+.dlg.big .box { border-color: var(--gold); }
+.chk { display: flex; flex-direction: column; gap: 8px; }
+.chk > div { display: grid; grid-template-columns: 22px 1fr; gap: 8px; font-size: 15px; }
+.chk b { color: var(--ok); font-family: var(--f-disp); font-size: 11px; }
+.chk small { display: block; color: var(--dim); font-size: 13px; }
+
+/* alternate timeline overlay */
+.altov { position: fixed; inset: 0; z-index: 70; background: #14001a; display: flex; flex-direction: column; justify-content: center; gap: 14px; padding: 18px max(16px, env(safe-area-inset-right, 0px)) 24px max(16px, env(safe-area-inset-left, 0px)); overflow: auto; }
+.altov::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(255,61,240,.1) 0 2px, transparent 2px 6px); pointer-events: none; animation: roll 3s linear infinite; }
+@keyframes roll { to { background-position: 0 24px; } }
+.altov .in { position: relative; max-width: 640px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+.altov h2.gl { font-size: clamp(15px, 5.2vw, 26px); color: #fff; text-shadow: 3px 0 var(--alt), -3px 0 var(--alt2); animation: glitch .55s steps(2) infinite; line-height: 1.5; }
+@keyframes glitch { 0% { transform: translate(0); } 25% { transform: translate(-3px, 1px); text-shadow: -4px 0 var(--alt), 4px 0 var(--alt2); } 50% { transform: translate(2px, -1px); } 75% { transform: translate(-1px, 0); text-shadow: 5px 0 var(--alt2), -5px 0 var(--alt); } 100% { transform: translate(0); } }
+.altov .big { font-family: var(--f-disp); font-size: 12px; color: var(--alt2); letter-spacing: .1em; }
+.altov .two { display: grid; gap: 10px; }
+.altov .pane { padding: 10px 12px; border: 2px solid; background: rgba(8,0,14,.8); font-size: 16px; }
+.altov .pane h3 { font-size: 11px; margin-bottom: 6px; }
+.altov .pane.real { border-color: var(--ok); } .altov .pane.real h3 { color: var(--ok); }
+.altov .pane.yours { border-color: var(--alt); } .altov .pane.yours h3 { color: var(--alt); }
+.altov .upset { font-family: var(--f-disp); font-size: 10px; color: var(--gold); }
+
+/* Berlin */
+.boss h2 { font-size: 12px; color: var(--e-l); }
+.bwrap { position: relative; border: 2px solid var(--e); box-shadow: 0 4px 0 #04071a; background: #07091c; line-height: 0; }
+#bcv { width: 100%; image-rendering: pixelated; display: block; }
+.meters { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+.meter { background: var(--panel); border: 2px solid var(--edge); padding: 6px 6px; min-width: 0; display: flex; flex-direction: column; gap: 5px; }
+.meter .px { font-size: 9px; gap: 4px; flex-wrap: wrap; color: var(--dim); display: flex; justify-content: space-between; }
+.bar { height: 12px; background: var(--ink); border: 2px solid var(--edge); position: relative; }
+.bar i { position: absolute; inset: 0 auto 0 0; background: var(--ok); transition: width .5s steps(8); }
+.bar.m i { background: var(--w); } .bar.t i { background: var(--e); } .bar.low i { background: var(--warn); }
+.lane { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; background: var(--ink2); border: 2px solid var(--edge); padding: 6px 8px; }
+.lane .nm { font-family: var(--f-disp); font-size: 10px; line-height: 1.6; }
+.lane .nm small { display: block; font-family: var(--f-body); font-size: 13px; color: var(--dim); text-transform: none; letter-spacing: 0; }
+.step2 { display: flex; align-items: center; gap: 6px; }
+.step2 button { width: 36px; height: 36px; background: var(--panel2); border: 2px solid var(--edge2); border-bottom-width: 4px; font-family: var(--f-disp); font-size: 12px; padding: 0; }
+.step2 output { min-width: 24px; text-align: center; font-family: var(--f-disp); font-size: 13px; color: var(--gold); }
+.cards { display: grid; gap: 6px; }
+.cardopt { text-align: left; background: var(--ink2); border: 2px solid var(--edge); padding: 8px 10px; display: grid; gap: 3px; }
+.cardopt[aria-checked="true"] { border-color: var(--gold); background: var(--panel2); }
+.cardopt:disabled { opacity: .4; }
+.cardopt .px { color: var(--text); display: flex; justify-content: space-between; gap: 6px; }
+.cardopt .px em { font-style: normal; color: var(--gold); }
+.cardopt span.d { font-size: 14px; color: var(--dim); }
+.fog { color: var(--alt2); }
+
+/* end */
+.final { display: flex; flex-direction: column; gap: 12px; }
+.score { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.score > div { background: var(--panel); border: 2px solid var(--edge); padding: 10px; display: flex; flex-direction: column; gap: 6px; }
+.score .num { font-family: var(--f-disp); font-size: 22px; }
+.score .w { border-color: var(--w); } .score .w .num { color: var(--w-l); }
+.score .e { border-color: var(--e); } .score .e .num { color: var(--e-l); }
+.score small { color: var(--dim); font-size: 13px; }
+.win { font-family: var(--f-disp); font-size: 12px; line-height: 1.6; color: var(--gold); }
+.rep { display: flex; flex-direction: column; gap: 6px; }
+.rep > div { display: grid; grid-template-columns: 26px 1fr; gap: 8px; background: var(--ink2); border: 2px solid var(--edge); padding: 7px 8px; font-size: 14px; }
+.rep > div.dv { background: #1f0526; border-color: var(--alt); }
+.rep .ic { font-family: var(--f-disp); font-size: 12px; } .rep .ok .ic { color: var(--ok); } .rep .dv .ic { color: var(--alt); }
+.rep h4 { margin: 0 0 3px; font-family: var(--f-disp); font-size: 10px; line-height: 1.5; }
+.rep p { margin: 2px 0; color: var(--dim); } .rep p b { color: var(--text); font-weight: 600; }
+.epi { border-left: 4px solid var(--gold); padding-left: 10px; color: var(--text); font-size: 16px; }
+@media (min-width: 860px) {
+  .hud { grid-template-columns: repeat(3, 1fr); }
+  .altov .two { grid-template-columns: 1fr 1fr; }
+}
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+
+<div class="app" id="app">
+  <header class="top">
+    <div class="logo">IRON <i>CURTAIN</i> 1945-49</div>
+    <div class="row" style="gap:6px">
+      <button class="icobtn" id="btnRestart" hidden title="Restart game" aria-label="Restart game">↻</button>
+      <button class="icobtn" id="btnSound" aria-pressed="true" title="Sound">♪</button>
+      <button class="icobtn" id="btnHelp" title="How to play">?</button>
+    </div>
+  </header>
+
+  <div id="netBanner" hidden class="toast on bad" style="position:fixed;top:0;left:0;right:0;z-index:99;text-align:center;padding:8px;background:#7a1624;color:#fff">Connection lost. Reconnecting...</div>
+  <!-- LOBBY -->
+  <section id="screenLobby" hidden class="title">
+    <h1 class="px" style="color:var(--gold);font-size:14px">CLASS GAME · COUNCIL TABLES</h1>
+    <div id="lobbyBody"></div>
+    <button class="btn sm" id="lobbyBack">← BACK TO TITLE</button>
+  </section>
+  <!-- TITLE -->
+  <section id="screenTitle" class="title">
+    <div class="hero">
+      <canvas id="heroCv" width="176" height="96"></canvas>
+      <div class="cap">
+        <h1>IRON CURTAIN<br>1945–49</h1>
+        <p>Two blocs, one map of Europe, and neither side has won yet. Spread your influence in secret, read the rumours, and see if you can beat history.</p>
+      </div>
+    </div>
+    <button class="btn go" id="joinClass" hidden style="min-height:56px">JOIN CLASS GAME (ONLINE)</button>
+    <div class="px" style="color:var(--dim)">Or play alone against the bot · Difficulty</div>
+    <div class="sidepick" role="radiogroup" aria-label="Difficulty">
+      <button class="btn sm opt on" id="dEasy" role="radio" aria-checked="true">FOCUSED</button>
+      <button class="btn sm opt" id="dNormal" role="radio" aria-checked="false">FULL GAME</button>
+    </div>
+    <p class="terms" id="dDesc" style="margin:0;text-align:center">Easy: a weaker bot, clearer rumours, and a hint each turn about what to do next.</p>
+    <button class="btn sm opt on" id="tglStory" role="switch" aria-checked="true">STORY SCENES: ON</button>
+    <div class="px" style="color:var(--dim)">Pick your side · the bot plays the other</div>
+    <div class="sidepick">
+      <button class="btn west" id="playW"><span>WEST</span><small>USA, Britain, France</small></button>
+      <button class="btn east" id="playE"><span>EAST</span><small>The Soviet Union</small></button>
+    </div>
+    <button class="btn sm" id="watch">WATCH TWO BOTS PLAY (GOD VIEW)</button>
+    <ul class="howto card">
+      <li><b>Hidden board.</b> You see your own influence. The enemy's is fog. Control of a region is public.</li>
+      <li><b>Battleship moves.</b> Recon to peek and Spread to build. The full game adds Subvert to hit blindly and Guard to catch agents.</li>
+      <li><b>Dispatches.</b> Rumours about the enemy arrive every turn. Ask who is telling you, why, and what they might get wrong.</li>
+      <li><b>Right order.</b> Enact each Doctrine step on its real date, in order, for bonuses.</li>
+      <li><b>Real history.</b> If the map ends up different from what really happened, the game says so.</li>
+      <li><b>Your lessons.</b> Doctrine steps and checks tagged <span class="tag l">LESSON</span> come from Lessons 1-2. <span class="tag b">BONUS</span> history goes beyond them.</li>
+    </ul>
+  </section>
+
+  <!-- GAME -->
+  <section id="screenGame" hidden>
+    <div class="app">
+      <nav class="timeline" id="timeline" aria-label="Timeline"></nav>
+      <div class="turnline"><h2 id="turnTitle"></h2><span id="turnDate"></span></div>
+      <div class="px" id="mpClock" style="color:var(--gold);min-height:12px"></div>
+      <div class="hud" id="hud"></div>
+      <div class="mapwrap"><canvas id="map" tabindex="0" aria-label="Map of Europe. Tap a region."></canvas></div>
+      <div class="toast" id="toast" role="status"></div>
+      <div class="legend" id="legend"></div>
+      <div>
+        <div class="tabs" role="tablist" id="tabs">
+          <button class="tab" role="tab" data-tab="region" aria-selected="true">Region</button>
+          <button class="tab" role="tab" data-tab="intel" aria-selected="false">Intel<span class="dot" id="dotIntel"></span></button>
+          <button class="tab" role="tab" data-tab="doctrine" aria-selected="false">Doctrine<span class="dot" id="dotDoc"></span></button>
+          <button class="tab" role="tab" data-tab="log" aria-selected="false">Log</button>
+        </div>
+        <div class="panel" id="panel"></div>
+      </div>
+      <div class="endrow"><span class="note" id="endNote"></span><button class="btn go" id="btnEnd">END TURN ▶</button></div>
+    </div>
+  </section>
+
+  <!-- BERLIN -->
+  <section id="screenBerlin" hidden class="boss">
+    <div class="app">
+      <h2 id="bTitle">BOSS · BERLIN AIRLIFT</h2>
+      <div class="bwrap"><canvas id="bcv" width="576" height="324"></canvas></div>
+      <div class="meters" id="meters"></div>
+      <div id="bPlan" class="app"></div>
+    </div>
+  </section>
+
+  <!-- END -->
+  <section id="screenEnd" hidden class="final"></section>
+</div>
+
+<div class="dlg" id="dlg" hidden role="dialog" aria-modal="true" aria-labelledby="dlgTitle">
+  <div class="box"><div class="tt"><h2 id="dlgTitle"></h2><span class="dt" id="dlgDate"></span></div><div class="bd" id="dlgBody"></div><div class="dfoot"><button class="btn sm" id="dlgRestart" aria-label="Restart game">↻ RESTART</button><button class="btn go" id="dlgBtn">CONTINUE ▶</button></div></div>
+</div>
+<div class="cut" id="cut" hidden role="dialog" aria-modal="true" aria-label="Story scene"><div class="cutin">
+  <div class="cuthead"><span class="tag l">REAL HISTORY</span><span class="px" id="cutDate"></span><span class="px" id="cutStep" style="margin-left:auto"></span></div>
+  <canvas id="cutCv" width="576" height="324"></canvas>
+  <div class="cutbox"><div class="who" id="cutWho"></div><div class="txt" id="cutTxt"></div></div>
+  <div class="dfoot"><div style="display:flex;gap:8px"><button class="btn sm" id="cutSkip">SKIP SCENE ▶▶</button><button class="btn sm" id="cutRestart" aria-label="Restart game">↻</button></div><button class="btn go" id="cutNext">NEXT ▶</button></div>
+</div></div>
+<div class="dlg" id="cfm" hidden role="alertdialog" aria-labelledby="cfmT" style="z-index:90"><div class="box"><div class="tt"><h2 id="cfmT">RESTART?</h2></div><div class="bd" style="min-height:0">Abandon this game and go back to the title screen?</div><div class="dfoot"><button class="btn east" id="cfmYes">YES, RESTART</button><button class="btn go" id="cfmNo">KEEP PLAYING</button></div></div></div>
+<div class="altov" id="altOv" hidden role="alertdialog" aria-labelledby="altH">
+  <div class="in">
+    <div class="big" id="altKicker"></div>
+    <h2 class="gl" id="altH">TIMELINE DIVERGES</h2>
+    <div class="big">THIS IS NOT WHAT REALLY HAPPENED</div>
+    <div class="two">
+      <div class="pane real"><h3>REAL HISTORY</h3><div id="altReal"></div></div>
+      <div class="pane yours"><h3>YOUR TIMELINE</h3><div id="altYours"></div></div>
+    </div>
+    <div class="upset" id="altUpset"></div>
+    <button class="btn go" id="altBtn">ENTER THE NEW TIMELINE ▶</button>
+    <button class="btn sm" id="altRestart" aria-label="Restart game">↻ RESTART</button>
+  </div>
+</div>
+
+<script>
+/* IRON CURTAIN 1945-49 : pure game engine (no DOM).
+   Designed so the same file can later run inside a Cloudflare Worker / Durable Object:
+   all state lives in one JSON-able object, and viewFor(state, side) is the only thing a client should see. */
+(function (root) {
+'use strict';
+
+/* ---------- tiny seeded RNG ---------- */
+function mulberry32(a) {
+  return function () {
+    a |= 0; a = (a + 0x6D2B79F5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+let rng = mulberry32(Date.now() & 0xffffffff);
+function seed(n) { rng = mulberry32(n); }
+const rnd = () => rng();
+const ri = (n) => Math.floor(rnd() * n);
+const pick = (a) => a[ri(a.length)];
+function shuffle(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = ri(i + 1); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+
+const other = (s) => (s === 'W' ? 'E' : 'W');
+const SIDE = { W: { id: 'W', name: 'WESTERN ALLIES', short: 'WEST', adj: 'Western' }, E: { id: 'E', name: 'SOVIET UNION', short: 'EAST', adj: 'Soviet' } };
+
+/* ---------- map ---------- */
+let MAP = [], ADJ = {}, TILES = {};
+const SEA_LINKS = [['B', 'R'], ['B', 'L'], ['B', 'N'], ['T', 'D']];
+function setMap(rows) {
+  MAP = rows; ADJ = {}; TILES = {};
+  const H = rows.length, W = rows[0].length;
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+    const a = rows[y][x];
+    if (a === '.' || a === 'z') continue;
+    (TILES[a] = TILES[a] || []).push([x, y]);
+    ADJ[a] = ADJ[a] || new Set();
+    for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) {
+      if (!dx && !dy) continue;
+      const yy = y + dy, xx = x + dx;
+      if (yy < 0 || xx < 0 || yy >= H || xx >= W) continue;
+      const b = rows[yy][xx];
+      if (b === '.' || b === 'z' || b === a) continue;
+      ADJ[a].add(b);
+    }
+  }
+  for (const [a, b] of SEA_LINKS) { ADJ[a].add(b); ADJ[b].add(a); }
+  // Berlin is only reachable through the East German zone (and by air)
+  for (const k of Object.keys(ADJ)) ADJ[k] = Array.from(ADJ[k]);
+}
+
+/* ---------- regions ---------- */
+const REG = {
+  N: { name: 'Nordic States', code: 'NOR', val: 1, w: 2, e: 0, ax: 19.5, ay: 4, note: 'Norway and Denmark are freed from German occupation. Sweden stayed neutral. All three want to stay out of the great-power quarrel.' },
+  F: { name: 'Finland', code: 'FIN', val: 0, w: 0, e: 0, locked: true, buffer: true, ax: 28.5, ay: 3, note: 'Fought alongside Germany, then against it. Lost land to the USSR. Stalin does not annex it, and the Finns stay neutral and careful. A buffer nobody can control.' },
+  B: { name: 'Britain', code: 'UK', val: 2, w: 5, e: 0, home: 'W', ax: 6, ay: 7, note: 'Victorious, but after six years of war almost bankrupt (a key term). In 1947 it will tell the USA it can no longer afford to support Greece.' },
+  X: { name: 'Iberia', code: 'IBE', val: 1, w: 1, e: 0, ax: 5.5, ay: 24, note: 'Franco\'s Spain and Salazar\'s Portugal stayed out of the war. Spain is shunned by the UN but is fiercely anti-communist.' },
+  R: { name: 'France', code: 'FRA', val: 3, w: 3, e: 1, ax: 9.5, ay: 17, note: 'Liberated in 1944. The Communist Party won more votes than any other party in 1945 and sits in the government.' },
+  L: { name: 'Benelux', code: 'BEN', val: 2, w: 3, e: 0, ax: 11.5, ay: 11, note: 'Belgium, the Netherlands and Luxembourg: liberated, rebuilding, and already economically close to each other and to Britain.' },
+  G: { name: 'West Germany', code: 'WGR', val: 3, w: 3, e: 0, ax: 15.5, ay: 12, note: 'The British, American and French occupation zones. Cities are rubble and millions are hungry.' },
+  E: { name: 'East Germany', code: 'EGR', val: 3, w: 0, e: 3, ax: 20, ay: 14, py: 11, note: 'The Soviet occupation zone. Factories are dismantled and shipped east as reparations.' },
+  W: { name: 'Berlin', code: 'BER', val: 3, w: 2, e: 2, locked: true, ax: 20.5, ay: 12, note: 'Deep inside the Soviet zone, but divided into four sectors. The Western sectors depend on roads, rail and air corridors Stalin can squeeze.' },
+  P: { name: 'Poland', code: 'POL', val: 2, w: 1, e: 2, ax: 26.5, ay: 12, note: 'Moved westward on the map by the Big Three. Soviet-backed Lublin communists share power with the London-backed peasant party.' },
+  C: { name: 'Czechoslovakia', code: 'CZE', val: 3, w: 2, e: 2, ax: 25, ay: 15, note: 'Liberated by both armies. A democratic coalition under Benes, but the Communists are the biggest party.' },
+  A: { name: 'Austria', code: 'AUT', val: 1, w: 1, e: 1, ax: 21.5, ay: 17, note: 'Occupied by all four powers and split into zones. Vienna is split into four sectors, like Berlin.' },
+  H: { name: 'Hungary', code: 'HUN', val: 2, w: 1, e: 2, ax: 27.5, ay: 17, note: 'Occupied by the Red Army. The Smallholders won the free election of November 1945.' },
+  O: { name: 'Romania', code: 'ROM', val: 2, w: 0, e: 3, ax: 34, ay: 18, note: 'The Red Army forced the king to accept a communist-led government in March 1945.' },
+  U: { name: 'Bulgaria', code: 'BUL', val: 2, w: 0, e: 3, ax: 34, ay: 21, note: 'Occupied by the Soviets in 1944. The communist-led Fatherland Front runs the government.' },
+  Y: { name: 'Yugoslavia', code: 'YUG', val: 2, w: 0, e: 3, ax: 26, ay: 20, note: 'Tito\'s partisans freed the country mostly on their own. Loyal to Stalin... but proud and independent-minded.' },
+  T: { name: 'Italy', code: 'ITA', val: 3, w: 3, e: 2, ax: 17, ay: 21, note: 'Shattered by war. The Communist and Socialist parties are huge. Americans are very worried about the next election.' },
+  D: { name: 'Greece', code: 'GRE', val: 2, w: 2, e: 1, ax: 28, ay: 25, note: 'British troops back the royalist government against communist guerrillas. The Greek Civil War resumes in 1946 and lasts until 1949.' },
+  K: { name: 'Turkey', code: 'TUR', val: 2, w: 2, e: 0, ax: 37, ay: 25, note: 'Neutral in the war. Stalin wants a say over the Straits that lead out of the Black Sea. In April 1946 the USA sends the battleship USS Missouri to Istanbul.' },
+  S: { name: 'Soviet Union', code: 'USSR', val: 0, w: 0, e: 5, home: 'E', fixed: true, ax: 37, ay: 5, note: 'Twenty-seven million dead, but the largest army on the continent and a government that can do whatever it likes.' }
+};
+const REG_IDS = Object.keys(REG);
+const isTarget = (id) => !REG[id].fixed && !REG[id].locked;
+
+/* ---------- sources (how far to trust each one) ---------- */
+const SOURCES = [
+  { name: 'Embassy cable', acc: 0.86, tip: `Written by diplomats for their own government, to inform. Careful, but they only see what is near the embassy.` },
+  { name: 'Radio intercept', acc: 0.80, tip: `Heard directly, so hard to fake. But it is only a fragment, and could be a deliberate trick.` },
+  { name: 'Local informer', acc: 0.68, tip: `Someone on the spot, but paid, so may tell you what you want to hear.` },
+  { name: 'Newspaper', acc: 0.58, tip: `Has an owner and a political line, and wants to sell copies. May exaggerate.` },
+  { name: 'Defector', acc: 0.50, tip: `Changed sides and needs to be believed and rewarded, so has a reason to exaggerate.` }
+];
+
+/* ---------- doctrines (the ordered ladder). core = taught in Lessons 1-2; core:false = bonus history ---------- */
+const DOC = {
+  W: [
+    { id: 'W1', core: true, name: `Long Telegram`, date: `Feb 1946`, avail: 1, desc: `Kennan's warning. A free RECON every turn.`, terms: `containment`,
+      hist: `In February 1946 the US diplomat George Kennan sent the Long Telegram from Moscow. It warned that the USSR intended to spread communism across Europe. It gave Truman the idea of stopping that spread: containment.` },
+    { id: 'W2', core: true, name: `Truman Doctrine`, date: `12 Mar 1947`, avail: 2, desc: `+2 influence in Greece, +1 in Turkey.`, terms: `bankrupt, guerrillas, aid, isolationism, containment`,
+      hist: `Britain was nearly bankrupt and could no longer support Greece against communist guerrillas. Truman asked Congress for $400 million of aid for Greece and Turkey. He described two ways of life and promised to support "free peoples" resisting "armed minorities" and "outside pressures". The USA dropped isolationism for containment.`,
+      exam: `Effect 1 for "Explain TWO effects of the Truman Doctrine on superpower relations": it ended isolationism and set the USA in direct opposition to the USSR. The Grand Alliance was gone.` },
+    { id: 'W3', core: true, name: `Marshall Plan`, date: `5 Jun 1947`, avail: 3, desc: `+1 AP every turn, +1 in your Western regions. Unlocks AID PACKAGE.`, terms: `aid, Marshall Plan`,
+      hist: `Secretary of State George Marshall offered economic aid to rebuild Europe. In 1948-52 Western Europe received about $13.7 billion, and Britain got the biggest share. Marshall said the plan was directed against "hunger, poverty, desperation and chaos", not against any country. Eastern Europe did not benefit.`,
+      exam: `Effect 2: the Marshall Plan tied Western Europe to the USA. Stalin answered with dollar imperialism, Cominform and Comecon, so Europe divided into two camps.` },
+    { id: 'W4', core: false, name: `Currency Reform`, date: `Jun 1948`, avail: 7, desc: `+1 West Germany. Berlin: +2 starting morale, +2 supplies.`, terms: ``,
+      hist: `The new Deutsche Mark was introduced in the western zones on 20 June 1948. It helped trigger the Berlin Blockade four days later.` },
+    { id: 'W5', core: false, name: `NATO`, date: `4 Apr 1949`, avail: 8, desc: `+1 in UK, France, Benelux, Nordic, Italy. +3 VP.`, terms: ``,
+      hist: `The North Atlantic Treaty was signed on 4 April 1949 by twelve countries: an attack on one is an attack on all.` }
+  ],
+  E: [
+    { id: 'E1', core: true, name: `Satellite States`, date: `1945-47`, avail: 1, desc: `+1 in Poland, Hungary, Romania, Bulgaria. Secret police give a free GUARD each turn.`, terms: `satellite state, communism`,
+      hist: `The Red Army occupied Eastern Europe and Stalin backed communist governments there. These satellite states were officially independent but took orders from Moscow. Stalin did not need a war to spread communism: he only had to keep supporting these governments.` },
+    { id: 'E2', core: true, name: `Dollar Imperialism`, date: `Jul 1947`, avail: 3, desc: `Moscow forces a boycott: West -1 in Poland and Czechoslovakia.`, terms: `dollar imperialism, Molotov Plan`,
+      hist: `Stalin called the Marshall Plan "dollar imperialism": American money used to divide Europe and build an economic empire. At the Paris talks (27 June to 2 July 1947) Molotov walked out. Poland and Czechoslovakia wanted to attend but were pressed to withdraw. The USSR offered its own trade deals, the Molotov Plan.` },
+    { id: 'E3', core: true, name: `Cominform`, date: `22 Sep 1947`, avail: 4, desc: `+1 AP every turn. Unlocks COMINFORM ORDERS.`, terms: `Cominform, two camps`,
+      hist: `The Communist Information Bureau was an association of communist parties from across Europe. It let Stalin direct and control the satellite governments. At its first meeting Zhdanov said the world had split into two camps, and the Marshall Plan was rejected. Memory hook: Cominform for control.` },
+    { id: 'E4', core: false, name: `Prague Coup`, date: `Feb 1948`, avail: 5, desc: `A free COUP in any region where you have 2+.`, terms: ``,
+      hist: `On 25 February 1948 Gottwald's Communists took over Czechoslovakia after non-communist ministers resigned and workers' militias took the streets.` },
+    { id: 'E5', core: true, name: `Comecon`, date: `25 Jan 1949`, avail: 8, desc: `+1 in your Eastern bloc regions. +2 VP.`, terms: `Comecon, superpowers`,
+      hist: `The Council for Mutual Economic Assistance linked the USSR, Bulgaria, Czechoslovakia, Hungary, Poland and Romania. It competed directly with the Marshall Plan and discouraged trade with the West. Memory hook: Comecon for cash. The first Soviet atomic test followed in August 1949.` }
+  ]
+};
+
+/* ---------- turns ---------- */
+const TURNS = [
+  { core: true, date: 'JUL 1945', title: 'POTSDAM', body: `Germany lies in ruins. At Potsdam the Big Three divide it into four occupation zones, and Berlin into four sectors. The Grand Alliance still holds on paper. Weeks earlier British planners secretly drew up Operation Unthinkable, a plan to attack the USSR, then shelved it as too risky. Stalin has the biggest army in Europe. Nobody has won the peace yet.`, fx: `The positions of summer 1945. You have limited Action Points (AP): choose carefully.` },
+  { core: true, date: 'MAR 1946', title: 'THE IRON CURTAIN', body: `Churchill tells an audience in Fulton, Missouri that an "iron curtain" has descended across Europe. Weeks earlier Kennan's Long Telegram warned Washington about Soviet intentions. In April the USA sends the battleship USS Missouri to Istanbul after Stalin demands a share of control over the Turkish Straits.`, fx: `Both sides can now enact their first Doctrine step.` },
+  { core: true, date: 'MAR 1947', title: 'BRITAIN CANNOT PAY', body: `After six years of war Britain is nearly bankrupt. It announces that it can no longer support the Greek government against communist guerrillas, and asks the USA to take over. This is the trigger. On 12 March Truman asks Congress for $400 million of aid for Greece and Turkey.`, fx: `British withdrawal: West -1 in Greece. The guerrillas press on: East +1 in Greece (if present).`,
+    start: (s) => { const l = []; if (s.inf.D.W > 0) { s.inf.D.W--; l.push('West influence in Greece falls by 1.'); } if (s.inf.D.E > 0 && s.inf.D.E < 5) { s.inf.D.E++; l.push('Communist influence in Greece rises by 1.'); } return l; } },
+  { core: true, date: 'JUN 1947', title: 'THE MARSHALL PLAN', body: `On 5 June Secretary of State George Marshall offers American aid to rebuild Europe. Britain and France invite the USSR to talks in Paris (27 June to 2 July). Molotov walks out on 2 July. Will Eastern Europe be allowed to accept?`, fx: `Hungary's coalition crumbles: East +1 in Hungary. Whether Poland and Czechoslovakia refuse Marshall aid depends on the Soviet Doctrine step. History will check at the end of this turn.`,
+    start: (s) => { const l = []; if (s.inf.H.E < 5) { s.inf.H.E++; l.push('Hungary: Soviet influence +1.'); } return l; } },
+  { core: true, date: 'SEP 1947', title: 'COMINFORM', body: `On 22 September communist parties from nine countries meet in Poland. Zhdanov tells them the world is split into two camps. At the UN, Vyshinsky condemns the Marshall Plan. In France and Italy, communist-led strikes shake the governments.`, fx: `Strikes: East +1 in France and Italy.`,
+    start: (s) => { const l = []; for (const r of ['R', 'T']) if (s.inf[r].E < 5) { s.inf[r].E++; l.push(REG[r].name + ': Soviet influence +1.'); } return l; } },
+  { core: false, date: 'FEB 1948', title: 'PRAGUE', body: `Non-communist ministers resign in protest in Czechoslovakia. Gottwald asks the President to appoint a communist-dominated cabinet. Workers' militias fill the streets while the Red Army waits on the border.`, fx: `At the end of this turn: is Czechoslovakia communist, as it really was?` },
+  { core: false, date: 'APR 1948', title: 'ITALIAN ELECTION', body: `Italy votes on 18 April. The USA pours in money, radio broadcasts and letters from Italian-Americans. Western Europe's first Marshall Plan funds begin to arrive.`, fx: `At the end of this turn: Italy is checked against history.` },
+  { core: false, date: 'JUN 1948', title: 'BERLIN BLOCKADE', body: `The Western powers introduce a new currency. Tito and Stalin split. And on 24 June, Soviet forces cut every road, rail and canal route into West Berlin. Two million people have about 36 days of food. Your textbook signposts this stand-off as the next chapter.`, fx: `Yugoslavia leaves the Soviet camp. After your actions, the BERLIN AIRLIFT begins.`,
+    start: (s) => { const l = []; const y = s.inf.Y; l.push('Tito is expelled from the Cominform. Yugoslavia stays communist but turns non-aligned.'); y.W = 0; y.E = 0; s.neutral.Y = true; return l; } },
+  { core: true, date: 'APR 1949', title: 'NATO AND COMECON', body: `Comecon, founded in January, now competes with the Marshall Plan. On 4 April twelve nations sign the North Atlantic Treaty. The Berlin Blockade ends on 12 May and the Federal Republic of Germany is proclaimed on 23 May.`, fx: `At the end of this turn: West Germany is checked against history.` },
+  { core: true, date: 'OCT 1949', title: 'TWO CAMPS', body: `The Soviets test an atomic bomb in August. The German Democratic Republic is declared on 7 October. In Greece the communist guerrillas are defeated. Europe is split into two camps and the superpowers will rival each other for about 50 years.`, fx: `Final checks. Then the scores.` }
+];
+
+/* ---------- anchors (historical checks). core = from Lessons 1-2 ---------- */
+const ANCH = [
+  { id: 'france', core: true, turn: 3, reg: 'R', expect: 'W', title: 'France stays Western', date: 'May 1947', real: `French Communist ministers were dismissed in May 1947. France accepted Marshall aid and stayed in the Western camp.`, alt: `France drifts out of the Western camp. In reality the Communists were pushed out of government in May 1947.` },
+  { id: 'marshall', core: true, turn: 3, test: (s) => s.inf.C.E >= s.inf.C.W && s.inf.P.E >= s.inf.P.W, upsetTo: 'W', title: 'Eastern Europe refuses Marshall aid', date: 'Jul 1947', real: `Poland and Czechoslovakia wanted to join the Paris talks, but Soviet pressure made them withdraw. Eastern Europe did not benefit from the Marshall Plan.`, alt: `Eastern European governments accept American aid. In reality Soviet pressure forced Poland and Czechoslovakia to refuse.` },
+  { id: 'hungary', core: false, turn: 3, reg: 'H', expect: 'E', title: 'Hungary swings east', date: 'May-Aug 1947', real: `Soviet pressure and communist "salami tactics" forced out the Smallholders. After rigged elections in August 1947, communists took control.`, alt: `Hungary resists Soviet pressure. In reality the communists squeezed out their rivals by 1947.` },
+  { id: 'czech', core: true, turn: 5, reg: 'C', expect: 'E', title: 'Czechoslovakia becomes communist', date: 'Feb 1948', real: `Czechoslovakia became a communist state in February 1948. Low's cartoon of March 1948 shows Czecho as one of the "buttons" Stalin could press.`, alt: `Czechoslovakia stays democratic. In reality the Communists took power in February 1948.` },
+  { id: 'italy', core: false, turn: 6, reg: 'T', expect: 'W', title: 'Italian election', date: '18 Apr 1948', real: `The Christian Democrats won about 48 percent of the vote. The Communist-Socialist alliance lost badly. US support helped.`, alt: `Italy falls under communist influence. In reality the Christian Democrats won in April 1948.` },
+  { id: 'berlin', core: false, turn: 7, reg: 'W', expect: 'W', title: 'Berlin holds out', date: '24 Jun 1948 to 12 May 1949', real: `The Western Allies flew in about 2.3 million tons of supplies. The Soviets lifted the blockade in May 1949. West Berlin stayed free.`, alt: `Berlin does not remain free. In reality the airlift succeeded.`, special: true },
+  { id: 'frg', core: false, turn: 8, reg: 'G', expect: 'W', title: 'West Germany founded', date: '23 May 1949', real: `The Federal Republic of Germany was founded with its capital at Bonn.`, alt: `West Germany drifts. In reality the western zones merged into a Western-aligned state.` },
+  { id: 'poland', core: true, turn: 9, reg: 'P', expect: 'E', title: 'Poland in the Eastern bloc', date: 'By 1949', real: `Poland became a Soviet satellite state. It joined Comecon at its founding in January 1949.`, alt: `Poland escapes the Soviet bloc. In reality it became a satellite state and a founder member of Comecon.` },
+  { id: 'gdr', core: false, turn: 9, reg: 'E', expect: 'E', title: 'East Germany founded', date: '7 Oct 1949', real: `The German Democratic Republic was proclaimed in the Soviet zone.`, alt: `The Soviet zone is not secure. In reality the GDR was founded in October 1949.` },
+  { id: 'greece', core: true, turn: 9, reg: 'D', expect: 'W', title: 'Greek Civil War ends', date: 'Oct 1949', real: `The communist guerrillas were defeated in 1949 and fled to Albania. Greece stayed in the Western camp.`, alt: `Greece falls to communism. In reality the government won the civil war.` },
+  { id: 'turkey', core: true, turn: 9, reg: 'K', expect: 'W', title: 'Turkey stays Western', date: '1952', real: `Turkey received Truman Doctrine aid and later joined NATO in 1952.`, alt: `Turkey leaves the Western camp. In reality it received US aid and joined NATO.` }
+];
+
+/* ---------- game state ---------- */
+function newGame(opts) {
+  opts = opts || {};
+  const s = {
+    v: 1, turn: 0, phase: 'start', // start | acting | berlin | over
+    inf: {}, neutral: {}, ap: { W: 0, E: 0 }, apMax: { W: 4, E: 4 },
+    doc: { W: 0, E: 0 }, onTime: { W: 0, E: 0 }, vp: { W: 0, E: 0 },
+    guard: { W: {}, E: {} }, freeRecon: { W: false, E: false }, freeGuard: { W: false, E: false },
+    know: { W: {}, E: {} }, acts: { W: [], E: [] }, lastActs: { W: [], E: [] },
+    notes: { W: [], E: [] }, curNotes: { W: [], E: [] }, dispReg: { W: [], E: [] }, freeCoupReady: { E: false },
+    chron: [], anchors: [], alt: 0, berlin: null, over: null,
+    stats: { subHit: { W: 0, E: 0 }, subMiss: { W: 0, E: 0 } }
+  };
+  for (const id of REG_IDS) { s.inf[id] = { W: REG[id].w, E: REG[id].e }; s.neutral[id] = !!REG[id].buffer; }
+  return s;
+}
+
+function ctrl(s, id) {
+  if (s.ctrlPub) return s.ctrlPub[id]; // online clients get the public result only
+  if (s.neutral[id]) return 'N';
+  const r = s.inf[id];
+  if (REG[id].fixed) return REG[id].home;
+  if (r.W >= 3 && r.W - r.E >= 2) return 'W';
+  if (r.E >= 3 && r.E - r.W >= 2) return 'E';
+  return null;
+}
+
+/* ---------- turn start ---------- */
+function startTurn(s) {
+  const t = TURNS[s.turn];
+  const lines = [];
+  s.phase = 'acting';
+  for (const side of ['W', 'E']) { s.ap[side] = s.apMax[side]; s.acts[side] = []; }
+  if (t.start) for (const l of t.start(s)) lines.push(l);
+  chron(s, t.date + ': ' + t.title);
+  return lines;
+}
+/* Called when a side begins its action window. Its own guards from last turn expire (they protected
+   it during the enemy's window), and it receives the private notes the enemy's actions generated. */
+function startSide(s, side) {
+  s.guard[side] = {};
+  s.freeRecon[side] = side === 'W' && s.doc.W >= 1;
+  s.freeGuard[side] = side === 'E' && s.doc.E >= 1;
+  const notes = s.notes[side]; s.notes[side] = [];
+  s.curNotes[side] = notes;
+  return notes;
+}
+function chron(s, text) { s.chron.push({ turn: s.turn, text }); }
+
+/* ---------- reach / legal ---------- */
+function hasPresence(s, side, id) { return REG[id].home === side || s.inf[id][side] >= 1; }
+function inReach(s, side, id) {
+  if (!isTarget(id)) return false;
+  if (s.neutral[id]) return false;
+  if (hasPresence(s, side, id)) return true;
+  return (ADJ[id] || []).some((n) => hasPresence(s, side, n));
+}
+function costOf(s, side, type, id) {
+  switch (type) {
+    case 'spread': return 1 + (ctrl(s, id) === other(side) ? 1 : 0);
+    case 'recon': return s.freeRecon[side] ? 0 : 1;
+    case 'subvert': return 2;
+    case 'guard': return s.freeGuard[side] ? 0 : 1;
+    case 'doctrine': return 2;
+    case 'special': return 3;
+  }
+  return 99;
+}
+function specialUnlocked(s, side) { return side === 'W' ? s.doc.W >= 3 : s.doc.E >= 3; }
+const FOCUS_SKIP = [6, 7, 8]; // bonus-only turns left out of the focused game
+const ladder = (s, side) => (s.focus ? DOC[side].filter((d) => d.core !== false) : DOC[side]);
+function nextDoctrine(s, side) { return ladder(s, side)[s.doc[side]] || null; }
+function doctrineReady(s, side) { const d = nextDoctrine(s, side); return !!d && s.turn >= d.avail; }
+
+function canAct(s, side, type, id) {
+  if (s.phase !== 'acting') return 'Not in the action phase.';
+  if (s.focus && (type === 'subvert' || type === 'guard' || type === 'special')) return 'Not in the focused game.';
+  const c = costOf(s, side, type, id);
+  if (c > s.ap[side]) return 'Not enough action points.';
+  if (type === 'doctrine') return doctrineReady(s, side) ? null : (nextDoctrine(s, side) ? 'Not yet available.' : 'Ladder complete.');
+  if (!id || !REG[id]) return 'Pick a region.';
+  if (type === 'recon') return REG[id].fixed || REG[id].locked ? 'Cannot recon that.' : null;
+  if (!isTarget(id)) return 'That region is off limits.';
+  if (s.neutral[id]) return 'That region has gone non-aligned.';
+  if (type === 'spread') { if (s.inf[id][side] >= 5) return 'Already at maximum.'; return inReach(s, side, id) ? null : 'Out of reach.'; }
+  if (type === 'subvert') return inReach(s, side, id) ? null : 'Out of reach.';
+  if (type === 'guard') return hasPresence(s, side, id) ? null : 'You need a presence there.';
+  if (type === 'special') {
+    if (!specialUnlocked(s, side)) return 'Not unlocked yet.';
+    if (s.inf[id][side] < 2) return 'Needs 2+ influence there.';
+    return null;
+  }
+  return 'Unknown action.';
+}
+
+/* ---------- acting (resolves immediately; result is private to the actor) ---------- */
+function act(s, side, type, id) {
+  const err = canAct(s, side, type, id);
+  if (err) return { ok: false, msg: err };
+  const en = other(side);
+  const cost = costOf(s, side, type, id);
+  if (type === 'recon' && s.freeRecon[side]) s.freeRecon[side] = false;
+  else if (type === 'guard' && s.freeGuard[side]) s.freeGuard[side] = false;
+  else s.ap[side] -= cost;
+  const res = { ok: true, type, region: id, cost, msg: '' };
+  const nm = id ? REG[id].name : '';
+  if (type === 'spread') {
+    s.inf[id][side] = Math.min(5, s.inf[id][side] + 1);
+    res.msg = 'Influence in ' + nm + ' grows to ' + s.inf[id][side] + '.';
+    s.acts[side].push({ type, region: id });
+  } else if (type === 'recon') {
+    const v = s.inf[id][en];
+    s.know[side][id] = { v, t: s.turn };
+    res.msg = 'Recon ' + nm + ': ' + SIDE[en].adj + ' influence is ' + v + '.';
+    res.reveal = v;
+    s.acts[side].push({ type, region: id });
+  } else if (type === 'guard') {
+    s.guard[side][id] = true;
+    res.msg = 'Counter-intelligence is watching ' + nm + '.';
+    s.acts[side].push({ type, region: id });
+  } else if (type === 'subvert') {
+    s.acts[side].push({ type, region: id });
+    if (s.guard[en][id]) {
+      delete s.guard[en][id];
+      s.inf[id][side] = Math.max(0, s.inf[id][side] - 1);
+      s.know[side][id] = { v: s.inf[id][en], t: s.turn };
+      res.blocked = true;
+      res.msg = 'BLOCKED. Counter-intelligence was waiting in ' + nm + ' and rolled up one of your agents (-1). Enemy influence there is ' + s.inf[id][en] + '.';
+      s.notes[en].push({ kind: 'foiled', region: id, text: 'Foiled! Your counter-intelligence in ' + nm + ' caught enemy agents.' });
+      s.stats.subMiss[side]++;
+    } else if (s.inf[id][en] > 0) {
+      s.inf[id][en] = Math.max(0, s.inf[id][en] - 2);
+      s.know[side][id] = { v: s.inf[id][en], t: s.turn };
+      res.hit = true;
+      res.msg = 'HIT! Enemy network in ' + nm + ' damaged. Their influence is now ' + s.inf[id][en] + '.';
+      s.notes[en].push({ kind: 'hit', region: id, text: 'Your network in ' + nm + ' was hit by enemy subversion (-2).' });
+      s.stats.subHit[side]++;
+    } else {
+      s.know[side][id] = { v: 0, t: s.turn };
+      res.miss = true;
+      res.msg = 'MISS. There was no enemy network in ' + nm + ' to strike.';
+      s.stats.subMiss[side]++;
+    }
+  } else if (type === 'special') {
+    s.acts[side].push({ type, region: id });
+    if (s.guard[en][id]) {
+      delete s.guard[en][id];
+      s.inf[id][side] = Math.max(0, s.inf[id][side] - 1);
+      res.blocked = true;
+      res.msg = 'BLOCKED. The operation in ' + nm + ' was exposed (-1 influence).';
+      s.notes[en].push({ kind: 'foiled', region: id, text: 'Foiled! You exposed a major enemy operation in ' + nm + '.' });
+    } else {
+      s.inf[id][side] = Math.min(5, s.inf[id][side] + 2);
+      s.inf[id][en] = Math.max(0, s.inf[id][en] - 2);
+      s.know[side][id] = { v: s.inf[id][en], t: s.turn };
+      res.hit = true;
+      res.msg = (side === 'E' ? 'COMINFORM ORDERS in ' : 'AID PACKAGE in ') + nm + ': you now hold ' + s.inf[id][side] + ', the enemy is down to ' + s.inf[id][en] + '.';
+      chron(s, (side === 'E' ? 'Moscow\'s orders reshape ' : 'A Marshall aid package lands in ') + nm + '.');
+      s.notes[en].push({ kind: 'big', region: id, text: 'ALERT: a major enemy operation hit ' + nm + '. Your influence there fell.' });
+    }
+  } else if (type === 'doctrine') {
+    const d = nextDoctrine(s, side);
+    const on = s.turn === d.avail;
+    s.doc[side]++;
+    if (on) { s.onTime[side]++; s.vp[side]++; }
+    const eff = applyDoctrine(s, side, d);
+    res.msg = d.name.toUpperCase() + ' enacted' + (on ? ' on time (+1 VP)' : ' late (no bonus)') + '. ' + eff;
+    res.doctrine = d;
+    chron(s, SIDE[side].short + ' enacts ' + d.name + (on ? '' : ' (late)') + '.');
+  }
+  return res;
+}
+
+function addInf(s, side, id, n, onlyIfPresent) {
+  if (s.neutral[id]) return false;
+  if (onlyIfPresent && s.inf[id][side] < 1) return false;
+  const before = s.inf[id][side];
+  s.inf[id][side] = Math.min(5, before + n);
+  return s.inf[id][side] !== before;
+}
+function applyDoctrine(s, side, d) {
+  const gained = [];
+  const add = (id, n, only) => { if (addInf(s, side, id, n, only)) gained.push(REG[id].code); };
+  switch (d.id) {
+    case 'W1': add('B', 0); return 'You now get one free RECON each turn.';
+    case 'W2': add('D', 2); add('K', 1); return 'Aid flows to ' + gained.join(', ') + '.';
+    case 'W3': s.apMax.W++; if (s.focus) s.vp.W += 1; for (const r of ['R', 'L', 'G', 'T', 'A', 'N']) add(r, 1, true); return '+1 AP every turn. Aid in ' + gained.join(', ') + '. AID PACKAGE unlocked.';
+    case 'W4': add('G', 1); return 'The Deutsche Mark is born. Berlin will be better prepared.';
+    case 'W5': for (const r of ['B', 'R', 'L', 'N', 'T']) add(r, 1, true); s.vp.W += 3; return 'Alliance signed (+3 VP). Support in ' + gained.join(', ') + '.';
+    case 'E1': for (const r of ['P', 'H', 'O', 'U']) add(r, 1, true); return 'Communists seize key ministries in ' + gained.join(', ') + '. Your secret police give you one free GUARD each turn.';
+    case 'E2': {
+      const cut = [];
+      for (const r of ['P', 'C']) if (!s.neutral[r] && s.inf[r].W > 0) { s.inf[r].W--; cut.push(REG[r].code); }
+      return 'Moscow forces a boycott: Western influence -1 in ' + (cut.join(', ') || 'nowhere') + '. The Molotov Plan trade deals tie them closer.';
+    }
+    case 'E3': s.apMax.E++; return '+1 AP every turn. COMINFORM ORDERS unlocked.';
+    case 'E4': s.freeCoupReady.E = true; return 'You may now spend one free COUP (no AP) in a region where you hold 2+.';
+    case 'E5': for (const r of ['P', 'C', 'H', 'O', 'U', 'E']) add(r, 1, true); s.vp.E += 2; return 'Eastern bloc tightens (+2 VP). Support in ' + gained.join(', ') + '.';
+  }
+  return '';
+}
+/* Prague free coup (E3) */
+function freeCoup(s, id) {
+  const side = 'E';
+  if (!s.freeCoupReady.E) return { ok: false, msg: 'No free coup available.' };
+  if (s.inf[id].E < 2 || !isTarget(id) || s.neutral[id]) return { ok: false, msg: 'Needs 2+ Soviet influence there.' };
+  const en = 'W';
+  s.freeCoupReady.E = false;
+  if (s.guard.W[id]) { delete s.guard.W[id]; s.inf[id].E = Math.max(0, s.inf[id].E - 1); s.notes.W.push({ kind: 'foiled', region: id, text: 'Foiled! You exposed a Soviet coup attempt in ' + REG[id].name + '.' }); return { ok: true, blocked: true, msg: 'BLOCKED. The coup in ' + REG[id].name + ' was exposed.' }; }
+  s.inf[id].E = Math.min(5, s.inf[id].E + 2); s.inf[id].W = Math.max(0, s.inf[id].W - 2);
+  s.know.E[id] = { v: s.inf[id].W, t: s.turn };
+  s.acts.E.push({ type: 'special', region: id });
+  chron(s, 'A coup shakes ' + REG[id].name + '.');
+  s.notes.W.push({ kind: 'big', region: id, text: 'ALERT: a Soviet coup hit ' + REG[id].name + '.' });
+  return { ok: true, hit: true, msg: 'COUP in ' + REG[id].name + ': Soviet influence ' + s.inf[id].E + ', Western ' + s.inf[id].W + '.' };
+}
+
+/* ---------- dispatches (indirect intel on what the other side did last turn) ---------- */
+const DET = { spread: 0.55, subvert: 0.85, guard: 0.35, recon: 0.25, special: 1.0 };
+function dispatchText(en, type, region) {
+  const who = SIDE[en].adj, nm = REG[region].name;
+  switch (type) {
+    case 'spread': return pick([who + ' delegations and party organisers busy in ' + nm, 'Growing ' + who + ' presence reported around ' + nm, who + ' money and newsprint arriving in ' + nm]);
+    case 'subvert': return pick(['Sabotage and arrests reported in ' + nm, 'A ' + who + ' network was shaken in ' + nm + ' (or someone shook it)', 'Mysterious fires and resignations in ' + nm]);
+    case 'guard': return pick(['Security services tighten checks in ' + nm, 'New border and telephone controls in ' + nm]);
+    case 'recon': return pick(['A ' + who + ' observer was seen photographing ' + nm, 'Questions about ' + nm + ' passed through a ' + who + ' intermediary']);
+    case 'special': return 'Major ' + who + ' operation under way in ' + nm;
+  }
+  return '';
+}
+function genDispatches(s, side) {
+  const en = other(side);
+  const out = [];
+  for (const a of s.lastActs[en]) {
+    if (rnd() > (DET[a.type] || 0.4)) continue;
+    const src = pick(SOURCES);
+    const truth = rnd() < src.acc;
+    let region = a.region;
+    if (!truth) { const opts = (ADJ[a.region] || []).filter(isTarget); region = opts.length && rnd() < 0.7 ? pick(opts) : pick(REG_IDS.filter(isTarget)); }
+    out.push({ region, type: a.type, text: dispatchText(en, a.type, region), src: src.name, tip: src.tip, acc: src.acc, truth });
+  }
+  if (rnd() < (s.focus ? 0.3 : 0.7)) { // chaff
+    const r = pick(REG_IDS.filter(isTarget));
+    const src = pick([SOURCES[3], SOURCES[4], SOURCES[2]]);
+    out.push({ region: r, type: 'spread', text: dispatchText(en, pick(['spread', 'guard']), r), src: src.name, tip: src.tip, acc: src.acc, truth: false });
+  }
+  return shuffle(out).slice(0, s.focus ? 3 : 4);
+}
+
+function prepDispatches(s, side) {
+  const d = genDispatches(s, side);
+  s.dispReg[side] = d.map((x) => x.region);
+  return d;
+}
+
+/* ---------- end of turn: anchors ---------- */
+function endTurn(s) {
+  const t = s.turn;
+  const log = [];
+  s.lastActs = { W: s.acts.W.slice(), E: s.acts.E.slice() };
+  // anchors tied to this turn (Berlin is judged by the boss fight)
+  for (const a of ANCH) if (a.turn === t && !a.special && (!s.focus || a.core)) log.push(judge(s, a));
+  return log;
+}
+function judge(s, a) {
+  const c = a.reg ? ctrl(s, a.reg) : null;
+  let ok;
+  if (a.test) ok = !!a.test(s);
+  else { ok = c === a.expect; if (a.expect === 'N') ok = c === null || c === 'N'; }
+  const rec = { id: a.id, turn: s.turn, core: a.core, title: a.title, date: a.date, ok, real: a.real, alt: a.alt, actual: c, expect: a.expect };
+  if (!ok) {
+    s.alt++;
+    const beneficiary = a.test ? a.upsetTo : (c === 'W' || c === 'E' ? c : null);
+    if (beneficiary) { s.vp[beneficiary]++; rec.upset = beneficiary; }
+  }
+  s.anchors.push(rec);
+  if (a.expect === 'N' && ok) s.neutral[a.reg] = true;
+  chron(s, (ok ? 'History holds: ' : 'TIMELINE DIVERGES: ') + a.title);
+  return rec;
+}
+function advance(s) {
+  if (s.turn >= TURNS.length - 1) { s.phase = 'over'; s.over = finalScore(s); return true; }
+  s.turn++; s.phase = 'start';
+  while (s.focus && FOCUS_SKIP.includes(s.turn) && s.turn < TURNS.length - 1) s.turn++;
+  return false;
+}
+
+/* ---------- scoring ---------- */
+function score(s) {
+  const out = { W: { reg: 0, vp: s.vp.W, list: [] }, E: { reg: 0, vp: s.vp.E, list: [] } };
+  for (const id of REG_IDS) {
+    const c = ctrl(s, id);
+    if ((c === 'W' || c === 'E') && REG[id].val > 0) { out[c].reg += REG[id].val; out[c].list.push(id); }
+  }
+  out.W.total = out.W.reg + out.W.vp; out.E.total = out.E.reg + out.E.vp;
+  return out;
+}
+function finalScore(s) {
+  const sc = score(s);
+  let winner = sc.W.total > sc.E.total ? 'W' : sc.E.total > sc.W.total ? 'E' : null;
+  return { sc, winner, alt: s.alt, anchors: s.anchors };
+}
+
+/* ---------- fog-of-war view ---------- */
+function viewFor(s, side) {
+  const en = other(side);
+  const reg = {};
+  for (const id of REG_IDS) {
+    const c = ctrl(s, id);
+    const k = s.know[side][id];
+    reg[id] = {
+      mine: s.inf[id][side], control: c,
+      known: k ? { v: k.v, age: s.turn - k.t } : null,
+      guarded: !!s.guard[side][id],
+      neutral: s.neutral[id]
+    };
+  }
+  return { turn: s.turn, ap: s.ap[side], reg, doc: s.doc[side], enemyDoc: s.doc[en], vp: s.vp[side], alt: s.alt };
+}
+
+/* ---------- Berlin boss ---------- */
+const BROUNDS = [
+  { label: 'JUL 1948', cons: 9, cap: 2, note: 'Operation Vittles starts. Only a few C-47s are available.' },
+  { label: 'AUG-SEP 1948', cons: 9, cap: 3, note: 'Bigger C-54 Skymasters arrive. West Berliners rally in front of the Reichstag.' },
+  { label: 'OCT-NOV 1948', cons: 10, cap: 3, note: 'General Tunner reorganises the airlift: planes land every 3 minutes.' },
+  { label: 'DEC 1948-JAN 1949', cons: 13, cap: 4, note: 'Winter. Coal and fog. Berlin needs more than ever.' },
+  { label: 'FEB-MAR 1949', cons: 13, cap: 4, note: 'Quiet talks begin between Washington and Moscow.' },
+  { label: 'APR-MAY 1949', cons: 10, cap: 5, note: '"Easter Parade": 1,398 flights in one day.' }
+];
+const LANES = ['NORTH (Hamburg)', 'CENTRE (Hanover)', 'SOUTH (Frankfurt)'];
+const WCARDS = {
+  surge: { name: 'AIRLIFT SURGE', desc: '+1 capacity per plane this round. Tension +1.', uses: 3 },
+  candy: { name: 'CANDY DROP', desc: '+2 morale. Pilots drop sweets for the children.', uses: 2 },
+  force: { name: 'SHOW OF FORCE', desc: 'B-29 bombers fly to Britain. Harassment is weaker this round. Tension +1.', uses: 2 },
+  talks: { name: 'BACK-CHANNEL TALKS', desc: 'Tension -2. From round 4.', uses: 1 },
+  hold: { name: 'HOLD STEADY', desc: 'No special action.', uses: 99 }
+};
+const ECARDS = {
+  power: { name: 'CUT THE POWER', desc: 'Stock -1, morale -1.', uses: 3 },
+  riots: { name: 'STIRRED-UP RIOTS', desc: 'Morale -2. Tension +1.', uses: 2 },
+  split: { name: 'SPLIT THE CITY HALL', desc: 'Morale -2. From round 3.', uses: 1 },
+  hold: { name: 'WAIT AND SQUEEZE', desc: 'No special action.', uses: 99 }
+};
+function berlinInit(s) {
+  const w4 = s.doc.W >= 4, e4 = s.doc.E >= 4;
+  const g = s.inf.G.W;
+  const b = {
+    round: 0, stock: 11 + (w4 ? 2 : 0), morale: 5 + (w4 ? 2 : 0) + (g >= 4 ? 1 : 0), tension: 0,
+    flights: 4,
+    capBonus: 0,
+    harassMult: s.inf.E.E >= 4 ? 0.4 : 0.5,
+    wc: {}, ec: {}, hist: [], fog: [], done: false, outcome: null, last: null
+  };
+  for (const k in WCARDS) b.wc[k] = WCARDS[k].uses;
+  for (const k in ECARDS) b.ec[k] = ECARDS[k].uses + (e4 && k !== 'hold' ? 1 : 0);
+  b.fog = [];
+  for (let i = 0; i < BROUNDS.length; i++) b.fog.push(i === 3 || i === 4 ? ri(3) : (rnd() < 0.7 ? ri(3) : -1));
+  s.berlin = b; s.phase = 'berlin';
+  return b;
+}
+function berlinCanW(b, card) { if (card === 'talks' && b.round < 3) return false; return b.wc[card] > 0; }
+function berlinCanE(b, card) { if (card === 'split' && b.round < 2) return false; return b.ec[card] > 0; }
+function berlinResolve(s, wch, ech) {
+  const b = s.berlin, R = BROUNDS[b.round];
+  const wc = berlinCanW(b, wch.card) ? wch.card : 'hold';
+  const ecard = berlinCanE(b, ech.card) ? ech.card : 'hold';
+  const alloc = wch.alloc.slice();
+  // sanitise allocation: exactly `flights` planes
+  let sum = alloc.reduce((a, x) => a + x, 0);
+  while (sum > b.flights) { const i = alloc.indexOf(Math.max(...alloc)); alloc[i]--; sum--; }
+  while (sum < b.flights) { alloc[ri(3)]++; sum++; }
+  const lane = ech.lane;
+  b.wc[wc]--; b.ec[ecard]--;
+  const cap = R.cap + (wc === 'surge' ? 1 : 0);
+  const fog = b.fog[b.round];
+  const per = [0, 0, 0];
+  for (let c = 0; c < 3; c++) {
+    let m = 1;
+    if (c === lane) m *= wc === 'force' ? 0.75 : b.harassMult;
+    if (c === fog) m *= 0.75;
+    per[c] = Math.floor(alloc[c] * cap * m);
+  }
+  const delivered = per[0] + per[1] + per[2];
+  b.stock = Math.max(0, b.stock + delivered - R.cons - (ecard === 'power' ? 1 : 0));
+  let dm = 0;
+  if (b.stock <= 3) dm -= 2; else if (b.stock < R.cons) dm -= 1; else if (b.stock >= R.cons * 1.4) dm += 1;
+  if (ecard === 'power') dm -= 1;
+  if (ecard === 'riots') dm -= 2;
+  if (ecard === 'split') dm -= 2;
+  if (wc === 'candy') dm += 2;
+  b.morale = Math.max(0, Math.min(10, b.morale + dm));
+  let dt = 1; // harassment itself
+  if (wc === 'surge' || wc === 'force') dt++;
+  if (ecard === 'riots') dt++;
+  if (wc === 'talks') dt -= 3; // net -2 together with the +1
+  b.tension = Math.max(0, Math.min(10, b.tension + dt));
+  const rec = { round: b.round, label: R.label, alloc, lane, wc, ec: ecard, per, delivered, cons: R.cons, stock: b.stock, morale: b.morale, tension: b.tension, fog, cap, dm, dt };
+  b.hist.push(rec); b.last = rec;
+  b.round++;
+  if (b.stock <= 0 || b.morale <= 0) { b.done = true; b.outcome = 'E'; }
+  else if (b.tension >= 10) { b.done = true; b.outcome = 'scare'; }
+  else if (b.round >= BROUNDS.length) { b.done = true; b.outcome = 'W'; }
+  return rec;
+}
+function berlinFinish(s) {
+  const b = s.berlin; const o = b.outcome;
+  const a = ANCH.find((x) => x.special);
+  const rec = { id: a.id, turn: s.turn, core: a.core, title: a.title, date: a.date, real: a.real, alt: a.alt, expect: 'W' };
+  if (o === 'W') { s.inf.W.W = 5; s.inf.W.E = 0; rec.ok = true; rec.actual = 'W'; chron(s, 'History holds: the airlift saves West Berlin.'); }
+  else {
+    rec.ok = false; s.alt++;
+    if (o === 'E') { s.inf.W.W = 0; s.inf.W.E = 5; rec.actual = 'E'; rec.upset = 'E'; s.vp.E++; rec.alt = 'West Berlin falls. In reality the airlift succeeded and the blockade was lifted in May 1949.'; chron(s, 'TIMELINE DIVERGES: West Berlin falls.'); }
+    else { s.inf.W.W = 0; s.inf.W.E = 0; rec.actual = null; s.vp.W = Math.max(0, s.vp.W - 1); s.vp.E = Math.max(0, s.vp.E - 1); rec.alt = 'Tension reaches breaking point and both sides pull back to the brink. In reality neither side let it get close to war and the airlift simply worked.'; chron(s, 'TIMELINE DIVERGES: a war scare over Berlin.'); }
+  }
+  s.anchors.push(rec);
+  s.phase = 'acting';
+  return rec;
+}
+
+/* ---------- bots ---------- */
+function botBelief(s, side, id) {
+  const en = other(side);
+  const k = s.know[side][id];
+  if (k) return k.v + (s.turn - k.t) * 0.3;
+  // unknown: noisy guess around truth (what a decent analyst would estimate)
+  return Math.max(0, s.inf[id][en] + (ri(3) - 1));
+}
+function regionWant(s, side, id) {
+  // how much the bot wants this region
+  const r = REG[id], en = other(side);
+  const me = s.inf[id][side], they = botBelief(s, side, id);
+  if (s.neutral[id]) return -1;
+  let w = r.val;
+  const c = ctrl(s, id);
+  const ctrlMe = c === side;
+  if (ctrlMe && me - they >= 3) w *= 0.15; // safe
+  else if (ctrlMe) w *= 0.6;
+  if (me < 3 && they >= me + 2) w *= 0.5; // probably lost
+  if (me >= 2 && me <= 4 && Math.abs(me - they) <= 2) w *= 1.5; // contested & winnable
+  // upcoming anchors the bot cannot know about, but real players may: bots just play to win
+  return w + rnd() * 0.5;
+}
+function botTurn(s, side, level) {
+  level = level == null ? 1 : level;
+  const en = other(side);
+  const log = [];
+  const tryAct = (type, id) => { const r = act(s, side, type, id); if (r.ok) log.push(r); return r; };
+  // notes from enemy last phase are visible to bots too (they learned about hits/foils)
+  // 1) doctrine
+  for (let k = 0; k < 2 && doctrineReady(s, side) && s.ap[side] >= 2; k++) {
+    const d = nextDoctrine(s, side);
+    if (s.turn === d.avail || rnd() < 0.8) tryAct('doctrine'); else break;
+  }
+  // 1b) free coup
+  if (side === 'E' && s.freeCoupReady.E) {
+    const cands = REG_IDS.filter((id) => isTarget(id) && !s.neutral[id] && s.inf[id].E >= 2 && ctrl(s, id) !== 'E').sort((a, b) => regionWant(s, 'E', b) - regionWant(s, 'E', a));
+    if (cands.length) { const r = freeCoup(s, cands[0]); log.push(Object.assign({ ok: true, type: 'special', region: cands[0], cost: 0 }, r)); }
+    s.freeCoupReady.E = false;
+  }
+  // 2) loop spending AP
+  let guardCount = 0, safety = 20;
+  while (s.ap[side] > 0 && safety-- > 0) {
+    const ap = s.ap[side];
+    // free recon
+    if (s.freeRecon[side]) {
+      const c = REG_IDS.filter((id) => isTarget(id) && !s.neutral[id] && ctrl(s, id) !== en).sort((a, b) => regionWant(s, side, b) - regionWant(s, side, a));
+      if (c.length) { tryAct('recon', c[0]); continue; }
+      s.freeRecon[side] = false;
+    }
+    if (s.freeGuard[side] && !s.focus) {
+      const g = REG_IDS.filter((id) => isTarget(id) && !s.neutral[id] && s.inf[id][side] >= 2 && !s.guard[side][id]).sort((a, b) => REG[b].val * (s.curNotes[side].some((n) => n.region === b) ? 2 : 1) + rnd() - REG[a].val * (s.curNotes[side].some((n) => n.region === a) ? 2 : 1) - rnd());
+      if (g.length) { tryAct('guard', g[0]); guardCount++; continue; }
+      s.freeGuard[side] = false;
+    }
+    const options = [];
+    for (const id of REG_IDS) {
+      if (!isTarget(id) || s.neutral[id]) continue;
+      const want = regionWant(s, side, id);
+      const me = s.inf[id][side], they = botBelief(s, side, id);
+      if (canAct(s, side, 'spread', id) === null) {
+        let v = want * (me < 5 ? 1 : 0);
+        if (me + 1 >= 3 && me < 3) v *= 1.6; // crossing control threshold
+        if (they >= me + 2) v *= 0.7;
+        options.push({ type: 'spread', id, v: v / costOf(s, side, 'spread', id) });
+      }
+      if (ap >= 2 && canAct(s, side, 'subvert', id) === null) {
+        const like = Math.min(1, they / 2);
+        const k = s.know[side][id];
+        let v = want * like * 1.15 * (they >= 2 ? 1.2 : 0.7) * (ctrl(s, id) === en ? 1.3 : 1);
+        if (k && k.v === 0 && k.t >= s.turn - 1) v *= 0.1;
+        options.push({ type: 'subvert', id, v: v / 2 });
+      }
+      if (ap >= 3 && canAct(s, side, 'special', id) === null && !(ctrl(s, id) === side)) {
+        const v = want * 1.7 * Math.min(1, (they + 1) / 3);
+        options.push({ type: 'special', id, v: v / 3 });
+      }
+      if (canAct(s, side, 'guard', id) === null && guardCount < 2 && me >= 2) {
+        const threat = s.curNotes[side].some((n) => n.region === id) ? 1.5 : 0.4 + (s.dispReg[side].indexOf(id) >= 0 ? 0.8 : 0);
+        const v = REG[id].val * 0.45 * threat * (me >= 3 ? 1.2 : 0.9);
+        options.push({ type: 'guard', id, v });
+      }
+      if (canAct(s, side, 'recon', id) === null && level >= 1) {
+        const k = s.know[side][id];
+        const stale = !k ? 1 : Math.min(1, (s.turn - k.t) / 3);
+        const v = REG[id].val * 0.22 * stale * (ctrl(s, id) === en ? 0.5 : 1);
+        options.push({ type: 'recon', id, v });
+      }
+    }
+    if (!options.length) break;
+    options.sort((a, b) => b.v - a.v);
+    const top = options.slice(0, 3);
+    const choice = level >= 1 ? (rnd() < 0.7 ? top[0] : pick(top)) : pick(options);
+    const r = tryAct(choice.type, choice.id);
+    if (!r.ok) { s.ap[side]--; }
+    if (choice.type === 'guard') guardCount++;
+  }
+  return log;
+}
+
+/* Bot play for Berlin */
+function botBerlinW(s) {
+  const b = s.berlin;
+  const R = BROUNDS[b.round];
+  const w = [1, 1, 1];
+  const fog = b.fog[b.round];
+  if (fog >= 0) w[fog] *= 0.55;
+  // slight bias: East tends to repeat, so avoid last-harassed lane a bit
+  const last = b.hist[b.hist.length - 1];
+  if (last) w[last.lane] *= 0.8;
+  for (let i = 0; i < 3; i++) w[i] *= 0.6 + rnd() * 0.8;
+  const alloc = [0, 0, 0];
+  for (let k = 0; k < b.flights; k++) {
+    const tot = w[0] + w[1] + w[2]; let x = rnd() * tot, i = 0;
+    while (i < 2 && x > w[i]) { x -= w[i]; i++; }
+    alloc[i]++; w[i] *= 0.6;
+  }
+  let card = 'hold';
+  if (b.tension >= 7 && berlinCanW(b, 'talks')) card = 'talks';
+  else if (b.morale <= 4 && berlinCanW(b, 'candy')) card = 'candy';
+  else if (b.stock < R.cons && berlinCanW(b, 'surge')) card = 'surge';
+  else if (b.tension <= 4 && b.morale <= 6 && berlinCanW(b, 'candy') && rnd() < 0.5) card = 'candy';
+  else if (b.round >= 3 && berlinCanW(b, 'force') && rnd() < 0.3) card = 'force';
+  else if (berlinCanW(b, 'surge') && rnd() < 0.35) card = 'surge';
+  return { alloc, card };
+}
+function botBerlinE(s) {
+  const b = s.berlin;
+  const w = [1, 1, 1];
+  const last = b.hist[b.hist.length - 1];
+  if (last) for (let i = 0; i < 3; i++) w[i] += last.alloc[i] * 0.9;
+  const fog = b.fog[b.round];
+  if (fog >= 0) w[fog] *= 0.6;
+  for (let i = 0; i < 3; i++) w[i] *= 0.7 + rnd() * 0.6;
+  let lane = 0; for (let i = 1; i < 3; i++) if (w[i] > w[lane]) lane = i;
+  let card = 'hold';
+  if (b.round >= 2 && berlinCanE(b, 'split') && rnd() < 0.7) card = 'split';
+  else if (b.tension <= 6 && berlinCanE(b, 'riots') && b.morale <= 7 && rnd() < 0.5) card = 'riots';
+  else if (berlinCanE(b, 'power') && rnd() < 0.7) card = 'power';
+  return { lane, card };
+}
+
+/* ---------- helpers for the UI ---------- */
+function runBotRounds(s) { while (!s.berlin.done) berlinResolve(s, botBerlinW(s), botBerlinE(s)); }
+
+const API = {
+  seed, rnd, ri, pick, shuffle, other, SIDE, setMap, get MAP() { return MAP; }, get ADJ() { return ADJ; }, get TILES() { return TILES; },
+  REG, REG_IDS, FOCUS_SKIP, ladder, isTarget, SOURCES, DOC, TURNS, ANCH, BROUNDS, LANES, WCARDS, ECARDS,
+  newGame, ctrl, startTurn, endTurn, advance, act, canAct, costOf, inReach, hasPresence, nextDoctrine, doctrineReady, specialUnlocked, freeCoup,
+  genDispatches, prepDispatches, startSide, score, finalScore, viewFor, chron,
+  berlinInit, berlinResolve, berlinFinish, berlinCanW, berlinCanE, botBerlinW, botBerlinE, runBotRounds,
+  botTurn
+};
+if (typeof module !== 'undefined' && module.exports) module.exports = API; else root.Engine = API;
+})(typeof window !== 'undefined' ? window : globalThis);
+
+</script>
+<script>
+const MAP_ROWS = ["...............NNNNNNNNNNNFFFFFFSSSSSSSSSSSS", "...............NNNNNNNNNNNFFFFFFSSSSSSSSSSSS", "...............NNNNNNNNNNNFFFFFFSSSSSSSSSSSS", "...............NNNNNNNNN..FFFFFFSSSSSSSSSSSS", ".....BB........NNNNNNNNN..FFFFFFSSSSSSSSSSSS", "....BBBB.......NNNNNNNNN..FFFFFFSSSSSSSSSSSS", "....BBBB.......NNNNNNNNN..FFFFFFSSSSSSSSSSSS", "....BBBBB......NNNNNNNNN..FFFFFFSSSSSSSSSSSS", "BBB.BBBBB.........NNNNNN..FFFFFSSSSSSSSSSSSS", "BBB.BBBBB.......NNN.........SSSSSSSSSSSSSSSS", "BBB.BBBBB.......NN..........SSSSSSSSSSSSSSSS", "BBB..BBBB.LLLGGGGGEEEEEPPPPPPPPSSSSSSSSSSSSS", ".....BBBB.LLLGGGGGEEWWEPPPPPPPPSSSSSSSSSSSSS", "..........LLLGGGGGEEWWEPPPPPPPPSSSSSSSSSSSSS", "......RRRRRRRGGGGGEEEEEPPPPPPPPSSSSSSSSSSSSS", "......RRRRRRRzzzGGGGCCCCCCCCCCCSSSSSSSSSSSSS", "......RRRRRRRzzzGGGGCCCCCCCCCCCSSSSSSSSSSSSS", ".....RRRRRRRRzzz...AAAAAAHHHHHHOOOOOOOSSSSSS", ".....RRRRRRRRRTTTTTAAAAAAHHHHHHOOOOOOOSSSSSS", ".....RRRRRRRRRTTTTTTTYYYYYYYYYYOOOOOOO......", ".....RRRRRRRRR.TTTTT.YYYYYYYYYYOOOOOOO......", ".....RRRRRRRRR.TTTTT.YYYYYYYYYYUUUUUUU......", "..XXXXXXXX.....TTTTT..YYYYYYYY.UUUUUUU......", "XXXXXXXXXXX....TTTTT..YYYYYYYY.UUUUUUU......", "XXXXXXXXXXX.......TTTT.YYYDDDDDKKKKKKKKKKKKK", "XXXXXXXXXXX.......TTTT.YYYDDDDDKKKKKKKKKKKKK", "XXXXXXXXXXX.......TTTT....DDDDDKKKKKKKKKKKKK", "XXXXXXXXXXX........TTT...DDDDD.KKKKKKKKKKKKK", "...XXXXXXX......TT.TTT...DDDDD..............", "...XXXXX........TT........DD................"];
+</script>
+<script>
+/* ---------------- story scenes (cut scenes between turns) ---------------- */
+const SC = (() => {
+  const W = 192, H = 108;
+  const px = (g, c, x, y, w, h) => { g.fillStyle = c; g.fillRect(Math.round(x), Math.round(y), w, h); };
+  const sin = Math.sin;
+  const lbl = (g, s, x, y, c, al) => { g.font = '8px "Pixelify Sans", monospace'; g.textAlign = al || 'center'; g.fillStyle = '#000'; g.fillText(s, x + 1, y + 1); g.fillStyle = c || '#fff'; g.fillText(s, x, y); };
+  const bands = (g, cols, y0, y1) => { const h = (y1 - y0) / cols.length; cols.forEach((c, i) => px(g, c, 0, y0 + i * h, W, Math.ceil(h) + 1)); };
+  const night = (g, t) => { bands(g, ['#060a20', '#0a1130', '#0e1a44', '#14235a'], 0, 80); for (let i = 0; i < 26; i++) if ((Math.floor(t * 2) + i) % 5) px(g, '#fff', (i * 53) % W, (i * 29) % 46, 1, 1); };
+  const day = (g) => bands(g, ['#2c4f95', '#4272bd', '#6a98d6', '#9cbde6'], 0, 80);
+  const dusk = (g) => bands(g, ['#2b1f4f', '#5a2f63', '#a04a62', '#e08a5a'], 0, 80);
+  const ground = (g, y, c, c2) => { px(g, c, 0, y, W, H - y); if (c2) for (let x = 0; x < W; x += 6) px(g, c2, x, y, 3, 1); };
+  const smoke = (g, x, y, t, n) => { for (let i = 0; i < (n || 5); i++) { const k = (t * 14 + i * 9) % 46; px(g, 'rgba(120,120,140,' + (0.55 - k / 90).toFixed(2) + ')', x + sin(k / 5 + i) * 4, y - k, 3 + (k / 12) | 0, 3); } };
+  const person = (g, x, y, suit, o) => {
+    o = o || {}; const skin = '#e6b48a', t = o.t || 0;
+    px(g, '#14141f', x - 3, y - 3, 2, 3); px(g, '#14141f', x + 1, y - 3, 2, 3);
+    px(g, o.pants || '#222638', x - 3, y - 6, 6, 3);
+    px(g, suit, x - 3, y - 12, 6, 7);
+    const ay = o.wave ? y - 15 - (sin(t * 8) > 0 ? 1 : 0) : y - 10;
+    px(g, suit, x - 5, y - 11, 2, 5); px(g, suit, x + 3, ay, 2, o.wave ? 5 : 5);
+    px(g, skin, x - 2, y - 16, 4, 4);
+    if (o.hair) px(g, o.hair, x - 2, y - 17, 4, 2);
+    if (o.stache) px(g, '#1d1a18', x - 1, y - 13, 3, 1);
+    if (o.glasses) px(g, '#0a0a12', x - 2, y - 15, 4, 1);
+    if (o.tie) px(g, o.tie, x, y - 12, 1, 4);
+    if (o.hat) { px(g, o.hat, x - 4, y - 17, 8, 1); px(g, o.hat, x - 2, y - 20, 4, 3); }
+    if (o.cigar) px(g, '#ddd', x + 2, y - 13, 3, 1);
+  };
+  const pod = (g, x, y, c) => { px(g, c || '#5b3b21', x - 6, y - 8, 12, 8); px(g, '#7d5430', x - 7, y - 9, 14, 2); };
+  const flag = (g, x, y, c1, c2, t, h) => { px(g, '#ccc', x, y - 16, 1, 17); const w = 8; for (let i = 0; i < w; i++) px(g, i < w / 2 && c2 ? c2 : c1, x + 1 + i, y - 16 + Math.round(sin(t * 5 + i * .7) * 1), 1, h || 5); };
+  const crowd = (g, y, n, t, cols, x0, x1) => { for (let i = 0; i < n; i++) { const x = x0 + (x1 - x0) * i / n, b = sin(t * 3 + i) > 0.6 ? 1 : 0; px(g, cols[i % cols.length], x, y + (i % 2) * 5 - b, 5, 6); px(g, '#e6b48a', x + 1, y + (i % 2) * 5 - 4 - b, 3, 3); } };
+  const building = (g, x, y, w, h, c, win, t) => { px(g, c, x, y - h, w, h); for (let j = 3; j < h - 3; j += 6) for (let i = 3; i < w - 3; i += 6) px(g, win && ((i * 7 + j * 3 + (t ? Math.floor(t * 2) : 0)) % 5) ? win : '#0008', x + i, y - h + j, 3, 3); };
+  const ruinsBg = (g, t) => { const hs = [22, 34, 16, 40, 28, 18, 36, 24, 30, 14]; hs.forEach((h, i) => { building(g, i * 20 - 4, 80, 18, h, '#2a2c3c', null); px(g, '#1a1c2a', i * 20 - 4 + (i % 3) * 5, 80 - h, 8, 4 + i % 3); }); smoke(g, 40, 56, t, 5); smoke(g, 130, 52, t + 1, 5); };
+  const table = (g, x, y, w) => { px(g, '#6b4423', x - w / 2, y, w, 5); px(g, '#4a2e16', x - w / 2 + 3, y + 5, 3, 7); px(g, '#4a2e16', x + w / 2 - 6, y + 5, 3, 7); };
+  const paper = (g, x, y, w, h, t, lines) => { px(g, '#f2ecd2', x, y, w, h); for (let j = 3; j < h - 2; j += 3) if (!lines || j / 3 < lines) px(g, '#555', x + 2, y + j, Math.max(2, w - 4 - ((j * 7) % 6)), 1); };
+  const plane = (g, x, y, c) => { px(g, c, x - 6, y, 12, 3); px(g, c, x - 2, y - 3, 4, 9); px(g, c, x + 5, y - 2, 3, 2); px(g, '#fff6', x - 3, y + 1, 3, 1); };
+  const ship = (g, x, y, c, t) => { const yy = y + sin(t * 2 + x) * 1; px(g, '#2a2a36', x - 12, yy, 24, 5); px(g, c, x - 8, yy - 4, 14, 4); px(g, '#c9a23a', x - 5, yy - 7, 4, 3); px(g, '#8a6a30', x + 1, yy - 7, 4, 3); px(g, '#ccc', x + 7, yy - 8, 1, 4); };
+  const sea = (g, y, t) => { px(g, '#12306a', 0, y, W, H - y); for (let i = 0; i < 30; i++) px(g, '#2a58a8', (i * 37 + t * 12) % W, y + 4 + (i * 11) % (H - y - 6), 5, 1); };
+  const coin = (g, x, y) => { px(g, '#ffd54a', x, y, 5, 5); px(g, '#fff3b0', x + 1, y + 1, 1, 3); };
+  const FIG = { // reusable characters
+    truman: (g, x, y, t, o) => person(g, x, y, '#33407a', Object.assign({ hair: '#8b8b8b', glasses: 1, tie: '#c33', t }, o)),
+    stalin: (g, x, y, t, o) => person(g, x, y, '#6d6c3d', Object.assign({ hair: '#2a2a2a', stache: 1, t }, o)),
+    churchill: (g, x, y, t, o) => person(g, x, y, '#2a2a30', Object.assign({ hat: '#151515', cigar: 1, tie: '#fff', t }, o)),
+    attlee: (g, x, y, t, o) => person(g, x, y, '#565a66', Object.assign({ hair: '#999', glasses: 1, t }, o)),
+    kennan: (g, x, y, t, o) => person(g, x, y, '#2a2f44', Object.assign({ hair: '#6a5a40', glasses: 1, tie: '#999', t }, o)),
+    marshall: (g, x, y, t, o) => person(g, x, y, '#5a6b3a', Object.assign({ hair: '#ddd', t }, o)),
+    zhdanov: (g, x, y, t, o) => person(g, x, y, '#4a4038', Object.assign({ hair: '#222', glasses: 1, t }, o)),
+    molotov: (g, x, y, t, o) => person(g, x, y, '#2e2e38', Object.assign({ hat: '#222', glasses: 1, t }, o)),
+    suit: (g, x, y, t, o) => person(g, x, y, '#3a3a52', Object.assign({ hair: '#432', t }, o)),
+    mil: (g, x, y, t, o) => person(g, x, y, '#667a4a', Object.assign({ hat: '#556a3a', t }, o))
+  };
+  const WC = '#3f78e8', EC = '#d93a48';
+  const eur = (g, t, split) => { // little Europe silhouette
+    const pts = [[40, 40, 110, 52], [60, 28, 80, 14], [110, 20, 50, 40], [50, 62, 40, 24], [100, 60, 60, 30]];
+    pts.forEach((p) => px(g, '#33406a', p[0], p[1], p[2], p[3]));
+    if (split) { px(g, WC + 'aa', 40, 20, split, 80); px(g, EC + 'aa', 40 + split, 20, 150 - split, 80); }
+  };
+
+  const S = [];
+  /* 0 POTSDAM */
+  S.push({ date: 'JULY 1945 · POTSDAM', beats: [
+    { who: 'NARRATOR', text: 'Berlin, July 1945. Germany has surrendered and its capital is rubble. The leaders of the three winning powers meet nearby, in Potsdam, to decide what happens next.', d: (g, t) => { dusk(g); ground(g, 80, '#1c1b24'); ruinsBg(g, t); lbl(g, 'BERLIN · JULY 1945', 96, 100, '#ffd54a'); } },
+    { who: 'THE BIG THREE', text: 'TRUMAN (USA) is new: Roosevelt died in April. STALIN (USSR) commands the biggest army in Europe. CHURCHILL (Britain) loses an election halfway through, and ATTLEE takes his seat.', d: (g, t) => {
+      px(g, '#2a1d12', 0, 0, W, H); bands(g, ['#33261a', '#3b2c1e', '#44331f'], 0, 66); ground(g, 66, '#5a4228');
+      table(g, 96, 62, 90);
+      FIG.truman(g, 62, 62, t); FIG.stalin(g, 130, 62, t);
+      if (t < 3) { FIG.churchill(g, 96, 56, t); lbl(g, 'CHURCHILL', 96, 32, '#e0e0ff'); } else { FIG.attlee(g, 96, 56, t); lbl(g, 'ATTLEE', 96, 32, '#e0e0ff'); }
+      lbl(g, 'TRUMAN', 62, 42, '#7fb0ff'); lbl(g, 'STALIN', 130, 42, '#ff8f8f');
+      flag(g, 20, 66, '#3f78e8', '#fff', t); flag(g, 172, 66, '#d93a48', '#ffd54a', t);
+    } },
+    { who: 'NARRATOR', text: 'They agree to split Germany into four zones, and Berlin too. But the Grand Alliance was held together by a common enemy, and that enemy is gone. Who now gets to decide the future of Europe?', d: (g, t) => {
+      bands(g, ['#0a1130', '#0e1a44'], 0, H);
+      px(g, '#2c3358', 40, 12, 112, 84);
+      const z = [['US', 40, 54, WC], ['UK', 40, 12, '#8aa8e8'], ['FR', 40, 54, '#6e7ecb'], ['USSR', 96, 12, EC]];
+      px(g, '#3f78e8', 40, 54, 56, 42); px(g, '#8aa8e8', 40, 12, 56, 42); px(g, '#6e7ecb', 40, 54, 20, 42); px(g, '#d93a48', 96, 12, 56, 84);
+      const k = Math.min(1, t / 1.5); px(g, '#fff', 96 - 1, 12, 2, 84 * k); px(g, '#fff', 40, 54 - 1, 112 * k, 2);
+      lbl(g, 'USSR', 124, 56, '#fff'); lbl(g, 'UK', 68, 36, '#fff'); lbl(g, 'USA', 78, 78, '#fff'); lbl(g, 'FRA', 50, 94, '#fff', 'left');
+      if (t > 1.2) { px(g, '#ffd54a', 94, 52, 5, 5); lbl(g, 'BERLIN', 96, 50, '#ffd54a', 'center'); }
+    } }
+  ] });
+  /* 1 LONG TELEGRAM + IRON CURTAIN */
+  S.push({ date: 'FEB-MAR 1946 · MOSCOW AND MISSOURI', beats: [
+    { who: 'GEORGE KENNAN', text: 'Moscow, 22 February 1946. Washington asks a US diplomat, George Kennan, why Stalin is acting so hostile. He replies with a telegram of about 5,000 words. People call it the Long Telegram.', d: (g, t) => {
+      night(g, t); building(g, 100, 80, 80, 54, '#1f2547', '#ffd54a', 0); building(g, 10, 80, 60, 38, '#1a2040', '#ffd54a', 0); ground(g, 80, '#0e1228', '#16193a');
+      px(g, '#111833', 0, 0, 0, 0);
+      // desk + Kennan
+      px(g, '#5a3a20', 40, 70, 70, 4); px(g, '#3a2410', 44, 74, 3, 12); px(g, '#3a2410', 102, 74, 3, 12);
+      FIG.kennan(g, 62, 70, t); px(g, '#333', 66, 66, 12, 5); px(g, '#999', 67, 65, 10, 1);
+      const L = Math.min(8, Math.floor(t * 2)); paper(g, 70, 44 - L, 12, 18 + L, t, 3 + L); lbl(g, 'MOSCOW', 150, 100, '#ffd54a');
+    } },
+    { who: 'THE LONG TELEGRAM', text: 'His message: the Soviet Union sees the West as an enemy, and will keep pushing communism outward as far as it can. The answer is not to give in, but to contain it firmly wherever it pushes. Washington listens.', d: (g, t) => {
+      day(g); sea(g, 60, t); const x = 170 - Math.min(1, t / 3.2) * 150;
+      lbl(g, 'MOSCOW', 168, 40, '#ff8f8f'); lbl(g, 'WASHINGTON', 24, 40, '#7fb0ff');
+      px(g, '#f2ecd2', x - 8, 28 + sin(t * 6) * 2, 16, 10); px(g, '#c33', x - 1, 31 + sin(t * 6) * 2, 3, 3);
+      lbl(g, 'TOP SECRET', x, 22 + sin(t * 6) * 2, '#fff');
+      if (t > 3.2) { lbl(g, 'CONTAINMENT', 96, 90, '#ffd54a'); }
+    } },
+    { who: 'WINSTON CHURCHILL', text: 'Fulton, Missouri, 5 March 1946. Churchill is no longer Prime Minister, but the world still listens. President Truman sits on the platform behind him.', d: (g, t) => {
+      day(g); ground(g, 78, '#496b3a', '#5a804a'); building(g, 120, 78, 56, 40, '#c9c1a4', '#3a3a50', 0); px(g, '#b0a888', 140, 28, 16, 10);
+      crowd(g, 84, 22, t, ['#334', '#533', '#353', '#553'], 6, 180);
+      px(g, '#6b4423', 20, 70, 100, 8); FIG.truman(g, 34, 70, t); pod(g, 76, 70); FIG.churchill(g, 76, 62, t, { wave: t > 1.5 });
+      flag(g, 112, 70, '#3f78e8', '#fff', t); lbl(g, 'FULTON · MISSOURI', 96, 104, '#ffd54a');
+    } },
+    { who: 'WINSTON CHURCHILL', text: 'He says an "iron curtain" has come down across Europe, from Stettin on the Baltic Sea in the north to Trieste on the Adriatic Sea in the south. Stalin calls Churchill a warmonger. The two sides now talk in terms of two camps.', d: (g, t) => {
+      bands(g, ['#0a1130', '#0e1a44'], 0, H); eur(g, t, 0);
+      const k = Math.min(1, t / 2.5); const x = 96 + sin(t * 2) * 1;
+      px(g, WC + '88', 30, 14, 66, 82); px(g, EC + '88', 96, 14, 66, 82);
+      for (let y = 10; y < 10 + 90 * k; y += 3) { px(g, '#d93a48', x - 2, y, 4, 3); px(g, '#8a1a28', x - 2, y, 1, 3); }
+      px(g, '#ccc', 60, 8, 72, 2); lbl(g, 'STETTIN', 98, 22, '#fff', 'left'); lbl(g, 'TRIESTE', 98, 96, '#fff', 'left'); lbl(g, 'WEST', 62, 56, '#cfe0ff'); lbl(g, 'EAST', 130, 56, '#ffd0d0');
+    } }
+  ] });
+  /* 2 TRUMAN DOCTRINE */
+  S.push({ date: 'FEB-MAR 1947 · LONDON AND WASHINGTON', beats: [
+    { who: 'NARRATOR', text: 'London, February 1947. Britain is nearly bankrupt after the war, and the winter is freezing. It tells the USA that it can no longer pay to support Greece, where the government is fighting communist guerrillas.', d: (g, t) => {
+      bands(g, ['#2b3550', '#3a4666', '#4a5880'], 0, 78); ground(g, 78, '#cfd6e6', '#fff');
+      building(g, 20, 78, 50, 46, '#4a3a38', '#ffd54a', 0); building(g, 100, 78, 60, 56, '#55423c', '#ffd54a', 0);
+      for (let i = 0; i < 40; i++) px(g, '#fff', (i * 41 + t * 25) % W, (i * 17 + t * 40) % 80, 1, 1);
+      FIG.suit(g, 80, 96, t, { hat: '#222' }); px(g, '#111', 76, 88, 2, 2); px(g, '#111', 82, 88, 2, 2); lbl(g, 'EMPTY POCKETS', 96, 104, '#ffd54a');
+      flag(g, 150, 100, '#c33', '#fff', t);
+    } },
+    { who: 'PRESIDENT TRUMAN', text: 'Washington, 12 March 1947. Truman asks Congress for $400 million to help Greece and Turkey. He says the USA must support free peoples who are resisting takeover by armed groups or outside pressure. This is the Truman Doctrine, and it ends American isolationism.', d: (g, t) => {
+      bands(g, ['#2c4f95', '#4272bd', '#6a98d6'], 0, 70); ground(g, 70, '#7c7a70');
+      px(g, '#e8e4d8', 70, 30, 52, 40); px(g, '#e8e4d8', 82, 20, 28, 12); px(g, '#e8e4d8', 90, 12, 12, 8); px(g, '#d0ccc0', 90, 8, 12, 4);
+      for (let i = 0; i < 7; i++) px(g, '#c8c4b4', 74 + i * 7, 36, 3, 34);
+      crowd(g, 76, 20, t, ['#223', '#323', '#332', '#233'], 10, 180);
+      pod(g, 40, 86, '#6b4423'); FIG.truman(g, 40, 80, t, { wave: t > 1 });
+      lbl(g, '$400,000,000', 150, 20, '#ffd54a'); if (t > 1.5) for (let i = 0; i < 5; i++) coin(g, 120 + i * 10, 30 + ((t * 20 + i * 7) % 24));
+    } },
+    { who: 'NARRATOR', text: 'The doctrine is containment in action: help any country the USSR might pull in. Greece and Turkey receive the aid first. Stalin reads it as the USA pushing into his half of Europe.', d: (g, t) => {
+      bands(g, ['#0a1130', '#0e1a44'], 0, H); eur(g, t, 0);
+      px(g, '#5a6070', 40, 40, 110, 52); const gp = Math.min(1, t / 1.2);
+      px(g, WC, 70, 78, 12, 10); px(g, WC, 100, 70, 22, 8); lbl(g, 'GREECE', 74, 100, '#cfe0ff'); lbl(g, 'TURKEY', 112, 66, '#cfe0ff');
+      for (let i = 0; i < 4; i++) { const x = 20 + (70 - 20) * ((t * .6 + i * .25) % 1); coin(g, x, 24 + (78 - 24) * ((t * .6 + i * .25) % 1)); }
+      flag(g, 20, 40, WC, '#fff', t); lbl(g, 'USA', 20, 46, '#fff');
+    } }
+  ] });
+  /* 3 MARSHALL PLAN */
+  S.push({ date: 'JUN-JUL 1947 · HARVARD AND PARIS', beats: [
+    { who: 'GEORGE MARSHALL', text: 'Harvard University, 5 June 1947. Secretary of State George Marshall gives a short speech with a huge offer: the USA will help Europe rebuild its economies. America believes that hunger and poverty help communism spread.', d: (g, t) => {
+      day(g); ground(g, 74, '#4f7a3c', '#5e8f4a'); building(g, 120, 74, 64, 44, '#8a3a30', '#e8dcb0', 0); px(g, '#e8dcb0', 148, 18, 8, 12);
+      crowd(g, 80, 22, t, ['#111', '#222', '#1a1a2a'], 6, 150); for (let i = 0; i < 22; i++) px(g, '#111', 6 + i * 6.5, 77 + (i % 2) * 5, 5, 1);
+      pod(g, 80, 74, '#6b4423'); FIG.marshall(g, 80, 66, t, { wave: t > 1 });
+    } },
+    { who: 'THE MARSHALL PLAN', text: 'Over the next years Western Europe receives about $13.7 billion. Britain gets the biggest share. The money also buys American goods, so it helps the US economy too.', d: (g, t) => {
+      day(g); sea(g, 56, t); const xs = [(t * 14) % 230 - 20, (t * 14 + 70) % 230 - 20, (t * 14 + 140) % 230 - 20];
+      xs.forEach((x, i) => ship(g, x, 50 + i * 12, WC, t)); lbl(g, 'USA', 14, 20, '#fff'); lbl(g, 'EUROPE', 176, 20, '#fff');
+      const n = Math.min(13.7, t * 5); lbl(g, '$' + n.toFixed(1) + ' BILLION', 96, 102, '#ffd54a');
+    } },
+    { who: 'MOLOTOV', text: 'Paris, July 1947. The USSR walks out of the talks about the plan. Stalin makes Poland and Czechoslovakia say no too. Moscow calls it "dollar imperialism", a way for the USA to buy control of Europe.', d: (g, t) => {
+      bands(g, ['#33261a', '#3b2c1e', '#44331f'], 0, 66); ground(g, 66, '#5a4228'); table(g, 96, 60, 100);
+      FIG.suit(g, 50, 60, t); FIG.suit(g, 80, 60, t, { hair: '#222' }); FIG.suit(g, 150, 60, t, { hair: '#555' });
+      const mx = 112 + Math.max(0, t - 1) * 30; FIG.molotov(g, mx, 60, t, { wave: t < 1 }); if (t > 1.5) lbl(g, 'NYET!', mx, 36, '#ff8f8f');
+      flag(g, 20, 66, WC, '#fff', t); flag(g, 172, 66, EC, '#ffd54a', t);
+    } }
+  ] });
+  /* 4 COMINFORM */
+  S.push({ date: 'SEPTEMBER 1947 · POLAND', beats: [
+    { who: 'NARRATOR', text: 'Szklarska Poręba, Poland, September 1947. Communist parties from across Eastern Europe, plus France and Italy, meet in secret. Moscow wants every communist party to follow one line.', d: (g, t) => {
+      bands(g, ['#2a0a12', '#3a0f1a', '#4a1422'], 0, 70); ground(g, 70, '#2a1a14');
+      px(g, '#d93a48', 20, 8, 152, 14); lbl(g, 'WORKERS OF THE WORLD, UNITE', 96, 19, '#ffd54a');
+      crowd(g, 74, 24, t, ['#222', '#332', '#223', '#233'], 8, 180);
+      px(g, '#6b4423', 70, 54, 52, 6); FIG.suit(g, 80, 54, t); FIG.suit(g, 112, 54, t, { hair: '#aaa' });
+    } },
+    { who: 'ANDREI ZHDANOV', text: 'Andrei Zhdanov, a top Soviet leader, says the world is now in two camps: an imperialist camp led by the USA, and an anti-imperialist camp led by the USSR. The new group is called Cominform. Its job is to keep communist parties loyal to Moscow.', d: (g, t) => {
+      bands(g, ['#2a0a12', '#3a0f1a'], 0, 60); ground(g, 60, '#2a1a14');
+      pod(g, 60, 64, '#6b4423'); FIG.zhdanov(g, 60, 56, t, { wave: true });
+      const k = Math.min(1, t / 2); px(g, WC, 110, 14, 70 * k, 30); px(g, EC, 110, 50, 70 * k, 30);
+      lbl(g, 'USA CAMP', 145, 32, '#fff'); lbl(g, 'USSR CAMP', 145, 68, '#fff'); lbl(g, 'COMINFORM', 60, 100, '#ffd54a');
+    } }
+  ] });
+  /* 5 PRAGUE (bonus) */
+  S.push({ date: 'FEB-MAR 1948 · PRAGUE', beats: [
+    { who: 'NARRATOR', text: 'Prague, February 1948. Czechoslovakia is the one eastern country with a real multi-party democracy. Non-communist ministers resign, hoping to force a new election.', d: (g, t) => {
+      dusk(g); ground(g, 82, '#2a2230', '#3a3045');
+      [[10, 50], [40, 66], [72, 44], [110, 70], [150, 54]].forEach((b, i) => { building(g, b[0], 82, 28, b[1], '#4a3a4c', '#ffd54a', t); px(g, '#4a3a4c', b[0] + 11, 82 - b[1] - 8, 6, 8); });
+      crowd(g, 88, 24, t, ['#222', '#332', '#223'], 8, 180);
+    } },
+    { who: 'NARRATOR', text: 'The communists, backed by armed workers\' militias and pressure from Moscow, take over the government instead. In March the foreign minister, Jan Masaryk, is found dead below his window. How he died is still argued about. The West is shocked and moves closer together.', d: (g, t) => {
+      night(g, t); ground(g, 82, '#1a1624', '#2a2234');
+      building(g, 60, 82, 60, 66, '#3a2c3c', '#ffd54a', 0); px(g, '#d93a48', 90, 22, 1, 0);
+      for (let i = 0; i < 6; i++) { person(g, 20 + i * 8 + ((t * 10) % 8), 100, '#6b2a2a', { t }); px(g, '#111', 20 + i * 8 + ((t * 10) % 8) + 3, 90, 1, 8); }
+      flag(g, 150, 82, EC, '#d93a48', t); lbl(g, 'FEBRUARY 1948', 96, 14, '#ff8f8f');
+    } }
+  ] });
+  /* 6 ITALY (bonus) */
+  S.push({ date: 'APRIL 1948 · ITALY', beats: [
+    { who: 'NARRATOR', text: 'Italy, 18 April 1948. Italians vote on whether the communists will get into government. The USA warns of cuts to Marshall aid if they win, and secretly backs the other side. The Christian Democrats win about 48% of the vote. The biggest communist party in Western Europe is stopped at the ballot box.', d: (g, t) => {
+      day(g); ground(g, 76, '#b8a070', '#c8b080'); building(g, 10, 76, 40, 34, '#c88a60', '#3a3a50', 0); building(g, 140, 76, 44, 40, '#d0a070', '#3a3a50', 0);
+      px(g, '#4a4a58', 74, 50, 44, 34); px(g, '#222', 84, 56, 24, 3); for (let i = 0; i < 4; i++) paper(g, 88 + i * 3, ((t * 24 + i * 9) % 20) + 32, 6, 8, 0, 2);
+      lbl(g, 'VOTE', 96, 72, '#fff');
+      const k = Math.min(1, t / 2.5); px(g, '#3f78e8', 40, 92, 48 * k, 6); px(g, EC, 40, 100, 31 * k, 6); lbl(g, '48%', 36, 98, '#fff', 'right'); lbl(g, '31%', 36, 106, '#fff', 'right');
+    } }
+  ] });
+  /* 7 BERLIN (bonus) */
+  S.push({ date: 'JUN 1948 · BERLIN', beats: [
+    { who: 'NARRATOR', text: '20 June 1948. The Western zones of Germany get a new currency, the Deutsche Mark. Stalin sees it as the West building a separate West Germany.', d: (g, t) => {
+      bands(g, ['#33261a', '#3b2c1e'], 0, 70); ground(g, 70, '#5a4228'); table(g, 96, 58, 60);
+      for (let i = 0; i < 6; i++) { px(g, '#7fc47f', 70 + i * 10, 54 - (t * 8 + i * 3) % 6, 8, 4); px(g, '#2a5a2a', 72 + i * 10, 55 - (t * 8 + i * 3) % 6, 4, 2); }
+      lbl(g, 'DEUTSCHE MARK', 96, 30, '#ffd54a'); FIG.suit(g, 50, 70, t); FIG.suit(g, 142, 70, t, { hair: '#aaa' });
+    } },
+    { who: 'NARRATOR', text: 'On 24 June the USSR closes every road, rail line and canal into West Berlin. About two million people could run out of food and coal. Does the West give up Berlin, or find another way in?', d: (g, t) => {
+      day(g); ground(g, 70, '#496b3a', '#5a804a'); px(g, '#555', 0, 76, W, 10); for (let x = 0; x < W; x += 12) px(g, '#ddd', x, 80, 6, 1);
+      for (let i = 0; i < 8; i++) { px(g, i % 2 ? '#fff' : '#d93a48', 120 + i * 3, 66, 3, 14); }
+      px(g, '#ccc', 118, 64, 1, 18); px(g, '#ccc', 143, 64, 1, 18); FIG.mil(g, 156, 90, t); FIG.mil(g, 170, 90, t);
+      const x = 10 + (t * 30) % 100; px(g, '#6a7a8a', x, 82, 14, 5); px(g, '#8a9aaa', x + 2, 80, 6, 3); lbl(g, 'ROAD CLOSED', 132, 54, '#ff8f8f');
+    } },
+    { who: 'NARRATOR', text: 'The West chooses the air. Planes land at Berlin every few minutes, day and night, for almost a year. In the next stage, you will fight over the air corridors yourself.', d: (g, t) => {
+      night(g, t); ground(g, 90, '#10261a', '#17331f'); px(g, '#334', 0, 92, W, 3); for (let x = 0; x < W; x += 10) px(g, '#ffd54a', x, 93, 3, 1);
+      for (let i = 0; i < 4; i++) { const x = ((t * 28 + i * 52) % 250) - 30; plane(g, x, 20 + i * 14, '#9fb4d8'); }
+      lbl(g, 'BERLIN AIRLIFT', 96, 14, '#ffd54a');
+    } }
+  ] });
+  /* 8 NATO + COMECON */
+  S.push({ date: 'JAN-MAY 1949 · MOSCOW AND WASHINGTON', beats: [
+    { who: 'NARRATOR', text: 'Moscow, January 1949. The USSR sets up Comecon, an economic club for its eastern bloc. It is the Soviet answer to the Marshall Plan.', d: (g, t) => {
+      bands(g, ['#2a0a12', '#3a0f1a', '#4a1422'], 0, 66); ground(g, 66, '#2a1a14'); table(g, 96, 58, 110);
+      [-45, -22, 0, 22, 45].forEach((dx, i) => { FIG.suit(g, 96 + dx, 58, t, { hair: i % 2 ? '#333' : '#777' }); flag(g, 96 + dx + 6, 40, EC, i % 2 ? '#ffd54a' : '#fff', t, 4); });
+      lbl(g, 'COMECON', 96, 100, '#ffd54a');
+    } },
+    { who: 'NARRATOR', text: 'Washington, 4 April 1949. Twelve countries sign the North Atlantic Treaty and form NATO: an attack on one is an attack on all. In real history the Berlin Blockade ends on 12 May, and West Germany is founded on 23 May.', d: (g, t) => {
+      bands(g, ['#2c4f95', '#4272bd', '#6a98d6'], 0, 66); ground(g, 66, '#7c7a70'); table(g, 96, 58, 130);
+      for (let i = 0; i < 12; i++) { const x = 40 + i * 10.5; FIG.suit(g, x, 58, t, { hair: i % 3 ? '#432' : '#999' }); flag(g, x + 3, 34, i % 2 ? WC : '#c33', '#fff', t, 3); }
+      lbl(g, 'NATO', 96, 100, '#ffd54a');
+    } }
+  ] });
+  /* 9 TWO CAMPS */
+  S.push({ date: 'AUG-OCT 1949 · TWO CAMPS', beats: [
+    { who: 'NARRATOR', text: '29 August 1949. The USSR tests its first atomic bomb in Kazakhstan. The USA no longer has a nuclear monopoly. Both superpowers can now threaten each other.', d: (g, t) => {
+      dusk(g); ground(g, 84, '#6a5a38', '#7a6a48'); const k = Math.min(1, t / 3);
+      px(g, '#ffb040', 90 - 5 * k, 84 - 40 * k, 10 * k + 2, 40 * k); for (let i = 0; i < 9; i++) px(g, i % 2 ? '#ff7a30' : '#ffd070', 96 - (16 * k) + i * 4 * k, 84 - 40 * k - 4 * k + (i % 3), 5 * k + 1, 6 * k);
+      if (t > 3.2) lbl(g, 'RDS-1', 96, 104, '#ffd54a');
+    } },
+    { who: 'NARRATOR', text: 'In October East Germany is founded, five months after West Germany. Europe now has two camps and two Germanies. Neither superpower has won, and the Cold War has only just begun. Now see how your Europe compares.', d: (g, t) => {
+      bands(g, ['#0a1130', '#0e1a44'], 0, H); eur(g, t, 0); px(g, WC + '99', 30, 14, 66, 82); px(g, EC + '99', 96, 14, 66, 82);
+      const jag = Math.min(1, t / 2); for (let y = 10; y < 10 + 90 * jag; y += 3) px(g, '#d93a48', 94 + ((y / 3) % 2), y, 4, 3);
+      lbl(g, 'WEST', 64, 48, '#fff'); lbl(g, 'GERMANY', 64, 58, '#fff'); lbl(g, 'EAST', 128, 48, '#fff'); lbl(g, 'GERMANY', 128, 58, '#fff'); lbl(g, '1949', 96, 106, '#ffd54a');
+    } }
+  ] });
+
+  /* ----- player ----- */
+  let raf = 0, typeT = 0, cur = null;
+  const $c = (id) => document.getElementById(id);
+  function stop() { cancelAnimationFrame(raf); clearInterval(typeT); const o = $c('cut'); if (o) o.hidden = true; cur = null; }
+  function play(idx) {
+    return new Promise((res) => {
+      const sc = S[idx]; if (!sc) { res(); return; }
+      const o = $c('cut'), cv = $c('cutCv'), g = cv.getContext('2d'); g.imageSmoothingEnabled = false;
+      let bi = 0, t0 = performance.now(), full = '';
+      const done = () => { stop(); res(); };
+      const show = () => {
+        const b = sc.beats[bi]; t0 = performance.now(); full = b.text;
+        $c('cutWho').textContent = b.who; $c('cutTxt').textContent = ''; $c('cutStep').textContent = (bi + 1) + ' / ' + sc.beats.length;
+        $c('cutNext').textContent = bi === sc.beats.length - 1 ? 'CONTINUE ▶' : 'NEXT ▶';
+        clearInterval(typeT); let i = 0; typeT = setInterval(() => { i += 2; $c('cutTxt').textContent = full.slice(0, i); if (i >= full.length) clearInterval(typeT); }, 18);
+      };
+      $c('cutDate').textContent = sc.date; o.hidden = false; cur = sc; show();
+      const frame = (now) => { if (!cur) return; g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, cv.width, cv.height); g.setTransform(cv.width / W, 0, 0, cv.width / W, 0, 0); sc.beats[bi].d(g, (now - t0) / 1000); raf = requestAnimationFrame(frame); };
+      raf = requestAnimationFrame(frame);
+      $c('cutTxt').onclick = () => { clearInterval(typeT); $c('cutTxt').textContent = full; };
+      $c('cutNext').onclick = () => { if ($c('cutTxt').textContent.length < full.length) { clearInterval(typeT); $c('cutTxt').textContent = full; return; } if (++bi >= sc.beats.length) done(); else show(); };
+      $c('cutSkip').onclick = done;
+      $c('cutNext').focus({ preventScroll: true });
+    });
+  }
+  return { play, stop, count: S.length, S };
+})();
+'use strict';
+/* IRON CURTAIN 1945-49 : UI layer. Everything here is presentation; rules live in Engine. */
+const E = window.Engine;
+E.setMap(MAP_ROWS);
+const $ = (q, el) => (el || document).querySelector(q);
+const $$ = (q, el) => Array.from((el || document).querySelectorAll(q));
+const COLS = 44, ROWS = 30;
+const SD = E.SIDE;
+let abortRej = null, abortP = Promise.resolve(); const ABORT = { abort: true };
+function newAbort() { abortP = new Promise((_, rej) => { abortRej = rej; }); abortP.catch(() => {}); }
+const R = (p) => Promise.race([p, abortP]);
+const sleep = (ms) => R(new Promise((r) => setTimeout(r, ms)));
+const tagH = (core) => S && S.focus ? '' : '<span class="tag ' + (core ? 'l' : 'b') + '">' + (core ? 'LESSON' : 'BONUS') + '</span>';
+const esc = (s) => String(s).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+const hash = (x, y) => (((x * 73856093) ^ (y * 19349663)) >>> 0);
+const C = {
+  sea: '#102042', sea2: '#14295a', foam: '#6fa8dc', coast: '#06102a',
+  w: '#3f78e8', w2: '#5b92ff', wd: '#1b3a8c', e: '#d93a48', e2: '#ee5864', ed: '#76182a',
+  n: '#aa9f5c', n2: '#bfb372', nd: '#675d2e', g: '#4d5580', g2: '#58618e', gd: '#262c52',
+  gold: '#ffd54a', ink: '#090e22', swiss: '#8c8fa3', berl: '#c9a23a', berl2: '#e2bd55'
+};
+
+/* ---------------- audio ---------------- */
+let actx = null, soundOn = true;
+function beep(f, d, type, vol, when) {
+  if (!soundOn) return;
+  try {
+    actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+    const o = actx.createOscillator(), g = actx.createGain();
+    o.type = type || 'square'; o.frequency.value = f;
+    const t = actx.currentTime + (when || 0); const v = vol || 0.04;
+    g.gain.setValueAtTime(v, t); g.gain.exponentialRampToValueAtTime(0.0001, t + (d || 0.08));
+    o.connect(g); g.connect(actx.destination); o.start(t); o.stop(t + (d || 0.08) + 0.03);
+  } catch (e) { /* audio is optional */ }
+}
+const sfx = {
+  tap: () => beep(700, 0.04),
+  ok: () => { beep(520, 0.06); beep(780, 0.1, 'square', 0.04, 0.06); },
+  hit: () => { beep(200, 0.14, 'sawtooth', 0.06); beep(110, 0.22, 'sawtooth', 0.06, 0.08); },
+  miss: () => beep(260, 0.12, 'triangle', 0.05),
+  alert: () => { beep(440, 0.12, 'sawtooth', 0.05); beep(415, 0.12, 'sawtooth', 0.05, 0.12); beep(330, 0.3, 'sawtooth', 0.05, 0.24); },
+  good: () => { [523, 659, 784, 1046].forEach((f, i) => beep(f, 0.1, 'square', 0.04, i * 0.08)); },
+  plane: () => beep(150, 0.25, 'triangle', 0.03)
+};
+
+/* ---------------- sprites ---------------- */
+const SPR = {
+  spread: ['........', '...XX...', '...XX...', '.XXXXXX.', '.XXXXXX.', '...XX...', '...XX...', '........'],
+  recon: ['..XXXX..', '.X....X.', 'X......X', 'X......X', '.X....X.', '..XXXXXX', '......XX', '.......X'],
+  bomb: ['.....X.X', '....X.X.', '...XXXX.', '..XXXXXX', '..XXXXXX', '..XXXXXX', '...XXXX.', '........'],
+  shield: ['XXXXXXXX', 'XXXXXXXX', 'XXXXXXXX', 'XXXXXXXX', '.XXXXXX.', '.XXXXXX.', '..XXXX..', '...XX...'],
+  scroll: ['.XXXXXX.', 'X......X', '.XXXXXX.', '..X..X..', '..XXXX..', '..X..X..', '..XXXX..', '.XXXXXX.'],
+  star: ['...XX...', '...XX...', 'XXXXXXXX', '.XXXXXX.', '..XXXX..', '..XXXX..', '.XX..XX.', '.X....X.'],
+  bang: ['.XX.', '.XX.', '.XX.', '.XX.', '.XX.', '....', '.XX.', '.XX.'],
+  plane: ['....X....', '....XX...', 'X...XXX..', 'XXXXXXXXX', 'X...XXX..', '....XX...', '....X....'],
+  mig: ['...X.....', '..XX.....', 'XXXXXXXX.', 'XXXXXXXXX', 'XXXXXXXX.', '..XX.....', '...X.....'],
+  ship: ['....X...', '..XXXXX.', 'XXXXXXXX', '.XXXXXX.'],
+  starb: ['...X...', '...X...', 'XXXXXXX', '.XXXXX.', '..XXX..', '.XX.XX.', '.X...X.']
+};
+const sprCache = {};
+function drawSpr(ctx, name, x, y, color, s) {
+  const rows = SPR[name]; s = s || 1; ctx.fillStyle = color;
+  for (let j = 0; j < rows.length; j++) for (let i = 0; i < rows[j].length; i++) if (rows[j][i] === 'X') ctx.fillRect(x + i * s, y + j * s, s, s);
+}
+function sprURL(name, color) {
+  const k = name + color; if (sprCache[k]) return sprCache[k];
+  const cv = document.createElement('canvas'); const rows = SPR[name]; cv.width = rows[0].length; cv.height = rows.length;
+  drawSpr(cv.getContext('2d'), name, 0, 0, color, 1); return (sprCache[k] = cv.toDataURL());
+}
+
+/* ---------------- global game state ---------------- */
+let S = null, me = null, bot = null, spectate = false;
+let sel = null, tab = 'region', dispatches = [], notes = [], logLines = [], chronIdx = 0;
+let fxList = [], dirty = true, alertRegions = {}, toastTimer = 0, endConfirm = false, endResolver = null, busy = false;
+let divergedNow = 0;
+const MP_BUILD = /*MPFLAG*/true;
+let diff = 'focus', story = true;
+try { diff = localStorage.getItem('ic_diff') === 'full' ? 'full' : 'focus'; story = localStorage.getItem('ic_story') !== 'off'; } catch (e) {}
+function advise() {
+  if (!me) return '';
+  const nd = E.ladder(S, me)[S.doc[me]], out = [];
+  if (S.turn === 0) out.push('Tap a region on the map, then choose an action below it. You have ' + S.ap[me] + ' action points (AP).');
+  if (nd && nd.avail <= S.turn) out.push('Enact ' + nd.name.toUpperCase() + ' this turn (2 AP). In real history it happened about now, so you score a bonus for being on time.');
+  else if (nd) out.push('Your next doctrine is ' + nd.name.toUpperCase() + '. It is not available yet, so spend AP on SPREAD.');
+  const a = E.ANCH.filter((x) => x.core && x.reg && x.expect === me && x.turn >= S.turn && E.ctrl(S, x.reg) !== me).sort((p, q) => p.turn - q.turn)[0];
+  if (a) out.push('Aim to hold ' + E.REG[a.reg].name.toUpperCase() + ' by ' + a.date + '. Use SPREAD there until you hold 3+ and lead by 2.');
+  return out.join(' ');
+}
+
+/* ---------------- layout of the map canvas ---------------- */
+const cv = $('#map'), ctx = cv.getContext('2d');
+const baseCv = document.createElement('canvas'), bctx = baseCv.getContext('2d');
+let T = 8, Z = 2, cssW = 352;
+function fitMap() {
+  const avail = Math.max(300, Math.min(cv.parentElement.clientWidth || 352, 880));
+  T = Math.max(7, Math.floor(avail / COLS)); Z = Math.max(1, Math.round(window.devicePixelRatio || 1));
+  cssW = avail;
+  for (const c of [cv, baseCv]) { c.width = COLS * T * Z; c.height = ROWS * T * Z; }
+  cv.style.height = (avail * ROWS / COLS) + 'px';
+  dirty = true;
+}
+
+/* ---------------- what the viewer is allowed to see ---------------- */
+function info(id) {
+  const r = S.inf[id];
+  if (spectate) return { ctrl: E.ctrl(S, id), a: r.W, b: r.E, aS: 'W', bS: 'E', bKnown: true, age: 0 };
+  const en = E.other(me), k = S.know[me][id];
+  return { ctrl: E.ctrl(S, id), a: r[me], b: k ? k.v : null, aS: me, bS: en, bKnown: !!k, age: k ? S.turn - k.t : 0 };
+}
+const sideColor = (s, k) => (s === 'W' ? (k === 2 ? C.w2 : k === 'd' ? C.wd : C.w) : (k === 2 ? C.e2 : k === 'd' ? C.ed : C.e));
+const BAYER = [[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]];
+
+/* ---------------- base layer (changes only when state changes) ---------------- */
+function renderBase() {
+  const g = bctx; g.setTransform(Z, 0, 0, Z, 0, 0); g.imageSmoothingEnabled = false;
+  g.fillStyle = C.sea; g.fillRect(0, 0, COLS * T, ROWS * T);
+  const M = MAP_ROWS;
+  const at = (x, y) => (x < 0 || y < 0 || x >= COLS || y >= ROWS ? '.' : M[y][x]);
+  const pal = {};
+  for (const id of E.REG_IDS) {
+    if (!S) break;
+    const v = info(id), c = v.ctrl;
+    let c1, c2, cd;
+    if (id === 'W') { c1 = C.berl; c2 = C.berl2; cd = '#6d5316'; if (c === 'W') { c1 = C.w; c2 = C.w2; cd = C.wd; } if (c === 'E') { c1 = C.e; c2 = C.e2; cd = C.ed; } }
+    else if (c === 'N' || E.REG[id].buffer) { c1 = C.n; c2 = C.n2; cd = C.nd; }
+    else if (c === 'W') { c1 = C.w; c2 = C.w2; cd = C.wd; }
+    else if (c === 'E') { c1 = C.e; c2 = C.e2; cd = C.ed; }
+    else if (c === 'S') { c1 = C.e; c2 = C.e2; cd = C.ed; }
+    else { c1 = C.g; c2 = C.g2; cd = C.gd; }
+    pal[id] = { c1, c2, cd, contested: !c && id !== 'W' };
+  }
+  for (let y = 0; y < ROWS; y++) for (let x = 0; x < COLS; x++) {
+    const ch = M[y][x], px = x * T, py = y * T;
+    if (ch === '.') { g.fillStyle = ((x + y) & 1) ? C.sea2 : C.sea; g.fillRect(px, py, T, T); continue; }
+    if (ch === 'z') { g.fillStyle = C.swiss; g.fillRect(px, py, T, T); continue; }
+    const p = pal[ch] || { c1: C.g, c2: C.g2, cd: C.gd };
+    g.fillStyle = p.c1; g.fillRect(px, py, T, T);
+    const h = hash(x, y);
+    if ((h & 3) === 0) { g.fillStyle = p.c2; g.fillRect(px + (h >> 3) % (T - 2), py + (h >> 6) % (T - 2), 2, 2); }
+    if ((h & 15) === 5) { g.fillStyle = p.cd; g.fillRect(px + (h >> 4) % (T - 1), py + (h >> 8) % (T - 1), 1, 1); }
+    if (p.contested && S) {
+      const v = info(ch); const lm = Math.min(15, v.a * 3), le = v.bKnown ? Math.min(15, (v.b || 0) * 3) : 0;
+      const ca = sideColor(v.aS, 1), cb = sideColor(v.bS, 1);
+      for (let by = 0; by < T; by += 2) for (let bx = 0; bx < T; bx += 2) {
+        const th = BAYER[((py + by) >> 1) & 3][((px + bx) >> 1) & 3];
+        if (th < lm) { g.fillStyle = ca; g.fillRect(px + bx, py + by, 2, 2); }
+        else if (th >= 16 - le) { g.fillStyle = cb; g.fillRect(px + bx, py + by, 2, 2); }
+      }
+    }
+  }
+  // coastlines and borders
+  for (let y = 0; y < ROWS; y++) for (let x = 0; x < COLS; x++) {
+    const ch = M[y][x]; if (ch === '.') continue;
+    const px = x * T, py = y * T, p = pal[ch];
+    const sides = [[0, -1, px, py, T, 1], [0, 1, px, py + T - 1, T, 1], [-1, 0, px, py, 1, T], [1, 0, px + T - 1, py, 1, T]];
+    for (const [dx, dy, rx, ry, rw, rh] of sides) {
+      const n = at(x + dx, y + dy);
+      if (n === ch) continue;
+      if (n === '.') { g.fillStyle = C.coast; g.fillRect(rx, ry, rw, rh); }
+      else { g.fillStyle = p ? p.cd : '#000'; g.fillRect(rx, ry, rw, rh); }
+    }
+  }
+  // foam on sea tiles that touch land
+  g.fillStyle = 'rgba(111,168,220,.55)';
+  for (let y = 0; y < ROWS; y++) for (let x = 0; x < COLS; x++) {
+    if (M[y][x] !== '.') continue;
+    const px = x * T, py = y * T;
+    if (at(x, y - 1) !== '.') g.fillRect(px, py, T, 1);
+    if (at(x, y + 1) !== '.') g.fillRect(px, py + T - 1, T, 1);
+    if (at(x - 1, y) !== '.') g.fillRect(px, py, 1, T);
+    if (at(x + 1, y) !== '.') g.fillRect(px + T - 1, py, 1, T);
+  }
+  // swiss cross
+  g.fillStyle = '#fff'; g.fillRect(14 * T + T / 2 - 1, 15 * T + 4, 2, T * 2); g.fillRect(14 * T + 1, 16 * T + T / 2 - 1, T - 2 + 0, 2);
+  // labels and pips
+  g.font = '8px "Press Start 2P", "Courier New", monospace'; g.textAlign = 'center'; g.textBaseline = 'top';
+  for (const id of E.REG_IDS) {
+    const R = E.REG[id]; if (id === 'W') continue;
+    const cx = Math.round(R.ax * T), ly = R.ay * T + Math.floor((T - 8) / 2);
+    g.fillStyle = 'rgba(5,8,24,.85)'; g.fillText(R.code, cx + 1, ly + 1);
+    g.fillStyle = R.fixed || R.buffer ? '#ffe9ea' : '#ffffff'; g.fillText(R.code, cx, ly);
+    if (!E.isTarget(id) || !S) continue;
+    const v = info(id), py = ((R.py != null ? R.py : R.ay + 1)) * T + Math.floor((T - 7) / 2), sx = cx - 10;
+    for (let i = 0; i < 5; i++) {
+      const x0 = sx + i * 4;
+      g.fillStyle = 'rgba(5,8,24,.78)'; g.fillRect(x0 - 1, py - 1, 5, 5);
+      g.fillStyle = i < v.a ? sideColor(v.aS, 2) : '#1b2352'; g.fillRect(x0, py, 3, 3);
+      const y2 = py + 4;
+      g.fillStyle = 'rgba(5,8,24,.78)'; g.fillRect(x0 - 1, y2 - 1, 5, 5);
+      if (v.bKnown) { g.fillStyle = i < v.b ? (v.age >= 2 ? '#b8707a' : sideColor(v.bS, 2)) : '#1b2352'; g.fillRect(x0, y2, 3, 3); }
+      else { g.fillStyle = ((i + 1) & 1) ? '#505886' : '#2d3463'; g.fillRect(x0, y2, 3, 3); }
+    }
+  }
+  dirty = false;
+}
+
+/* ---------------- animated overlay ---------------- */
+const SHIPS = [
+  { x0: 1.4, y0: 13, x1: 1.4, y1: 20, sp: 0.00008, ph: 0 }, { x0: 19.5, y0: 9.2, x1: 27, y1: 9.2, sp: 0.00006, ph: 0.4 },
+  { x0: 10.5, y0: 26, x1: 16.5, y1: 26, sp: 0.00007, ph: 0.7 }, { x0: 39, y0: 20.5, x1: 42, y1: 22.5, sp: 0.00009, ph: 0.2 }
+];
+const WAVES = []; (function () { for (let i = 0; i < 70; i++) { const x = (hash(i, 77) % (COLS * 8)), y = (hash(i, 91) % (ROWS * 8)); WAVES.push([x / 8, y / 8, i % 3]); } })();
+function regionTilesPerimeter(id) {
+  const out = [], M = MAP_ROWS;
+  for (const [x, y] of E.TILES[id] || []) {
+    const sides = [];
+    if (y === 0 || M[y - 1][x] !== M[y][x]) sides.push('t');
+    if (y === ROWS - 1 || M[y + 1][x] !== M[y][x]) sides.push('b');
+    if (x === 0 || M[y][x - 1] !== M[y][x]) sides.push('l');
+    if (x === COLS - 1 || M[y][x + 1] !== M[y][x]) sides.push('r');
+    if (sides.length) out.push([x, y, sides]);
+  }
+  return out;
+}
+function frame(now) {
+  if (!S || $('#screenGame').hidden) { requestAnimationFrame(frame); return; }
+  if (dirty) renderBase();
+  ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(baseCv, 0, 0); ctx.setTransform(Z, 0, 0, Z, 0, 0); ctx.imageSmoothingEnabled = false;
+  const f = Math.floor(now / 420);
+  // waves
+  ctx.fillStyle = 'rgba(120,170,230,.35)';
+  for (const [wx, wy, k] of WAVES) { const gx = Math.floor(wx), gy = Math.floor(wy); if (MAP_ROWS[gy] && MAP_ROWS[gy][gx] === '.' && ((f + k) % 3 === 0)) ctx.fillRect(Math.round(wx * T), Math.round(wy * T), 3, 1); }
+  // ships
+  for (const s of SHIPS) {
+    const p = (Math.sin(now * s.sp * 6 + s.ph * 6) + 1) / 2;
+    const x = (s.x0 + (s.x1 - s.x0) * p) * T, y = (s.y0 + (s.y1 - s.y0) * p) * T + (f & 1);
+    drawSpr(ctx, 'ship', Math.round(x), Math.round(y), '#2a3050'); ctx.fillStyle = '#c8d0ea'; ctx.fillRect(Math.round(x) + 3, Math.round(y) - 1, 2, 1);
+  }
+  // Berlin star
+  const bx = 21 * T - 3, by = 13 * T - 3 + ((f & 1) ? 0 : 1);
+  drawSpr(ctx, 'starb', bx, by, '#000', 1); drawSpr(ctx, 'starb', bx - 1, by - 1, C.gold, 1);
+  // dispatch alerts
+  if (f % 2 === 0) for (const id in alertRegions) { const R = E.REG[id]; drawSpr(ctx, 'bang', Math.round(R.ax * T + 11), Math.round(R.ay * T - 2), '#000'); drawSpr(ctx, 'bang', Math.round(R.ax * T + 10), Math.round(R.ay * T - 3), C.gold); }
+  // selection outline
+  if (sel && E.TILES[sel]) {
+    ctx.fillStyle = (f & 1) ? C.gold : '#fff6c4';
+    for (const [x, y, sides] of regionTilesPerimeter(sel)) for (const s of sides) {
+      if (s === 't') ctx.fillRect(x * T, y * T, T, 2); if (s === 'b') ctx.fillRect(x * T, y * T + T - 2, T, 2);
+      if (s === 'l') ctx.fillRect(x * T, y * T, 2, T); if (s === 'r') ctx.fillRect(x * T + T - 2, y * T, 2, T);
+    }
+  }
+  // fx
+  const t = performance.now();
+  fxList = fxList.filter((q) => t - q.t0 < q.dur);
+  for (const q of fxList) {
+    const R = E.REG[q.id]; const p = (t - q.t0) / q.dur; const cx = R.ax * T, cy = (R.ay + 0.8) * T;
+    if (q.kind === 'ring') { const r = 4 + p * 26; ctx.strokeStyle = q.color; ctx.lineWidth = 2; ctx.strokeRect(Math.round(cx - r), Math.round(cy - r * 0.7), Math.round(r * 2), Math.round(r * 1.4)); }
+    else if (q.kind === 'pop') { ctx.fillStyle = q.color; ctx.font = '8px "Press Start 2P", monospace'; ctx.textAlign = 'center'; ctx.textBaseline = 'top'; ctx.fillText(q.text, Math.round(cx), Math.round(cy - 10 - p * 14)); }
+  }
+  requestAnimationFrame(frame);
+}
+function addFx(id, kind, color, text, dur) { fxList.push({ id, kind, color, text, t0: performance.now(), dur: dur || 700 }); }
+
+/* ---------------- dialogs ---------------- */
+let typeTimer = 0;
+function dialog(o) {
+  return R(new Promise((res) => {
+    const d = $('#dlg'); $('#dlgTitle').textContent = o.title; $('#dlgDate').textContent = o.date || '';
+    d.classList.toggle('big', !!o.big);
+    const bd = $('#dlgBody'); const btn = $('#dlgBtn');
+    clearInterval(typeTimer);
+    if (o.type) {
+      bd.textContent = ''; let i = 0; const full = o.type;
+      typeTimer = setInterval(() => { i += 2; bd.textContent = full.slice(0, i); if (i >= full.length) clearInterval(typeTimer); }, 16);
+      bd.onclick = () => { clearInterval(typeTimer); bd.textContent = full; };
+    } else { bd.innerHTML = o.html; bd.onclick = null; }
+    btn.textContent = o.btn || 'CONTINUE ▶';
+    d.hidden = false; btn.focus({ preventScroll: true });
+    btn.onclick = () => { clearInterval(typeTimer); d.hidden = true; sfx.tap(); res(); };
+  }));
+}
+function altPopup(rec) {
+  return R(new Promise((res) => {
+    const o = $('#altOv'); sfx.alert();
+    $('#altKicker').textContent = (rec.core ? 'IN YOUR LESSONS · ' : 'BONUS HISTORY · ') + (rec.date || '').toUpperCase() + ' · ' + rec.title.toUpperCase();
+    $('#altReal').textContent = rec.real; $('#altYours').textContent = rec.alt;
+    $('#altUpset').textContent = rec.upset ? ('UPSET: +1 VP to ' + SD[rec.upset].name) : (rec.actual === null || rec.actual === 'N' ? 'Neither side controls it, but history had a clear result.' : '');
+    o.hidden = false; $('#altBtn').focus({ preventScroll: true });
+    $('#altBtn').onclick = () => { o.hidden = true; document.body.classList.add('altmode'); sfx.tap(); res(); };
+  }));
+}
+function toast(msg, kind) {
+  const t = $('#toast'); t.textContent = msg; t.className = 'toast on ' + (kind || '');
+  clearTimeout(toastTimer);
+}
+
+/* ---------------- HUD, timeline, panels ---------------- */
+function apPips(n, max) { let h = ''; for (let i = 0; i < max; i++) h += '<i class="' + (i < n ? '' : 'off') + '"></i>'; return h; }
+function renderTimeline() {
+  const nodes = E.TURNS.map((t, i) => {
+    if (S.focus && E.FOCUS_SKIP.includes(i)) return '';
+    let c = '';
+    const rs = S.anchors.filter((a) => a.turn === i);
+    if (i === 7) c += ' boss';
+    if (rs.length) c += rs.some((a) => !a.ok) ? ' alt' : ' held'; else if (i < S.turn) c += ' done';
+    if (i === S.turn) c += ' cur';
+    const m = t.date.split(' ')[0], y = t.date.split(' ')[1].slice(2);
+    return '<div class="tn' + c + '" title="' + esc(t.date + ' · ' + t.title) + '"><b></b><span>' + m + '<br>\'' + y + '</span></div>';
+  });
+  $('#timeline').innerHTML = nodes.join('');
+}
+function renderHUD() {
+  const t = E.TURNS[S.turn];
+  const tn = E.TURNS.filter((_, i) => i <= S.turn && !(S.focus && E.FOCUS_SKIP.includes(i))).length;
+  $('#turnTitle').textContent = 'TURN ' + tn + ' · ' + t.title;
+  $('#turnDate').textContent = t.date;
+  const sc = E.score(S);
+  let h = '';
+  if (spectate) {
+    h += '<div class="chip me-w"><span class="px">WEST</span><span class="val">' + sc.W.total + ' pts</span></div>';
+    h += '<div class="chip me-e"><span class="px">EAST</span><span class="val">' + sc.E.total + ' pts</span></div>';
+  } else {
+    h += '<div class="chip me-' + me.toLowerCase() + '"><span class="px">' + SD[me].short + ' · ACTION POINTS</span><span class="val ap">' + apPips(S.ap[me], S.apMax[me]) + '<span style="margin-left:6px">' + S.ap[me] + '</span></span></div>';
+    const en = E.other(me);
+    h += '<div class="chip"><span class="px">SCORE (PUBLIC)</span><span class="val"><span style="color:var(--' + (me === 'W' ? 'w-l' : 'e-l') + ')">' + sc[me].total + '</span><span style="color:var(--dim)">:</span><span style="color:var(--' + (en === 'W' ? 'w-l' : 'e-l') + ')">' + sc[en].total + '</span></span></div>';
+  }
+  const ok = S.anchors.filter((a) => a.ok).length, tot = S.anchors.length;
+  h += S.alt ? '<div class="chip altchip"><span class="px">TIMELINE</span><span class="val">DIVERGED x' + S.alt + '</span></div>' : '<div class="chip"><span class="px">TIMELINE</span><span class="val" style="color:var(--ok)">' + (tot ? ok + '/' + tot + ' REAL' : 'ON TRACK') + '</span></div>';
+  $('#hud').innerHTML = h;
+  const left = spectate ? 0 : S.ap[me];
+  $('#endNote').textContent = spectate ? '' : (left > 0 ? left + ' AP unspent' : 'All AP spent');
+}
+function renderLegend() {
+  const me_ = spectate ? 'W' : me, en = E.other(me_);
+  $('#legend').innerHTML = '<span><b style="background:' + sideColor(me_, 1) + '"></b>' + (spectate ? 'West' : 'You') + ' control</span><span><b style="background:' + sideColor(en, 1) + '"></b>' + (spectate ? 'East' : 'Enemy') + ' control</span><span><b style="background:' + C.g2 + '"></b>Contested (dither = influence)</span><span><b style="background:' + C.n + '"></b>Neutral</span><span><b style="background:' + C.gold + '"></b>Berlin</span><span>Pips: top = ' + (spectate ? 'West' : 'yours') + ', bottom = ' + (spectate ? 'East' : 'enemy (fog)') + '</span>';
+}
+function pipsHTML(n, cls, known, age) {
+  let h = '<div class="pips ' + cls + '">';
+  for (let i = 0; i < 5; i++) h += '<i class="' + (known ? (i < n ? 'on' : '') : 'q') + '"></i>';
+  if (known && age != null) h += '<span class="age">' + (age === 0 ? 'seen now' : 'seen ' + age + ' turn' + (age > 1 ? 's' : '') + ' ago') + '</span>';
+  if (!known) h += '<span class="age">unknown</span>';
+  return h + '</div>';
+}
+function ctrlTag(id) {
+  const c = E.ctrl(S, id), m = spectate ? 'W' : me;
+  if (c === 'N' || E.REG[id].buffer) return '<span class="tag n">Neutral</span>';
+  if (!c) return '<span class="tag c">Contested</span>';
+  const mine = c === m;
+  return '<span class="tag ' + c.toLowerCase() + '">' + (spectate ? SD[c].short + ' control' : (mine ? 'You control' : 'Enemy controls')) + '</span>';
+}
+function renderRegion() {
+  const p = $('#panel');
+  const opts = E.REG_IDS.filter((i) => i !== 'S').map((i) => '<option value="' + i + '"' + (i === sel ? ' selected' : '') + '>' + esc(E.REG[i].name) + '</option>').join('');
+  let h = '<label class="px" style="color:var(--dim)" for="regSel">Region</label><select id="regSel" style="background:var(--ink2);color:var(--text);border:2px solid var(--edge2);font:inherit;padding:8px;min-height:40px"><option value="">Tap the map or pick here</option>' + opts + '</select>';
+  if (!sel) { p.innerHTML = h + '<p class="hint">Tap any region on the map. Pips show who has influence: yours on top, the enemy\'s underneath. Grey checker means you have no intelligence on them.</p>'; bindRegionSel(); return; }
+  const R = E.REG[sel], v = info(sel);
+  h += '<div class="rhead"><div><h3>' + esc(R.name) + '</h3><div style="margin-top:6px">' + ctrlTag(sel) + '</div></div><div class="stars" title="Strategic value">' + (R.val ? '★'.repeat(R.val) : '–') + '</div></div>';
+  h += '<p class="rnote">' + esc(R.note) + '</p>';
+  if (E.isTarget(sel) && !S.neutral[sel]) {
+    h += '<div class="kv"><div><span class="px">' + (spectate ? 'West' : 'Your') + ' influence</span>' + pipsHTML(v.a, v.aS.toLowerCase(), true, null) + '</div><div><span class="px">' + (spectate ? 'East' : 'Enemy') + ' influence</span>' + pipsHTML(v.b || 0, v.bS.toLowerCase(), v.bKnown, v.age) + '</div></div>';
+    if (!spectate) {
+      const A = [['spread', 'SPREAD', 'spread', '#9bff9b'], ['recon', 'RECON', 'recon', '#7fe4ff'], ['subvert', 'SUBVERT', 'bomb', '#ff9a9a'], ['guard', 'GUARD', 'shield', C.gold], ['special', me === 'E' ? 'COMINFORM ORDERS' : 'AID PACKAGE', 'star', '#ffb86b']];
+      h += '<div class="acts">';
+      for (const [type, label, ic, col] of A) {
+        if (S.focus && (type === 'subvert' || type === 'guard' || type === 'special')) continue;
+        if (type === 'special' && !E.specialUnlocked(S, me)) continue;
+        const err = E.canAct(S, me, type, sel); const cost = E.costOf(S, me, type, sel);
+        h += '<button class="btn' + (type === 'special' ? ' full' : '') + '" data-act="' + type + '"' + (err ? ' disabled' : '') + '><img src="' + sprURL(ic, col) + '" alt="">' + label + '<span class="c">' + (cost === 0 ? 'FREE' : cost + ' AP') + '</span>' + (err && S.phase === 'acting' && !busy ? '<span class="why">' + esc(err) + '</span>' : '') + '</button>';
+      }
+      if (me === 'E' && S.freeCoupReady.E) h += '<button class="btn east full" data-act="freecoup"' + (S.inf[sel].E >= 2 ? '' : ' disabled') + '><img src="' + sprURL('star', '#fff') + '" alt="">FREE COUP (PRAGUE)<span class="c">0 AP</span></button>';
+      h += '</div>';
+      h += S.focus ? '<p class="hint">SPREAD adds +1 influence. RECON reveals the enemy\'s hidden number. DOCTRINE (button in the DOCTRINE tab) enacts your next historical step.</p>' : '<p class="hint">SPREAD +1 influence. RECON reveals the enemy\'s number. SUBVERT blindly hits for -2 (a miss tells you they were not there). GUARD protects until your next turn and catches agents. ' + (E.specialUnlocked(S, me) ? (me === 'E' ? 'COMINFORM ORDERS lets Moscow push a region you hold 2+ in: +2 for you, -2 for them.' : 'AID PACKAGE floods a region you hold 2+ in with Marshall aid: +2 for you, -2 for them.') : '') + '</p>';
+    }
+  } else if (sel === 'W') {
+    h += '<p class="hint">Berlin cannot be influenced on the map. Its fate is settled by the Airlift boss fight in June 1948. Your Doctrine steps and German regions decide how well you start it.</p>';
+  } else if (S.neutral[sel]) h += '<p class="hint">This region is non-aligned. Nobody can influence it any more.</p>';
+  p.innerHTML = h; bindRegionSel();
+}
+function bindRegionSel() {
+  const s = $('#regSel'); if (s) s.onchange = () => { sel = s.value || null; sfx.tap(); renderPanel(); };
+  $$('[data-act]').forEach((b) => { b.onclick = () => onAction(b.dataset.act); });
+}
+function relDots(acc) { const n = Math.round(acc * 5 - 0.01); let h = '<span class="rel" title="Reliability">'; for (let i = 0; i < 5; i++) h += '<i class="' + (i < n ? 'on' : '') + '"></i>'; return h + '</span>'; }
+function renderIntel() {
+  let h = '<p class="hint">Dispatches describe what the other side may have done last turn. Ask yourself who is telling you, why they might say it, and what they could get wrong. The dots show how far to trust each source, and the rumour might be about the wrong country.</p><div class="dsp">';
+  if (!dispatches.length && !notes.length) h += '<p class="hint">Nothing new this turn. Silence can mean quiet, or good cover.</p>';
+  for (const n of notes) h += '<div class="disp note ' + (n.kind === 'foiled' ? 'good' : '') + '" data-reg="' + n.region + '"><div class="src"><span>' + (n.kind === 'foiled' ? 'COUNTER-INTEL' : 'INCIDENT REPORT') + '</span></div><p>' + esc(n.text) + '</p></div>';
+  dispatches.forEach((d) => { h += '<div class="disp" data-reg="' + d.region + '"><div class="src"><span>' + esc(d.src.toUpperCase()) + '</span>' + relDots(d.acc) + '</div><p>' + esc(d.text) + '</p><small>' + esc(d.tip) + '</small></div>'; });
+  $('#panel').innerHTML = h + '</div>';
+  $$('.disp[data-reg]').forEach((el) => { el.onclick = () => { sel = el.dataset.reg; setTab('region'); sfx.tap(); }; });
+}
+function renderDoctrine() {
+  const m = spectate ? 'W' : me, en = E.other(m);
+  const ladder = E.ladder(S, m); let h = '<div class="px" style="color:var(--dim)">' + SD[m].name + ' · DOCTRINE LADDER</div><div class="ladder">';
+  ladder.forEach((d, i) => {
+    const done = i < S.doc[m], next = i === S.doc[m], ready = next && S.turn >= d.avail;
+    h += '<div class="step ' + (done ? 'done' : next ? 'next' : '') + '"><div class="n">' + (done ? '✓' : i + 1) + '</div><div><h4>' + esc(d.name) + ' · ' + esc(d.date) + '</h4><p>' + tagH(d.core) + ' ' + esc(d.desc) + '</p>';
+    if (next && !spectate) {
+      if (ready) { const on = S.turn === d.avail; h += '<button class="btn sm go" data-act="doctrine"' + (S.ap[m] < 2 || S.phase !== 'acting' || busy ? ' disabled' : '') + '>ENACT · 2 AP ' + (on ? '· ON TIME +1 VP' : '· LATE') + '</button>'; }
+      else h += '<p style="color:var(--gold)">Opens in ' + E.TURNS[d.avail].date + '.</p>';
+    }
+    h += '</div></div>';
+  });
+  h += '</div><div class="enemyl">' + SD[en].short + ' progress (public): ' + S.doc[en] + '/' + E.ladder(S, en).length + ' ' + E.ladder(S, en).slice(0, S.doc[en]).map((d) => '✓ ' + d.name).join(' · ') + '</div>';
+  $('#panel').innerHTML = h; $$('[data-act]').forEach((b) => { b.onclick = () => onAction(b.dataset.act); });
+}
+function renderLog() {
+  let h = '<div class="log">';
+  for (const l of logLines.slice().reverse()) h += '<div class="' + (l.k || '') + '">' + esc(l.t) + '</div>';
+  $('#panel').innerHTML = h + '</div>';
+}
+function renderPanel() { ({ region: renderRegion, intel: renderIntel, doctrine: renderDoctrine, log: renderLog })[tab](); }
+function setTab(t) { tab = t; $$('.tab').forEach((b) => b.setAttribute('aria-selected', b.dataset.tab === t ? 'true' : 'false')); if (t === 'intel') $('#dotIntel').classList.remove('on'); renderPanel(); }
+function renderAll() { dirty = true; renderTimeline(); renderHUD(); renderLegend(); renderPanel(); $('#dotDoc').classList.toggle('on', !spectate && !busy && S.phase === 'acting' && E.doctrineReady(S, me) && S.ap[me] >= 2); }
+function flushChron() {
+  for (; chronIdx < S.chron.length; chronIdx++) {
+    const c = S.chron[chronIdx]; const head = /^[A-Z]{3}[ -]/.test(c.text) && /:/.test(c.text) && c.text.indexOf(':') < 22;
+    logLines.push({ t: c.text, k: head ? 'turn' : '' });
+  }
+}
+function logMe(t, k) { logLines.push({ t, k: 'me ' + (k || '') }); }
+
+/* ---------------- actions ---------------- */
+async function onAction(type) {
+  try { await doAction(type); } catch (e) { if (e !== ABORT) throw e; }
+}
+async function doAction(type) {
+  if (busy || S.phase !== 'acting') return;
+  if (type === 'doctrine') {
+    busy = true; const r = await mpOr(() => E.act(S, me, 'doctrine'), 'doctrine'); busy = false; if (!r.ok) { toast(r.msg, 'bad'); return; }
+    sfx.ok(); busy = true; flushChron(); logMe(r.msg, 'hit'); renderAll();
+    const d = r.doctrine;
+    let html = '<p>' + tagH(d.core) + '</p><p class="fx">' + esc(r.msg) + '</p><div class="hist"><b>WHAT REALLY HAPPENED</b>' + esc(d.hist) + '</div>';
+    if (d.terms) html += '<p class="terms"><b>KEY TERMS:</b> ' + esc(d.terms) + '</p>';
+    if (d.exam) html += '<p class="terms"><b>EXAM LINK:</b> ' + esc(d.exam) + '</p>';
+    await dialog({ title: d.name.toUpperCase(), date: d.date, html });
+    busy = false; renderAll(); return;
+  }
+  if (!sel) { toast('Pick a region first.', 'bad'); return; }
+  let r;
+  busy = true;
+  if (type === 'freecoup') r = await mpOr(() => E.freeCoup(S, sel), 'freecoup', sel); else r = await mpOr(() => E.act(S, me, type, sel), type, sel);
+  busy = false;
+  if (!r.ok) { toast(r.msg, 'bad'); sfx.miss(); return; }
+  const kind = r.hit ? 'good' : (r.blocked || r.miss ? 'bad' : '');
+  toast(r.msg, kind); logMe(r.msg, r.hit ? 'hit' : (r.miss || r.blocked ? 'bad' : ''));
+  if (r.hit) { sfx.hit(); addFx(sel, 'ring', '#ffd54a', '', 800); addFx(sel, 'pop', '#ffd54a', 'HIT', 900); }
+  else if (r.miss || r.blocked) { sfx.miss(); addFx(sel, 'pop', '#ff8f8f', r.blocked ? 'BLOCK' : 'MISS', 900); }
+  else if (type === 'recon') { sfx.ok(); addFx(sel, 'ring', '#7fe4ff', '', 700); addFx(sel, 'pop', '#7fe4ff', String(r.reveal), 900); }
+  else if (type === 'spread') { sfx.ok(); addFx(sel, 'pop', '#9bff9b', '+1', 800); }
+  else if (type === 'guard') { sfx.ok(); addFx(sel, 'ring', C.gold, '', 600); }
+  flushChron(); renderAll();
+}
+
+/* ---------------- main flow ---------------- */
+function setScreen(name) { for (const s of ['Title', 'Game', 'Berlin', 'End', 'Lobby']) $('#screen' + s).hidden = s !== name; window.scrollTo(0, 0); if (name === 'Game') { fitMap(); dirty = true; } }
+async function startGame(side, watch) {
+  newAbort();
+  me = watch ? null : side; spectate = !!watch; bot = watch ? null : E.other(side);
+  E.seed((Date.now() ^ 0x5bd1e995) >>> 0);
+  S = E.newGame(); S.focus = diff === 'focus'; chronIdx = 0; logLines = []; sel = null; alertRegions = {}; divergedNow = 0; busy = false; endResolver = null;
+  document.body.classList.remove('altmode');
+  S.turn = 0;
+  $('#btnRestart').hidden = false;
+  setScreen('Game'); tab = 'region';
+  try {
+    while (true) {
+      const over = await runTurn();
+      if (over) break;
+    }
+  } catch (e) { if (e === ABORT) return; throw e; }
+  showEnd();
+}
+function waitEnd() { return R(new Promise((r) => { endResolver = r; })); }
+async function runTurn() {
+  const lines = E.startTurn(S); flushChron();
+  const t = E.TURNS[S.turn];
+  busy = true; alertRegions = {}; dispatches = []; notes = [];
+  setTab('region'); renderAll();
+  if (story && SC.S[S.turn]) await R(SC.play(S.turn));
+  let html = '<p>' + tagH(t.core) + '</p><p>' + esc(t.body) + '</p>';
+  if (t.fx) html += '<p class="fx">' + esc(t.fx) + '</p>';
+  for (const l of lines) html += '<p class="fx">• ' + esc(l) + '</p>';
+  if (S.focus && me) { const ad = advise(); if (ad) html += '<div class="hist"><b>WHAT TO DO THIS TURN</b>' + esc(ad) + '</div>'; }
+  await dialog({ title: t.title, date: t.date, html, big: true });
+  if (me) {
+    notes = E.startSide(S, me); dispatches = E.prepDispatches(S, me);
+    for (const d of dispatches) alertRegions[d.region] = true;
+    for (const n of notes) alertRegions[n.region] = true;
+    for (const n of notes) logMe(n.text, n.kind === 'foiled' ? 'hit' : 'bad');
+    if (dispatches.length || notes.length) { $('#dotIntel').classList.add('on'); toast(dispatches.length + ' dispatch' + (dispatches.length === 1 ? '' : 'es') + (notes.length ? ' and ' + notes.length + ' incident report' + (notes.length === 1 ? '' : 's') : '') + ' received. Check INTEL.', ''); }
+    if (S.turn === 0) toast('Tap a region, then choose an action. You have ' + S.ap[me] + ' AP.', '');
+  }
+  busy = false; renderAll();
+  endConfirm = false;
+  $('#btnEnd').textContent = spectate ? 'NEXT TURN ▶' : 'END TURN ▶';
+  $('#btnEnd').disabled = false;
+  await waitEnd();
+  busy = true; $('#btnEnd').disabled = true; renderAll();
+  // enemy / bot window(s)
+  if (spectate) {
+    for (const s of ['W', 'E']) { E.startSide(S, s); E.prepDispatches(S, s); E.botTurn(S, s, 1); flushChron(); renderAll(); await sleep(250); }
+  } else {
+    toast(SD[bot].name + ' is making its moves...', ''); await sleep(900);
+    const before = S.doc[bot];
+    E.startSide(S, bot); E.prepDispatches(S, bot); E.botTurn(S, bot, 1);
+    flushChron(); renderAll();
+    if (S.doc[bot] > before) { const d = E.ladder(S, bot)[S.doc[bot] - 1]; logLines.push({ t: SD[bot].name + ' enacts ' + d.name + '.', k: '' }); }
+    toast('The enemy has finished. Their moves stay hidden.', '');
+    await sleep(500);
+  }
+  let recs = [];
+  if (S.turn === 7) { const br = await berlinFlow(); recs.push(br); setScreen('Game'); }
+  recs = recs.concat(E.endTurn(S)); flushChron();
+  alertRegions = {};
+  await presentAnchors(recs);
+  const over = E.advance(S);
+  renderAll();
+  return over;
+}
+$('#btnEnd').onclick = () => {
+  if (!endResolver || busy) return;
+  if (!spectate && S.ap[me] > 0 && !endConfirm) { endConfirm = true; $('#btnEnd').textContent = 'SURE? ' + S.ap[me] + ' AP LEFT'; setTimeout(() => { if (endConfirm) { endConfirm = false; if (!busy) $('#btnEnd').textContent = 'END TURN ▶'; } }, 3000); sfx.tap(); return; }
+  endConfirm = false; sfx.ok(); const r = endResolver; endResolver = null; r();
+};
+async function presentAnchors(recs, date) {
+  const holds = recs.filter((r) => r && r.ok), alts = recs.filter((r) => r && !r.ok);
+  if (holds.length) {
+    let h = '<div class="chk">';
+    for (const r of holds) h += '<div><b>✓</b><div>' + tagH(r.core) + ' ' + esc(r.title) + ' <span style="color:var(--dim)">(' + esc(r.date) + ')</span><small>' + esc(r.real) + '</small></div></div>';
+    sfx.good();
+    await dialog({ title: 'HISTORY HOLDS', date: date || E.TURNS[S.turn].date, html: h + '</div>', btn: 'GOOD ▶' });
+  }
+  for (const r of alts) { await altPopup(r); renderAll(); }
+}
+
+/* ---------------- Berlin boss ---------------- */
+const bcv = $('#bcv'), bctxx = bcv.getContext('2d');
+let banim = null, bState = null;
+function laneY(i) { return 30 + i * 24; }
+function drawBerlinScene(now) {
+  const g = bctxx; g.setTransform(3, 0, 0, 3, 0, 0); g.imageSmoothingEnabled = false;
+  const b = S && S.berlin; if (!b) return;
+  // sky bands
+  const bands = ['#090d26', '#0c1233', '#101a45', '#16225a', '#1c2a6a'];
+  bands.forEach((c, i) => { g.fillStyle = c; g.fillRect(0, i * 20, 192, 22); });
+  g.fillStyle = '#fff'; for (let i = 0; i < 28; i++) { const x = hash(i, 5) % 192, y = hash(i, 9) % 40; if ((Math.floor(now / 500) + i) % 5) g.fillRect(x, y, 1, 1); }
+  // ground
+  g.fillStyle = '#10261a'; g.fillRect(0, 98, 192, 10); g.fillStyle = '#17331f'; for (let x = 0; x < 192; x += 4) g.fillRect(x, 98, 2, 1);
+  // lanes
+  for (let i = 0; i < 3; i++) {
+    const y = laneY(i);
+    g.fillStyle = 'rgba(80,110,220,.13)'; g.fillRect(22, y - 9, 130, 18);
+    g.fillStyle = '#34479a'; for (let x = 26; x < 150; x += 8) g.fillRect(x, y, 4, 1);
+    g.fillStyle = '#9db4ff'; g.font = '8px "Press Start 2P", monospace'; g.textBaseline = 'top'; g.textAlign = 'left'; g.fillText('NCS'[i], 5, y - 4);
+    g.fillStyle = '#2b3a82'; g.fillRect(2, y + 7, 18, 2); g.fillStyle = '#4d8dff'; g.fillRect(2, y + 4, 3, 3);
+    drawSpr(g, 'mig', 140, y - 3, b.fog && false ? '#fff' : '#ee4553');
+  }
+  // fog
+  const fogLane = b.round < 6 ? b.fog[b.round] : -1;
+  if (fogLane >= 0 && !(banim && banim.rec && banim.rec.round === b.round - 1 && false)) {
+    const y = laneY(fogLane); g.fillStyle = 'rgba(200,225,255,.28)';
+    for (let k = 0; k < 9; k++) g.fillRect(30 + k * 13 + ((Math.floor(now / 300) + k) % 3), y - 8 + ((k * 5) % 9), 14, 8);
+  }
+  // berlin skyline
+  g.fillStyle = '#05071a'; const hs = [18, 26, 14, 30, 22, 12, 24, 16];
+  hs.forEach((hh, i) => { g.fillRect(152 + i * 5, 98 - hh, 5, hh); });
+  g.fillStyle = '#ffd54a'; for (let i = 0; i < 8; i++) for (let k = 0; k < 4; k++) if ((hash(i, k + 3) & 3) && (Math.floor(now / 700) + i + k) % 7) g.fillRect(153 + i * 5, 98 - hs[i] + 3 + k * 6, 1, 2);
+  // brandenburg gate
+  g.fillStyle = '#c8b36a'; for (let i = 0; i < 5; i++) g.fillRect(170 + i * 4, 76, 2, 22); g.fillRect(168, 72, 24, 4); g.fillRect(176, 66, 8, 6);
+  g.fillStyle = '#e8d68a'; g.fillRect(179, 62, 2, 4);
+  g.fillStyle = '#fff'; g.textAlign = 'right'; g.fillText('BERLIN', 190, 4);
+  // animation: planes
+  if (banim) {
+    const p = Math.min(1, (now - banim.t0) / banim.dur); const rec = banim.rec;
+    for (let c = 0; c < 3; c++) {
+      const y = laneY(c);
+      for (let k = 0; k < rec.alloc[c]; k++) {
+        const pp = Math.max(0, Math.min(1, (p - k * 0.08) / 0.78)); if (pp <= 0 || pp >= 1) continue;
+        const x = 24 + pp * 118; const hit = rec.lane === c;
+        if (hit && pp > 0.5 && Math.floor(now / 90) % 2) continue;
+        drawSpr(g, 'plane', Math.round(x), y - 3 + (k % 2 ? 4 : -4), hit ? '#ffb4a0' : '#e9f0ff');
+      }
+      if (rec.lane === c && p > 0.35 && p < 0.9) { g.fillStyle = Math.floor(now / 80) % 2 ? 'rgba(255,60,60,.35)' : 'rgba(255,60,60,.15)'; g.fillRect(22, y - 9, 130, 18); drawSpr(g, 'mig', Math.round(140 - (p - 0.35) * 150), y - 3 + (Math.floor(now / 100) % 2), '#ff5a66'); }
+      if (p > 0.82) { g.fillStyle = '#9bff9b'; g.textAlign = 'right'; g.fillText('+' + rec.per[c], 150, y - 4 - (p - 0.82) * 28); }
+    }
+  }
+}
+let bloop = 0;
+function berlinLoop(now) { if (!$('#screenBerlin').hidden) { drawBerlinScene(now); bloop = requestAnimationFrame(berlinLoop); } }
+function meter(label, val, max, cls, text) { const pct = Math.max(0, Math.min(100, Math.round(val / max * 100))); return '<div class="meter"><span class="px"><span>' + label + '</span><span>' + (text || val) + '</span></span><div class="bar ' + cls + (cls === '' && pct < 30 ? ' low' : '') + '"><i style="width:' + pct + '%"></i></div></div>'; }
+function renderMeters() { const b = S.berlin; $('#meters').innerHTML = meter('SUPPLIES', b.stock, 24, '', b.stock) + meter('MORALE', b.morale, 10, 'm', b.morale + '/10') + meter('TENSION', b.tension, 10, 't', b.tension + '/10'); }
+function fogText(b) { const f = b.round < 6 ? b.fog[b.round] : -1; return f >= 0 ? '<p class="fog">FOG over the ' + E.LANES[f] + ' corridor: planes there deliver 25% less.</p>' : '<p class="hint">Clear skies on all three corridors.</p>'; }
+function cardsHTML(set, uses, canFn, name) {
+  let h = '<div class="cards" role="radiogroup">';
+  for (const k of Object.keys(set)) { const c = set[k], u = uses[k], ok = canFn(k); h += '<button class="cardopt" role="radio" aria-checked="' + (k === 'hold' ? 'true' : 'false') + '" data-card="' + k + '"' + (ok ? '' : ' disabled') + '><span class="px"><span>' + c.name + '</span><em>' + (k === 'hold' ? '' : (ok ? u + ' left' : (u > 0 ? 'later' : 'used'))) + '</em></span><span class="d">' + c.desc + '</span></button>'; }
+  return h + '</div>';
+}
+function bindCards(root) { $$('.cardopt', root).forEach((b) => { b.onclick = () => { $$('.cardopt', root).forEach((x) => x.setAttribute('aria-checked', 'false')); b.setAttribute('aria-checked', 'true'); sfx.tap(); }; }); }
+function lastReveal(b, side) {
+  const l = b.hist[b.hist.length - 1]; if (!l) return '';
+  if (side === 'W') return '<p class="hint">Last round the East harassed the <b>' + E.LANES[l.lane].split(' ')[0] + '</b> corridor and played <b>' + E.ECARDS[l.ec].name + '</b>.</p>';
+  return '<p class="hint">Last round the West flew <b>' + l.alloc.join(' / ') + '</b> (N / C / S) and played <b>' + E.WCARDS[l.wc].name + '</b>.</p>';
+}
+function planWest() {
+  return R(new Promise((resolve) => {
+    const b = S.berlin, R = E.BROUNDS[b.round]; let alloc = [2, 1, 1]; if (b.flights !== 4) alloc = [2, 1, b.flights - 3];
+    const root = $('#bPlan');
+    const draw = () => {
+      const left = b.flights - alloc.reduce((a, x) => a + x, 0);
+      let h = '<div class="card"><div class="px">ROUND ' + (b.round + 1) + ' / 6 · ' + R.label + '</div><p class="hint" style="margin-top:6px">' + esc(R.note) + '</p>' + fogText(b) + lastReveal(b, 'W') + '</div>';
+      h += '<div class="card"><div class="px">ASSIGN YOUR ' + b.flights + ' PLANE GROUPS (SECRET)</div>';
+      for (let i = 0; i < 3; i++) h += '<div class="lane" style="margin-top:8px"><div class="nm">' + E.LANES[i].split(' ')[0] + '<small>' + E.LANES[i].split(' ')[1] + (b.fog[b.round] === i ? ' · FOG' : '') + '</small></div><div class="step2"><button data-l="' + i + '" data-d="-1" aria-label="fewer">−</button><output>' + alloc[i] + '</output><button data-l="' + i + '" data-d="1" aria-label="more">+</button></div></div>';
+      h += '<p class="hint" style="margin-top:8px">Capacity per group this round: ' + R.cap + ' · Needed: ' + R.cons + ' · Planes left to assign: <b style="color:var(--gold)">' + left + '</b></p></div>';
+      h += '<div class="card"><div class="px">ORDERS (ONE PER ROUND)</div><div style="margin-top:8px">' + cardsHTML(E.WCARDS, b.wc, (k) => E.berlinCanW(b, k)) + '</div></div>';
+      h += '<button class="btn go" id="launch"' + (left ? ' disabled' : '') + '>LAUNCH ROUND ▶</button>';
+      const keep = $$('.cardopt[aria-checked="true"]', root)[0]; const keepCard = keep ? keep.dataset.card : 'hold';
+      root.innerHTML = h; const cards = $$('.cardopt', root); cards.forEach((c) => c.setAttribute('aria-checked', c.dataset.card === keepCard ? 'true' : 'false')); bindCards(root);
+      $$('[data-l]', root).forEach((btn) => { btn.onclick = () => { const i = +btn.dataset.l, d = +btn.dataset.d; const tot = alloc.reduce((a, x) => a + x, 0); if (d > 0 && tot >= b.flights) return; if (d < 0 && alloc[i] <= 0) return; alloc[i] += d; sfx.tap(); draw(); }; });
+      $('#launch', root).onclick = () => { const c = $$('.cardopt[aria-checked="true"]', root)[0]; sfx.ok(); resolve({ alloc: alloc.slice(), card: c ? c.dataset.card : 'hold' }); };
+    };
+    draw();
+  }));
+}
+function planEast() {
+  return R(new Promise((resolve) => {
+    const b = S.berlin, R = E.BROUNDS[b.round]; let lane = 1;
+    const root = $('#bPlan');
+    const draw = () => {
+      let h = '<div class="card"><div class="px">ROUND ' + (b.round + 1) + ' / 6 · ' + R.label + '</div><p class="hint" style="margin-top:6px">' + esc(R.note) + '</p>' + fogText(b) + lastReveal(b, 'E') + '</div>';
+      h += '<div class="card"><div class="px">CHOOSE ONE CORRIDOR TO HARASS (SECRET)</div><div class="cards" style="margin-top:8px" role="radiogroup">';
+      for (let i = 0; i < 3; i++) h += '<button class="cardopt" role="radio" aria-checked="' + (i === lane) + '" data-lane="' + i + '"><span class="px"><span>' + E.LANES[i] + '</span><em>' + (b.fog[b.round] === i ? 'FOG' : '') + '</em></span><span class="d">Planes there deliver ' + Math.round(b.harassMult * 100) + '% of normal. Tension +1.</span></button>';
+      h += '</div></div><div class="card"><div class="px">PRESSURE (ONE PER ROUND)</div><div style="margin-top:8px">' + cardsHTML(E.ECARDS, b.ec, (k) => E.berlinCanE(b, k)) + '</div></div>';
+      h += '<button class="btn go" id="launch">ORDER THE SQUEEZE ▶</button>';
+      const keep = $$('.cardopt[data-card][aria-checked="true"]', root)[0]; const keepCard = keep ? keep.dataset.card : 'hold';
+      root.innerHTML = h; $$('.cardopt[data-card]', root).forEach((c) => c.setAttribute('aria-checked', c.dataset.card === keepCard ? 'true' : 'false'));
+      $$('.cardopt[data-card]', root).forEach((b2) => { b2.onclick = () => { $$('.cardopt[data-card]', root).forEach((x) => x.setAttribute('aria-checked', 'false')); b2.setAttribute('aria-checked', 'true'); sfx.tap(); }; });
+      $$('[data-lane]', root).forEach((b2) => { b2.onclick = () => { lane = +b2.dataset.lane; sfx.tap(); draw(); }; });
+      $('#launch', root).onclick = () => { const c = $$('.cardopt[data-card][aria-checked="true"]', root)[0]; sfx.ok(); resolve({ lane, card: c ? c.dataset.card : 'hold' }); };
+    };
+    draw();
+  }));
+}
+async function berlinIntro() {
+  const b = S.berlin;
+  const intro = me === 'E' ? 'Your orders: squeeze Berlin until the Western Allies give up. Each round, secretly pick one air corridor to harass and one pressure card. Starve the supplies, break the morale, but if TENSION reaches 10 the world is on the brink of war.' : me === 'W' ? 'Your orders: hold West Berlin for six rounds. Each round, secretly assign your plane groups to the three corridors and choose one order. If SUPPLIES or MORALE hit zero, Berlin falls. If TENSION reaches 10, the crisis goes out of control.' : 'Two bots will play this out.';
+  await dialog({ title: 'BOSS: BERLIN BLOCKADE', date: '24 JUN 1948', big: true, html: '<p>' + tagH(false) + ' <span class="terms">Your textbook signposts this as the next chapter.</span></p><p>On 24 June 1948 Soviet forces closed every road, rail and canal route into West Berlin. Two million people. Three air corridors. One winter coming.</p><p class="fx">' + esc(intro) + '</p><p>Guess where the other player will strike. That is the battle.</p>' });
+}
+async function berlinRoundShow(rec, done) {
+  const b = S.berlin; b.done = done;
+  banim = { rec, t0: performance.now(), dur: 2600 }; sfx.plane();
+  await sleep(2700); banim = null; renderMeters();
+    const dm = rec.dm >= 0 ? '+' + rec.dm : '' + rec.dm, dt = rec.dt >= 0 ? '+' + rec.dt : '' + rec.dt;
+    const html = '<p><b>West</b> flew ' + rec.alloc.join(' / ') + ' (N / C / S) and played <b>' + E.WCARDS[rec.wc].name + '</b>.</p><p><b>East</b> harassed the <b>' + E.LANES[rec.lane].split(' ')[0] + '</b> corridor and played <b>' + E.ECARDS[rec.ec].name + '</b>.</p><p class="fx">Delivered ' + rec.delivered + ' · Berlin used ' + rec.cons + ' · Supplies now ' + rec.stock + '.<br>Morale ' + dm + ' (now ' + rec.morale + '). Tension ' + dt + ' (now ' + rec.tension + ').</p>';
+    await dialog({ title: rec.label, date: 'ROUND ' + rec.round + ' / 6', html, btn: b.done ? 'SEE THE RESULT ▶' : 'NEXT ROUND ▶' });
+}
+async function berlinFlow() {
+  const b = E.berlinInit(S); flushChron();
+  setScreen('Berlin'); renderMeters(); banim = null; cancelAnimationFrame(bloop); bloop = requestAnimationFrame(berlinLoop);
+  $('#bPlan').innerHTML = '';
+  await berlinIntro();
+  while (!b.done) {
+    let wch, ech;
+    if (me === 'W') { wch = await planWest(); ech = E.botBerlinE(S); }
+    else if (me === 'E') { ech = await planEast(); wch = E.botBerlinW(S); }
+    else { $('#bPlan').innerHTML = '<button class="btn go" id="nr">NEXT ROUND ▶</button>'; await R(new Promise((r) => { $('#nr').onclick = r; })); wch = E.botBerlinW(S); ech = E.botBerlinE(S); }
+    $('#bPlan').innerHTML = '';
+    const rec = E.berlinResolve(S, wch, ech);
+    await berlinRoundShow(rec, b.done);
+  }
+  cancelAnimationFrame(bloop);
+  const rec = E.berlinFinish(S); flushChron();
+  return rec;
+}
+
+/* ---------------- end screen ---------------- */
+function showEnd() {
+  const fs = S.over, sc = fs.sc; setScreen('End');
+  let verdict, vcls;
+  if (!fs.winner) { verdict = 'STALEMATE'; }
+  else if (spectate) verdict = SD[fs.winner].name + ' WINS';
+  else verdict = fs.winner === me ? 'YOU WIN' : (MP.on ? 'YOU LOSE' : 'THE BOT WINS');
+  const real = fs.anchors.filter((a) => a.ok).length;
+  let h = '<h2 class="win">' + verdict + '</h2><div class="score">';
+  for (const s of ['W', 'E']) h += '<div class="' + s.toLowerCase() + '"><span class="px">' + SD[s].name + (me === s ? ' (YOU)' : '') + '</span><span class="num">' + sc[s].total + '</span><small>' + sc[s].reg + ' from regions · ' + sc[s].vp + ' from bonuses</small><small>' + sc[s].list.map((i) => E.REG[i].code).join(' ') + '</small></div>';
+  h += '</div>';
+  h += '<p class="epi">In real history nobody won in 1949. Two armed camps faced each other: NATO (founded 1949) and, after 1955, the Warsaw Pact. The Cold War would last until 1991. In your game the timeline matched reality ' + real + ' time' + (real === 1 ? '' : 's') + ' and diverged ' + fs.alt + ' time' + (fs.alt === 1 ? '' : 's') + '.</p>';
+  h += '<h3 class="px" style="color:var(--gold)">TIMELINE REPORT</h3><div class="rep">';
+  for (const a of fs.anchors) h += '<div class="' + (a.ok ? 'ok' : 'dv') + '"><span class="ic">' + (a.ok ? '✓' : '⚠') + '</span><div><h4>' + (a.core ? 'LESSON · ' : 'BONUS · ') + esc(a.title) + ' · ' + esc(a.date) + '</h4><p><b>Real:</b> ' + esc(a.real) + '</p>' + (a.ok ? '' : '<p><b>Your game:</b> ' + esc(a.alt) + '</p>') + '</div></div>';
+  const steps = (s) => E.ladder(S, s).slice(0, S.doc[s]).map((d) => d.name).join(' → ') || 'none';
+  h += '</div><div class="xcard"><h3>EXAM PRACTICE (8 MARKS)</h3><p><b style="color:var(--text)">Explain TWO effects of the Truman Doctrine on superpower relations.</b></p><p>Use evidence from your game. West enacted: ' + esc(steps('W')) + '. East enacted: ' + esc(steps('E')) + '. On time: West ' + S.onTime.W + ', East ' + S.onTime.E + '.</p><details class="xc"><summary>SHOW A MODEL PLAN</summary><p><b>Effect 1:</b> the USA gave up isolationism for containment, which put it in direct opposition to the USSR. The Grand Alliance was gone. Evidence: $400 million to Greece and Turkey; Truman\'s two ways of life speech.</p><p><b>Effect 2:</b> the Marshall Plan followed, and Stalin answered with dollar imperialism, Cominform and Comecon. Europe divided into two camps. Evidence: $13.7 billion of aid; Eastern Europe refused it; Cominform 1947, Comecon 1949.</p><p>Finish each paragraph: "This increased hostility because ..."</p></details></div>';
+  h += '<div class="xcard"><h3>EXIT TICKET</h3><p>In ONE sentence: how did the Truman Doctrine lead to the Marshall Plan, and how did Stalin respond? Use "because", "so" or "therefore".</p><details class="xc"><summary>SHOW A MODEL SENTENCE</summary><p>Truman promised to contain communism, so the USA offered the Marshall Plan to rebuild Western Europe; Stalin saw this as dollar imperialism, so he set up Cominform and Comecon.</p></details></div>';
+  h += '<div class="row"><button class="btn go grow" id="again">' + (MP.on ? 'BACK TO THE LOBBY' : 'PLAY AGAIN') + ' ▶</button></div>';
+  $('#screenEnd').innerHTML = h; sfx.good();
+  $('#again').onclick = () => { if (MP.on) { S = null; document.body.classList.remove('altmode'); setScreen('Lobby'); renderLobby(); } else restartNow(); };
+}
+
+/* ---------------- title screen ---------------- */
+function drawHero() {
+  const c = $('#heroCv'), g = c.getContext('2d'); g.imageSmoothingEnabled = false;
+  c.width = 176; c.height = 120; const t = 4;
+  const lean = { N: 'w', B: 'w', X: 'w', R: 'w', L: 'w', G: 'w', T: 'w', K: 'w', D: 'w', A: 'g', C: 'g', F: 'n', S: 'e', E: 'e', P: 'e', H: 'e', O: 'e', U: 'e', Y: 'e', W: 'g', z: 'n' };
+  const col = { w: C.w, e: C.e, g: C.g2, n: C.n };
+  g.fillStyle = C.sea; g.fillRect(0, 0, 176, 120);
+  for (let y = 0; y < ROWS; y++) for (let x = 0; x < COLS; x++) {
+    const ch = MAP_ROWS[y][x];
+    if (ch === '.') { if (((x + y) & 1) && hash(x, y) % 5 === 0) { g.fillStyle = C.sea2; g.fillRect(x * t, y * t, t, t); } continue; }
+    g.fillStyle = col[lean[ch] || 'g']; g.fillRect(x * t, y * t, t, t);
+    if (hash(x, y) % 4 === 0) { g.fillStyle = 'rgba(255,255,255,.12)'; g.fillRect(x * t, y * t, 2, 2); }
+  }
+  g.fillStyle = C.gold; for (let y = 3; y < 28; y += 2) g.fillRect(24 * t + ((y * 7) % 3) - 1 + (y > 12 ? 2 : 0), y * t, 2, t);
+}
+
+/* ---------------- restart ---------------- */
+function askRestart() {
+  return new Promise((res) => {
+    const o = $('#cfm'); o.hidden = false; $('#cfmNo').focus({ preventScroll: true });
+    $('#cfmYes').onclick = () => { o.hidden = true; res(true); };
+    $('#cfmNo').onclick = () => { o.hidden = true; res(false); };
+  });
+}
+async function onRestartClick() { if (!S) return; sfx.tap(); if (await askRestart()) restartNow(); }
+function restartNow() {
+  if (abortRej) { const r = abortRej; abortRej = null; r(ABORT); }
+  clearInterval(typeTimer); cancelAnimationFrame(bloop);
+  SC.stop(); for (const id of ['#dlg', '#altOv', '#cfm']) $(id).hidden = true;
+  banim = null; busy = false; endResolver = null; S = null; fxList = []; alertRegions = {}; dispatches = []; notes = [];
+  document.body.classList.remove('altmode'); $('#btnRestart').hidden = true;
+  setScreen('Title'); sfx.tap();
+}
+
+/* ---------------- wiring ---------------- */
+$('#cutRestart').onclick = onRestartClick; $('#btnRestart').onclick = onRestartClick; $('#dlgRestart').onclick = onRestartClick; $('#altRestart').onclick = onRestartClick;
+function syncOpts() {
+  $('#dEasy').classList.toggle('on', diff === 'focus'); $('#dNormal').classList.toggle('on', diff !== 'focus');
+  $('#dEasy').setAttribute('aria-checked', diff === 'focus'); $('#dNormal').setAttribute('aria-checked', diff !== 'focus');
+  $('#dDesc').textContent = diff === 'focus' ? 'Lesson content only: 7 turns, three simple actions (Spread, Recon, Doctrine), and a hint each turn. Same opponent.' : 'Everything: adds Subvert and Guard, bonus history, extra doctrine steps and the Berlin boss battle.';
+  $('#tglStory').classList.toggle('on', story); $('#tglStory').setAttribute('aria-checked', story); $('#tglStory').textContent = 'STORY SCENES: ' + (story ? 'ON' : 'OFF');
+}
+const saveOpt = () => { try { localStorage.setItem('ic_diff', diff); localStorage.setItem('ic_story', story ? 'on' : 'off'); } catch (e) {} };
+$('#dEasy').onclick = () => { diff = 'focus'; saveOpt(); syncOpts(); sfx.tap(); };
+$('#dNormal').onclick = () => { diff = 'full'; saveOpt(); syncOpts(); sfx.tap(); };
+$('#tglStory').onclick = () => { story = !story; saveOpt(); syncOpts(); sfx.tap(); };
+syncOpts();
+$('#playW').onclick = () => { sfx.ok(); startGame('W', false); };
+$('#playE').onclick = () => { sfx.ok(); startGame('E', false); };
+$('#watch').onclick = () => { sfx.ok(); startGame('W', true); };
+$('#btnSound').onclick = (e) => { soundOn = !soundOn; e.currentTarget.setAttribute('aria-pressed', String(soundOn)); e.currentTarget.style.opacity = soundOn ? 1 : .5; };
+$('#btnHelp').onclick = () => dialog({ title: 'HOW TO PLAY', html: '<p><b>Goal.</b> Control more of Europe than the other bloc by October 1949. A region is yours when you hold 3+ influence and lead by 2.</p><p><b>Each turn</b> you get Action Points. SPREAD adds influence. RECON reveals the enemy number. ' + (S && S.focus ? '' : 'SUBVERT blindly strikes. GUARD sets a trap. ') + 'DOCTRINE enacts the next step on your ladder.</p><p><b>Fog.</b> You cannot see enemy influence unless you scout it. Dispatches give hints, and each source has its own reliability.</p><p><b>History.</b> The game checks key moments against what really happened. If your map differs, you get a timeline divergence.</p><p class="terms"><b>KEY TERMS:</b> bankrupt · guerrillas · aid · isolationism · containment · satellite state · dollar imperialism · Cominform · Comecon · Grand Alliance · superpowers · camp</p><p class="fx">Tap a region on the map to begin.</p>', btn: 'GOT IT ▶' }).catch(() => {});
+$$('.tab').forEach((b) => { b.onclick = () => { sfx.tap(); setTab(b.dataset.tab); }; });
+cv.addEventListener('click', (ev) => {
+  if (!S) return; const r = cv.getBoundingClientRect(); const x = Math.floor((ev.clientX - r.left) / r.width * COLS), y = Math.floor((ev.clientY - r.top) / r.height * ROWS);
+  const ch = MAP_ROWS[y] && MAP_ROWS[y][x]; sfx.tap();
+  if (!ch || ch === '.') { sel = null; setTab('region'); return; }
+  if (ch === 'z') { toast('Switzerland: neutral. Nobody can touch it.', ''); return; }
+  sel = ch; if (tab !== 'region') setTab('region'); else renderPanel();
+});
+window.addEventListener('resize', () => { if (S && !$('#screenGame').hidden) fitMap(); });
+if (document.fonts && document.fonts.load) { Promise.all([document.fonts.load('8px "Press Start 2P"'), document.fonts.load('16px "Pixelify Sans"')]).then(() => { dirty = true; drawHero(); }).catch(() => {}); }
+drawHero(); requestAnimationFrame(frame);
+window.__ic = { get S() { return S; }, E, startGame, onAction, setTab, get sel() { return sel; }, set sel(v) { sel = v; renderPanel(); dirty = true; } };
+/* ---------------- online (classroom) mode ---------------- */
+const MP = { on: false, ws: null, token: '', room: 'main', lobby: null, pend: {}, queue: [], busy: false, inGame: false, deadlineAt: 0, ready: { W: false, E: false }, closed: false, waitText: '' };
+function mpMsg(o) { if (MP.ws && MP.ws.readyState === 1) MP.ws.send(JSON.stringify(o)); }
+function mpOr(local, type, id) { return MP.on ? mpAct(type, id) : Promise.resolve(local()); }
+function mpAct(type, id) {
+  return new Promise((res) => {
+    const rid = Math.random().toString(36).slice(2);
+    MP.pend[rid] = res; mpMsg({ t: 'act', type, id, rid });
+    setTimeout(() => { if (MP.pend[rid]) { delete MP.pend[rid]; res({ ok: false, msg: 'No answer from the server. Check your connection.' }); } }, 8000);
+  });
+}
+function mpToken() {
+  let t = ''; try { t = localStorage.getItem('ic_token') || ''; } catch (e) {}
+  if (!t) { t = 't' + Math.random().toString(36).slice(2) + Date.now().toString(36); try { localStorage.setItem('ic_token', t); } catch (e) {} }
+  return t;
+}
+function mpRoom() {
+  let r = 'main'; try { const q = new URLSearchParams(location.search).get('room'); if (q) r = q; else r = localStorage.getItem('ic_room') || 'main'; } catch (e) {}
+  return r.toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 24) || 'main';
+}
+function mpConnect() {
+  MP.closed = false; MP.token = mpToken(); MP.room = mpRoom();
+  const url = (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws?room=' + encodeURIComponent(MP.room);
+  const ws = new WebSocket(url); MP.ws = ws;
+  ws.onopen = () => { $('#netBanner').hidden = true; mpMsg({ t: 'hello', role: 'student', token: MP.token }); clearInterval(MP.pinger); MP.pinger = setInterval(() => { if (ws.readyState === 1) ws.send('ping'); }, 20000); };
+  ws.onmessage = (ev) => { if (ev.data === 'pong') return; let m; try { m = JSON.parse(ev.data); } catch (e) { return; } mpDispatch(m); };
+  ws.onclose = () => { clearInterval(MP.pinger); if (MP.closed || !MP.on) return; $('#netBanner').hidden = false; setTimeout(() => { if (!MP.closed && MP.on) mpConnect(); }, 1500); };
+  ws.onerror = () => { try { ws.close(); } catch (e) {} };
+}
+function mpEnter() {
+  MP.on = true; sfx.ok(); newAbort(); document.body.classList.add('mp');
+  S = null; MP.inGame = false; $('#btnRestart').hidden = true;
+  setScreen('Lobby'); renderLobby(); mpConnect();
+}
+function mpLeaveOnline() {
+  MP.on = false; MP.closed = true; MP.inGame = false; clearInterval(MP.pinger); try { MP.ws.close(); } catch (e) {}
+  document.body.classList.remove('mp', 'altmode'); $('#netBanner').hidden = true; $('#btnRestart').hidden = true;
+  SC.stop(); for (const id of ['#dlg', '#altOv', '#cfm']) $(id).hidden = true;
+  if (abortRej) { const r = abortRej; abortRej = null; r(ABORT); }
+  cancelAnimationFrame(bloop); S = null; setScreen('Title');
+}
+
+/* ---- message routing: some messages are instant, game flow messages run one at a time ---- */
+const INSTANT = { lobby: 1, actRes: 1, status: 1, notice: 1, denied: 1, kicked: 1, reset: 1 };
+function mpDispatch(m) {
+  if (INSTANT[m.t]) return mpInstant(m);
+  MP.queue.push(m); mpDrain();
+}
+async function mpDrain() {
+  if (MP.busy) return; MP.busy = true;
+  try { while (MP.queue.length) { const m = MP.queue.shift(); try { await mpFlow(m); } catch (e) { if (e !== ABORT) console.error(e); } } } finally { MP.busy = false; }
+}
+function mpInstant(m) {
+  switch (m.t) {
+    case 'lobby': MP.lobby = m; if (!MP.inGame) renderLobby(); break;
+    case 'actRes': { const f = MP.pend[m.rid]; if (f) { delete MP.pend[m.rid]; if (m.state) S = m.state; f(m.r); } break; }
+    case 'status': MP.ready = m.ready || MP.ready; mpHud(); break;
+    case 'notice': mpNotice(m); break;
+    case 'kicked': MP.inGame = false; S = null; setScreen('Lobby'); renderLobby(); break;
+    case 'reset': MP.queue.length = 0; MP.inGame = false; S = null; SC.stop(); for (const id of ['#dlg', '#altOv']) $(id).hidden = true; document.body.classList.remove('altmode'); cancelAnimationFrame(bloop); if (abortRej) { const r = abortRej; abortRej = null; r(ABORT); } newAbort(); setScreen('Lobby'); renderLobby(); break;
+  }
+}
+function mpNotice(m) {
+  if (!S || !m.state) return;
+  S = m.state;
+  for (const n of m.notes || []) { notes.push(n); alertRegions[n.region] = true; logMe(n.text, n.kind === 'foiled' ? 'hit' : 'bad'); toast(n.text, n.kind === 'foiled' ? 'good' : 'bad'); sfx.alert(); }
+  for (const p of m.pub || []) { logLines.push({ t: p, k: '' }); toast(p, ''); }
+  if ((m.notes || []).length) $('#dotIntel').classList.add('on');
+  flushChron(); renderAll();
+}
+function setWait(text) { busy = true; MP.waitText = text; const b = $('#btnEnd'); b.textContent = text; b.disabled = true; renderAll(); }
+function mpHud() {
+  const el = $('#mpClock'); if (!el) return;
+  if (!MP.inGame) { el.textContent = ''; return; }
+  const other = me === 'W' ? 'E' : 'W';
+  let t = '';
+  if (MP.deadlineAt) { const s = Math.max(0, Math.round((MP.deadlineAt - Date.now()) / 1000)); t = '⏱ ' + Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); }
+  if (MP.ready[other] && S && S.phase === 'acting') t += (t ? ' · ' : '') + 'OTHER SIDE READY';
+  el.textContent = t;
+}
+setInterval(() => { if (MP.on) mpHud(); }, 1000);
+
+async function mpFlow(m) {
+  switch (m.t) {
+    case 'turn': return mpTurn(m);
+    case 'resolved': return mpResolved(m);
+    case 'gate': return mpGate(m);
+    case 'bplan': return mpBplan(m);
+    case 'bround': return mpBround(m);
+    case 'bwait': S = m.state; return mpBerlinWait('Waiting for the other side...');
+    case 'over': return mpOver(m);
+  }
+}
+function mpSetup(m) {
+  me = m.side || me; spectate = false; bot = null;
+  document.body.classList.add('mp');
+  if (!MP.inGame) { chronIdx = 0; logLines = []; sel = null; alertRegions = {}; divergedNow = 0; busy = false; document.body.classList.remove('altmode'); MP.inGame = true; $('#btnRestart').hidden = true; }
+}
+async function mpTurn(m) {
+  mpSetup(m);
+  S = m.state; notes = (m.notes || []).slice(); dispatches = m.dispatches || []; alertRegions = {};
+  MP.ready = m.ready || MP.ready; MP.deadlineAt = m.deadlineIn ? Date.now() + m.deadlineIn : 0;
+  cancelAnimationFrame(bloop); setScreen('Game'); setTab('region'); busy = true; endResolver = null; $('#btnEnd').disabled = true; $('#btnEnd').textContent = 'TURN STARTING...'; flushChron(); renderAll();
+  const t = E.TURNS[S.turn];
+  if (!m.resume) {
+    if (story && SC.S[S.turn]) await R(SC.play(S.turn));
+    let html = '<p>' + tagH(t.core) + '</p><p>' + esc(t.body) + '</p>';
+    if (t.fx) html += '<p class="fx">' + esc(t.fx) + '</p>';
+    for (const l of m.lines || []) html += '<p class="fx">• ' + esc(l) + '</p>';
+    if (S.focus) { const ad = advise(); if (ad) html += '<div class="hist"><b>WHAT TO DO THIS TURN</b>' + esc(ad) + '</div>'; }
+    await dialog({ title: t.title, date: t.date, html, big: true });
+  }
+  for (const d of dispatches) alertRegions[d.region] = true;
+  for (const n of notes) { alertRegions[n.region] = true; if (!m.resume) logMe(n.text, n.kind === 'foiled' ? 'hit' : 'bad'); }
+  if ((dispatches.length || notes.length) && !m.resume) { $('#dotIntel').classList.add('on'); toast(dispatches.length + ' dispatch' + (dispatches.length === 1 ? '' : 'es') + (notes.length ? ' and ' + notes.length + ' incident report' + (notes.length === 1 ? '' : 's') : '') + '. Check the INTEL tab.', ''); }
+  else if (S.turn === 0 && !m.resume) toast('Tap a region, then choose an action. You have ' + S.ap[me] + ' AP.', '');
+  endConfirm = false;
+  if (MP.ready[me]) { setWait('WAITING FOR THE OTHER SIDE...'); mpHud(); return; }
+  busy = false; renderAll();
+  const b = $('#btnEnd'); b.textContent = 'END TURN ▶'; b.disabled = false;
+  endResolver = () => { mpMsg({ t: 'ready' }); MP.ready[me] = true; setWait('WAITING FOR THE OTHER SIDE...'); mpHud(); };
+  mpHud();
+}
+async function mpResolved(m) {
+  mpSetup(m); S = m.state; MP.deadlineAt = 0; endResolver = null;
+  if (!$('#screenBerlin').hidden) { cancelAnimationFrame(bloop); setScreen('Game'); }
+  busy = true; flushChron(); renderAll(); mpHud();
+  const recs = m.recs || [];
+  if (recs.length) await presentAnchors(recs, m.date);
+  renderAll();
+  mpMsg({ t: 'ack' }); setWait('WAITING FOR THE OTHER SIDE...');
+}
+async function mpGate(m) {
+  mpSetup(m); S = m.state; setScreen('Game'); flushChron(); renderAll();
+  setWait('WAITING FOR TEACHER...');
+  toast('Turn complete. Next up: ' + m.date + ' · ' + m.title + '. Your teacher will start it.', '');
+}
+function mpBerlinWait(text) { $('#bPlan').innerHTML = '<div class="card"><div class="px">' + esc(text) + '</div></div>'; }
+async function mpBplan(m) {
+  mpSetup(m); S = m.state; MP.deadlineAt = 0; endResolver = null;
+  if ($('#screenBerlin').hidden || m.intro) { setScreen('Berlin'); renderMeters(); banim = null; cancelAnimationFrame(bloop); bloop = requestAnimationFrame(berlinLoop); }
+  renderMeters();
+  if (m.intro) { $('#bPlan').innerHTML = ''; await berlinIntro(); }
+  if (m.submitted) { mpBerlinWait('Orders sent. Waiting for the other side...'); return; }
+  const plan = me === 'W' ? await planWest() : await planEast();
+  mpMsg({ t: 'bplan', plan });
+  mpBerlinWait('Orders sent. Waiting for the other side...');
+}
+async function mpBround(m) {
+  S = m.state; renderMeters(); $('#bPlan').innerHTML = '';
+  await berlinRoundShow(m.rec, m.done);
+  mpMsg({ t: 'back' });
+  mpBerlinWait(m.done ? 'Waiting for the result...' : 'Waiting for the other side...');
+}
+async function mpOver(m) {
+  mpSetup(m); S = m.state; S.over = m.final; MP.inGame = false; MP.deadlineAt = 0; endResolver = null;
+  cancelAnimationFrame(bloop); busy = false; flushChron(); showEnd();
+}
+
+/* ---------------- lobby screen ---------------- */
+function seatLabel(t, side, mine) {
+  const s = t.seats[side];
+  if (mine) return 'YOU';
+  if (!s) return t.bot[side] && t.stage !== 'lobby' ? 'BOT' : 'FREE';
+  return s.conn ? 'TAKEN' : 'AWAY';
+}
+function renderLobby() {
+  const root = $('#lobbyBody'); if (!root) return;
+  const L = MP.lobby;
+  if (!L) { root.innerHTML = '<p class="hint">Connecting to the class server...</p>'; return; }
+  const you = L.you; const myT = you ? L.tables.find((t) => t.id === you.table) : null;
+  let h = '<p class="hint" style="margin:0 0 4px">CLASS CODE: <b style="color:var(--gold)">' + esc(MP.room.toUpperCase()) + '</b></p>';
+  if (myT) {
+    const started = myT.stage !== 'lobby';
+    h += '<div class="card"><div class="px" style="color:var(--gold)">YOU ARE ' + (you.side === 'W' ? 'WEST' : 'EAST') + ' AT ' + esc(myT.name) + '</div><p class="hint" style="margin-top:6px">' + (started ? 'The game has started.' : 'Waiting for your teacher to start the game. Keep this screen open.') + '</p>' +
+      (started ? '' : '<button class="btn sm" id="seatLeave">LEAVE SEAT</button>') + '</div>';
+  } else h += '<p class="hint" style="margin:0 0 8px">Tap a free seat. The two students at one iPad share a seat.</p>';
+  h += '<div class="tables">';
+  for (const t of L.tables) {
+    const mine = you && you.table === t.id;
+    h += '<div class="tbl' + (mine ? ' mine' : '') + '"><div class="px">' + esc(t.name) + '</div>';
+    h += '<div class="seats">';
+    for (const side of ['W', 'E']) {
+      const lab = seatLabel(t, side, mine && you.side === side);
+      const free = !t.seats[side] && t.stage === 'lobby';
+      h += '<button class="btn sm ' + (side === 'W' ? 'west' : 'east') + '" data-sit="' + t.id + ':' + side + '"' + (free ? '' : ' disabled') + '><span>' + (side === 'W' ? 'WEST' : 'EAST') + '</span><small>' + lab + '</small></button>';
+    }
+    h += '</div>';
+    h += '<div class="hint" style="font-size:13px;margin-top:4px">' + (t.stage === 'lobby' ? 'Open' : t.stage === 'over' ? 'Finished' : 'Playing: turn ' + ((t.turn || 0) + 1) + (t.title ? ' · ' + esc(t.title) : '')) + '</div></div>';
+  }
+  h += '</div>';
+  root.innerHTML = h;
+  $$('[data-sit]', root).forEach((b) => { b.onclick = () => { const [tid, side] = b.dataset.sit.split(':'); sfx.tap(); mpMsg({ t: 'sit', table: +tid, side }); }; });
+  const lv = $('#seatLeave', root); if (lv) lv.onclick = () => { sfx.tap(); mpMsg({ t: 'leave' }); };
+}
+$('#lobbyBack').onclick = () => mpLeaveOnline();
+$('#joinClass').onclick = () => mpEnter();
+if (MP_BUILD) { $('#joinClass').hidden = false; } else { const l = $('#joinClass'); if (l) l.hidden = true; }
+
+</script>
+</body></html>
